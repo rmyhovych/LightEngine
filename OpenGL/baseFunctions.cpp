@@ -1,5 +1,10 @@
 #include "baseFunctions.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 GLFWwindow* windowInit(int width, int height, const char* name)
 {
 	//	Version 3.2
@@ -12,16 +17,23 @@ GLFWwindow* windowInit(int width, int height, const char* name)
 	//	Forward compatibility
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	//	Resizable window
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
 	//	Window creation + OpenGL Context
 	GLFWwindow* window = glfwCreateWindow(width, height, name, nullptr, nullptr);
+
 	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//	Setup GLEW
 	glewExperimental = GL_TRUE;
 	glewInit();
 
 	return window;
+}
+
+void windowInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
 }
