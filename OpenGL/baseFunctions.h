@@ -7,5 +7,3 @@
 #include <fstream>
 
 GLFWwindow* windowInit(int width, int height, const char* name);
-
-char* loadShader(std::string filename);

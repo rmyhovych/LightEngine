@@ -25,33 +25,3 @@ GLFWwindow* windowInit(int width, int height, const char* name)
 
 	return window;
 }
-
-char* loadShader(std::string filename)
-{
-	std::ifstream file;
-	file.open("Shaders/" + filename);
-	int filesize = 0;
-
-	char* source = new char[1000];
-
-	int charMax;
-	for (charMax = 0; charMax < 1000 && !file.eof(); charMax++)
-	{
-		file.get(source[charMax]);
-	}
-	source[charMax - 1] = '\0';
-
-	char* sourceCpy = new char[charMax];
-
-	for (int ch = 0; ch < charMax; ch++)
-	{
-		sourceCpy[ch] = source[ch];
-	}
-
-	delete[] source;
-	source = sourceCpy;
-
-	file.close();
-
-	return source;
-}
