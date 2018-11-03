@@ -9,13 +9,18 @@
 #include "baseFunctions.h"
 #include "shader.h"
 
+#define PI 3.14159265359f
+
+int width = 800;
+int height = 800;
+
 int main()
 {
 	//	-- START GLFW --
 	glfwInit();
 
 	//	Create window
-	GLFWwindow* window = windowInit(800, 800, "OpenGL");
+	GLFWwindow* window = windowInit(width, height, "OpenGL");
 
 	//	=== CODE ===
 
@@ -34,8 +39,15 @@ int main()
 		2, 3, 0,
 	};
 
-	//	Transform matrix
-	glm::mat4 transform(1.0f);
+	//	Transformation Matrices
+	glm::mat4 model(1.0f);
+	model = glm::rotate(model, PI / 3, glm::vec3(0.71f, 0.71f, 0.0f));
+
+	glm::mat4 view(1.0f);
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, 0.5f));
+
+	glm::mat4 projection(1.0f);
+	//projection = glm::perspective(PI, 1.0f, 0.1f, 100.0f);
 
 	//	-- Vertex Array Object --
 	GLuint vao, vbo, ebo, texture;
@@ -86,8 +98,15 @@ int main()
 	glEnableVertexAttribArray(2);
 
 	//	-- Uniform --
-	GLuint transformLoc = glGetUniformLocation(program.ID, "uTransform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+	int modelLoc = glGetUniformLocation(program.ID, "uModel");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	
+	int viewLoc = glGetUniformLocation(program.ID, "uView");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+	int projectionLoc = glGetUniformLocation(program.ID, "uProjection");
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window))
@@ -97,12 +116,15 @@ int main()
 		glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		program.use();
+		model = glm::rotate(model, 0.001f, glm::vec3(1.0f, 0, 0));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-		transform = glm::translate(transform, glm::vec3(0.0, 0.0, 0));
-		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0, 0, 1));
-		glfwSetTime(0);
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+		//view = glm::translate(view, glm::vec3(0.0f, 0, 0.001f));
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+		program.use();
 
 		glDrawElements(GL_TRIANGLES, sizeof(elements) / sizeof(float), GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
