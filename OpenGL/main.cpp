@@ -15,7 +15,7 @@ int main()
 	glfwInit();
 
 	//	Create window
-	GLFWwindow* window = windowInit(800, 600, "OpenGL");
+	GLFWwindow* window = windowInit(800, 800, "OpenGL");
 
 	//	=== CODE ===
 
@@ -23,16 +23,19 @@ int main()
 
 	//	Triangle vertecies (x, y, z) -> x, y = (-1, 1), (-1, 1)
 	float vertecies[] = {
-		0.75,	0.75,	0,		1.0,	0.0,	0.0,		1.0,	1.0,
-		0.75,	-0.75,	0,		0.0,	1.0,	0.0,		1.0,	0.0,
-		-0.75,	-0.75,	0,		0.0,	0.0,	1.0,		0.0,	0.0,
-		-0.75,	0.75,	0,		0.5,	0.5,	0.5,		0.0,	1.0
+		0.5,	0.5,	0,		1.0,	0.0,	0.0,		1.0,	1.0,
+		0.5,	-0.5,	0,		0.0,	1.0,	0.0,		1.0,	0.0,
+		-0.5,	-0.5,	0,		0.0,	0.0,	1.0,		0.0,	0.0,
+		-0.5,	0.5,	0,		0.5,	0.5,	0.5,		0.0,	1.0
 	};
 
 	GLuint elements[] = {
 		0, 1, 2,
 		2, 3, 0,
 	};
+
+	//	Transform matrix
+	glm::mat4 transform(1.0f);
 
 	//	-- Vertex Array Object --
 	GLuint vao, vbo, ebo, texture;
@@ -82,6 +85,10 @@ int main()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
+	//	-- Uniform --
+	GLuint transformLoc = glGetUniformLocation(program.ID, "uTransform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window))
 	{
@@ -91,6 +98,11 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		program.use();
+
+		transform = glm::translate(transform, glm::vec3(0.0, 0.0, 0));
+		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0, 0, 1));
+		glfwSetTime(0);
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
 		glDrawElements(GL_TRIANGLES, sizeof(elements) / sizeof(float), GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
