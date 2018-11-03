@@ -1,6 +1,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <iostream>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include "stb_image.h"
 #include "baseFunctions.h"
 #include "shader.h"
@@ -20,9 +24,9 @@ int main()
 	//	Triangle vertecies (x, y, z) -> x, y = (-1, 1), (-1, 1)
 	float vertecies[] = {
 		0.75,	0.75,	0,		1.0,	0.0,	0.0,		1.0,	1.0,
-		0.75,	-0.75,	0,		0.0,	1.0,	0.0,		1.0,	-1.0,
-		-0.75,	-0.75,	0,		0.0,	0.0,	1.0,		-1.0,	-1.0,
-		-0.75,	0.75,	0,		0.5,	0.5,	0.5,		-1.0,	1.0
+		0.75,	-0.75,	0,		0.0,	1.0,	0.0,		1.0,	0.0,
+		-0.75,	-0.75,	0,		0.0,	0.0,	1.0,		0.0,	0.0,
+		-0.75,	0.75,	0,		0.5,	0.5,	0.5,		0.0,	1.0
 	};
 
 	GLuint elements[] = {
@@ -59,7 +63,7 @@ int main()
 	int width;
 	int height;
 	int nrChannels;
-	unsigned char* data = stbi_load("C:/Users/rmyho/Pictures/Wallpapers/Wallpaper.png", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load("textures/snow.png", &width, &height, &nrChannels, 0);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
