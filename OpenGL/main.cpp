@@ -39,15 +39,6 @@ int main()
 		2, 3, 0,
 	};
 
-	//	Transformation Matrices
-	glm::mat4 model(1.0f);
-	model = glm::rotate(model, PI / 3, glm::vec3(0.71f, 0.71f, 0.0f));
-
-	glm::mat4 view(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, 0.5f));
-
-	glm::mat4 projection(1.0f);
-	//projection = glm::perspective(PI, 1.0f, 0.1f, 100.0f);
 
 	//	-- Vertex Array Object --
 	GLuint vao, vbo, ebo, texture;
@@ -98,15 +89,13 @@ int main()
 	glEnableVertexAttribArray(2);
 
 	//	-- Uniform --
-	int modelLoc = glGetUniformLocation(program.ID, "uModel");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	
-	int viewLoc = glGetUniformLocation(program.ID, "uView");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+	glm::mat4 model(1.0f);
+	glm::mat4 view(1.0f);
+	glm::mat4 projection(1.0f);
 
-	int projectionLoc = glGetUniformLocation(program.ID, "uProjection");
-	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
+	GLuint modelLoc = glGetUniformLocation(program.ID, "uModel");
+	GLuint viewLoc = glGetUniformLocation(program.ID, "uView");
+	GLuint projectionLoc = glGetUniformLocation(program.ID, "uProjection");
 
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window))
@@ -116,12 +105,15 @@ int main()
 		glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		model = glm::rotate(model, 0.001f, glm::vec3(1.0f, 0, 0));
+		model = glm::rotate(model, 0.001f, glm::vec3(0.71f, 0.71f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-		//view = glm::translate(view, glm::vec3(0.0f, 0, 0.001f));
+		//glm::mat4 view(1.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -0.0001f));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
+		glm::mat4 projection(1.0f);
+		projection = glm::perspective(PI/3, 1.0f, 0.1f, 100.0f);
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		program.use();
