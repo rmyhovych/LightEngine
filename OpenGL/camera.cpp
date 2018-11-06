@@ -5,12 +5,10 @@ Camera::Camera(bool* input, glm::vec3 position, glm::vec3 focus, float zoom) :
 	position_(position),
 	focus_(focus),
 	zoom_(zoom),
-	up_(glm::vec3(0, 1, 0)),
-
-	angleH_(0),
-	angleV_(0)
+	up_(glm::vec3(0, 1, 0))
 {
 	view_ = glm::lookAt(zoom * position_, focus_, up_);
+	float* angles_ = new float[2]{0, 0};
 }
 
 float* Camera::passAngles()

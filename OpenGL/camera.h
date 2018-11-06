@@ -19,8 +19,7 @@ private:
 
 	glm::mat4 view_;
 
-	float angleH_;
-	float angleV_;
+	float* angles_;
 
 	bool* input_;
 };
