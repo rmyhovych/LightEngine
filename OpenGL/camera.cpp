@@ -19,7 +19,7 @@ glm::mat4& Camera::getView()
 
 void Camera::rotateCamera(float x, float y)
 {
-	angleH_ += x;
+	angleH_ -= x;
 	angleV_ += y;
 
 	if (angleH_ < 0)
@@ -77,9 +77,9 @@ void Camera::refresh()
 {
 	moveCamera();
 
-	direction_.x = sin(angleH_) * cos(angleV_);
-	direction_.y = sin(angleH_) * sin(angleV_);
-	direction_.z = cos(angleH_);
+	direction_.x = sin(angleH_) * sin(angleV_);
+	direction_.z = cos(angleH_) * sin(angleV_);
+	direction_.y = cos(angleV_);
 
 	view_ = glm::lookAt(position_, position_ + direction_, up_);
 }

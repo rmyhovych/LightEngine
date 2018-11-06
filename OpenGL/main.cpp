@@ -5,9 +5,11 @@
 #include "shader.h"
 #include "window_gl.h"
 
-bool keyInput[6] = { false, false, false, false, false, false };
-int width = 800;
-int height = 800;
+bool pressed = false;
+glm::vec2 cursor;
+float inputForce = 0.005;
+
+void mouseInput(WindowGL& window, Camera& camera);
 
 int main()
 {
@@ -15,7 +17,7 @@ int main()
 	glfwInit();
 
 	//	Create window
-	WindowGL window;
+	WindowGL window(1500, 1000);
 
 	//	=== CODE ===
 
@@ -158,14 +160,15 @@ int main()
 
 	Camera camera(window.getInput());
 
-	projection = glm::perspective(PI / 4, 1.0f, 0.1f, 100.0f);
+	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 1000.0f);
 
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window.window_))
 	{
 		window.input();
+		mouseInput(window, camera);
 
-		glClearColor(0.1f, 0.2f, 00.2f, 1.0f);
+		glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
@@ -173,11 +176,7 @@ int main()
 		program.use();
 		for (int i = 0; i < 10; i++)
 		{
-			model = glm::mat4(1.0f);
-			model = glm::rotate(model, PI / 3, glm::vec3(0.71f, 0.71f, 0.0f));
-			model = glm::translate(model, cubePositions[i]);
-
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(0.1f), cubePositions[i])));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -192,4 +191,33 @@ int main()
 	//	-- END GLFW --
 	glfwTerminate();
 	return 0;
+}
+
+void mouseInput(WindowGL& window, Camera& camera)
+{
+	double x;
+	double y;
+	if (glfwGetMouseButton(window.window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed)
+	{
+		pressed = true;
+		glfwSetInputMode(window.window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwGetCursorPos(window.window_, &x, &y);
+		glfwSetCursorPos(window.window_, x, y);
+
+		cursor.x = x;
+		cursor.y = y;
+	}
+	else if (glfwGetMouseButton(window.window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
+	{
+		pressed = false;
+		glfwSetInputMode(window.window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	if (pressed)
+	{		
+		glfwGetCursorPos(window.window_, &x, &y);
+
+		camera.rotateCamera(inputForce*(x - cursor.x), inputForce*(y - cursor.y));
+		glfwSetCursorPos(window.window_, (double)cursor.x, (double)cursor.y);
+	}
 }

@@ -8,6 +8,8 @@ class WindowGL
 {
 public:
 	GLFWwindow* window_;
+	int width_;
+	int height_;
 
 	WindowGL(int width = 800, int height = 800);
 
@@ -16,9 +18,6 @@ public:
 	void input();
 
 private:
-	int width_;
-	int height_;
-
 	bool* keyInput_;
 };
 
