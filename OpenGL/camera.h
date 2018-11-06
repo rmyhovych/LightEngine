@@ -1,6 +1,14 @@
 #pragma once
 
-#include "base.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
+#include <iostream>
+
+#include <cmath>
+
+#define PI 3.14159265359f
 
 class Camera
 {
@@ -27,5 +35,7 @@ private:
 	float angleV_;
 
 	bool* input_;
+
+	float speed = 0.05;
 };
 

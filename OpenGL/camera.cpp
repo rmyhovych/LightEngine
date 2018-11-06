@@ -4,7 +4,10 @@ Camera::Camera(bool* input, glm::vec3 position, glm::vec3 direction) :
 	input_(input),
 	position_(position),
 	direction_(direction),
-	up_(glm::vec3(0, 1, 0))
+	up_(glm::vec3(0, 1, 0)),
+
+	angleH_(0),
+	angleV_(PI/2)
 {
 	view_ = glm::lookAt(position_, direction_, up_);
 }
@@ -45,27 +48,27 @@ void Camera::moveCamera()
 
 	if (input_[0])
 	{
-		position_ += forward;
+		position_ += speed * forward;
 	}
 	if (input_[1])
 	{
-		position_ -= forward;
+		position_ -= speed * forward;
 	}
 	if (input_[2])
 	{
-		position_ += right;
+		position_ += speed * right;
 	}
 	if (input_[3])
 	{
-		position_ -= right;
+		position_ -= speed * right;
 	}
 	if (input_[4])
 	{
-		position_ += up_;
+		position_ += speed * up_;
 	}
 	if (input_[5])
 	{
-		position_ -= up_;
+		position_ -= speed * up_;
 	}
 }
 
@@ -75,8 +78,8 @@ void Camera::refresh()
 	moveCamera();
 
 	direction_.x = sin(angleH_) * cos(angleV_);
-	direction_.y = cos(angleH_) * cos(angleV_);
-	direction_.z = sin(angleH_);
+	direction_.y = sin(angleH_) * sin(angleV_);
+	direction_.z = cos(angleH_);
 
 	view_ = glm::lookAt(position_, position_ + direction_, up_);
 }

@@ -24,7 +24,7 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="base.cpp">
+    <ClCompile Include="window_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="base.h">
+    <ClInclude Include="window_gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
