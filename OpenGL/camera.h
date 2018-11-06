@@ -5,19 +5,19 @@
 class Camera
 {
 public:
-	Camera(bool* input, glm::vec3 position = glm::vec3(0, 0, 1), glm::vec3 focus = glm::vec3(0, 0, 0), float zoom = 1);
+	Camera(bool* input, glm::vec3 position = glm::vec3(0, 0, 1), glm::vec3 direction = glm::vec3(0, 0, 0));
 
 	void rotateCamera(float x, float y);
-	void moveCamera(float x, float y, float z);
 
 	void refresh();
 
 private:
-	glm::vec3 position_;
-	glm::vec3 focus_;
-	glm::vec3 up_;
+	void moveCamera();
 
-	float zoom_;
+private:
+	glm::vec3 position_;
+	glm::vec3 direction_;
+	glm::vec3 up_;
 
 	glm::mat4 view_;
 
