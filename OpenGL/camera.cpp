@@ -34,8 +34,14 @@ void Camera::rotateCamera(float x, float y)
 	}
 }
 
+void Camera::moveCamera(float x, float y, float z)
+{
+	position_.x += x;
+	position_.y += y;
+	position_.z += z;
+}
 
-void Camera::move()
+void Camera::refresh()
 {
 	
 }

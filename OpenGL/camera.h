@@ -8,8 +8,9 @@ public:
 	Camera(bool* input, glm::vec3 position = glm::vec3(0, 0, 1), glm::vec3 focus = glm::vec3(0, 0, 0), float zoom = 1);
 
 	void rotateCamera(float x, float y);
+	void moveCamera(float x, float y, float z);
 
-	void move();
+	void refresh();
 
 private:
 	glm::vec3 position_;
