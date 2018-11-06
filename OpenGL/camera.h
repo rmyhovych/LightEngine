@@ -7,7 +7,7 @@ class Camera
 public:
 	Camera(bool* input, glm::vec3 position = glm::vec3(0, 0, 1), glm::vec3 focus = glm::vec3(0, 0, 0), float zoom = 1);
 
-	float* passAngles();
+	void rotateCamera(float x, float y);
 
 	void move();
 
@@ -20,7 +20,8 @@ private:
 
 	glm::mat4 view_;
 
-	float* angles_;
+	float angleH_;
+	float angleV_;
 
 	bool* input_;
 };

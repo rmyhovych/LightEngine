@@ -8,13 +8,32 @@ Camera::Camera(bool* input, glm::vec3 position, glm::vec3 focus, float zoom) :
 	up_(glm::vec3(0, 1, 0))
 {
 	view_ = glm::lookAt(zoom * position_, focus_, up_);
-	float* angles_ = new float[2]{0, 0};
 }
 
-float* Camera::passAngles()
+void Camera::rotateCamera(float x, float y)
 {
-	return nullptr;
+	angleH_ += x;
+	angleV_ += y;
+
+	if (angleH_ < 0)
+	{
+		angleH_ += 2 * PI;
+	}
+	else if (angleH_ > 2 * PI)
+	{
+		angleH_ -= 2 * PI;
+	}
+
+	if (angleV_ > PI)
+	{
+		angleV_ = PI;
+	}
+	else if (angleV_ < 0)
+	{
+		angleV_ = 0;
+	}
 }
+
 
 void Camera::move()
 {

@@ -3,8 +3,6 @@
 
 #include "shader.h"
 
-#define PI 3.14159265359f
-
 int width = 800;
 int height = 800;
 
