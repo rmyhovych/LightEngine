@@ -1,9 +1,8 @@
 #pragma once
 
 #include <sstream>
-#include <iostream>
 
-#include "base.h"
+#include "camera.h"
 
 class Shader
 {
