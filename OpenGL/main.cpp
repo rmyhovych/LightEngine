@@ -1,13 +1,6 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include <iostream>
-
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-
-#include "stb_image.h"
-#include "baseFunctions.h"
+#include "base.h"
 #include "shader.h"
+#include "camera.h"
 
 #define PI 3.14159265359f
 
@@ -29,7 +22,7 @@ int main()
 	//	Triangle vertecies (x, y, z) -> x, y = (-1, 1), (-1, 1)
 	
 	/*
-	float vertecies[] = {
+	float vertices[] = {
 		0.5,	0.5,	0,		1.0,	0.0,	0.0,		1.0,	1.0,
 		0.5,	-0.5,	0,		0.0,	1.0,	0.0,		1.0,	0.0,
 		-0.5,	-0.5,	0,		0.0,	0.0,	1.0,		0.0,	0.0,
@@ -161,7 +154,13 @@ int main()
 	GLuint viewLoc = glGetUniformLocation(program.ID, "uView");
 	GLuint projectionLoc = glGetUniformLocation(program.ID, "uProjection");
 
-	model = glm::rotate(model, PI / 3, glm::vec3(0.71f, 0.71f, 0.0f));
+	//model = glm::rotate(model, PI / 3, glm::vec3(0.71f, 0.71f, 0.0f));
+	glm::vec3 cameraFocus(0, 0, 0);
+	glm::vec3 cameraPos(0, 0, 0);
+	float radius = 20;
+
+	float angle = 0;
+	glm::mat4 camera = glm::lookAt(cameraPos, cameraFocus, glm::vec3(0, 1, 0));
 	view = glm::translate(view, glm::vec3(0, 0, -7.0f));
 	projection = glm::perspective(PI / 4, 1.0f, 0.1f, 100.0f);
 
@@ -170,20 +169,25 @@ int main()
 	{
 		windowInput(window);
 
-		glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
+		glClearColor(0.1f, 0.2f, 00.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		angle += 0.001;
+
+		cameraPos.x = radius * sin(angle);
+		cameraPos.z = radius * cos(angle);
+
+		camera = glm::lookAt(cameraPos, cameraFocus, glm::vec3(0, 1, 0));
 
 		program.use();
 		for (int i = 0; i < 10; i++)
 		{
-			model = glm::mat4(1.0f);
-			model = glm::rotate(model, glm::radians((float)(i * 20)), glm::vec3(0.71f, 0.71f, 0.0f));
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			
-			view = glm::mat4(1.0f);
-			view = glm::translate(view, cubePositions[i]);
-			view = glm::translate(view, glm::vec3(0, 0, -10.0f));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+			glm::mat4 view2(1.0f);
+			view2 = glm::translate(view2, cubePositions[i]);
+			view2 = camera * view2;
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view2));
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 

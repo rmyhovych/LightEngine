@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "baseFunctions.h"
+#include "base.h"
 
 class Shader
 {
