@@ -9,6 +9,11 @@ Camera::Camera(bool* input, glm::vec3 position, glm::vec3 direction) :
 	view_ = glm::lookAt(position_, direction_, up_);
 }
 
+glm::mat4& Camera::getView()
+{
+	return view_;
+}
+
 void Camera::rotateCamera(float x, float y)
 {
 	angleH_ += x;
@@ -67,6 +72,8 @@ void Camera::moveCamera()
 
 void Camera::refresh()
 {
+	moveCamera();
+
 	direction_.x = sin(angleH_) * cos(angleV_);
 	direction_.y = cos(angleH_) * cos(angleV_);
 	direction_.z = sin(angleH_);
