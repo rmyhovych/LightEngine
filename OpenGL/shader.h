@@ -14,6 +14,9 @@ public:
 
 	Shader(const char* vertexPath, const char* fragmentPath);
 
+	void addBufferObject(float* buffer, int bufferSize);
+	void addElementObject();
+
 	void use();
 
 

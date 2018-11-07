@@ -1,6 +1,10 @@
 #include "shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+Shader::Shader(const char* vertexPath, const char* fragmentPath) :
+	vao_(nullptr),
+	vbo_(nullptr),
+	ebo_(nullptr),
+	texture_(nullptr)
 {
 	// 1. retrieve the vertex/fragment source code from filePath
 	std::string vertexCode;
@@ -60,6 +64,20 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	// delete the shaders as they're linked into our program now and no longer necessary
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+}
+
+void Shader::addBufferObject(float* buffer, int bufferSize)
+{
+	vao_ = new GLuint;
+	vbo_ = new GLuint;
+
+	glGenVertexArrays(1, vao_);
+	glGenBuffers(1, vbo_);
+
+	glBindVertexArray(*vao_);
+	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
+
+	glBufferData(GL_ARRAY_BUFFER, bufferSize * sizeof(float), buffer, GL_STATIC_DRAW);
 }
 
 
