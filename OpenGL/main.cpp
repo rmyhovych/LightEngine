@@ -13,9 +13,6 @@ void mouseInput(WindowGL& window, Camera& camera);
 
 int main()
 {
-	//	-- START GLFW --
-	glfwInit();
-
 	//	Create window
 	WindowGL window(1500, 1000);
 
@@ -188,8 +185,6 @@ int main()
 		glfwPollEvents();
 	}
 
-	//	-- END GLFW --
-	glfwTerminate();
 	return 0;
 }
 

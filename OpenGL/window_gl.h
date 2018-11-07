@@ -12,6 +12,7 @@ public:
 	int height_;
 
 	WindowGL(int width = 800, int height = 800);
+	~WindowGL();
 
 	bool* getInput();
 

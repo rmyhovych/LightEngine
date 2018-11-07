@@ -7,6 +7,9 @@ WindowGL::WindowGL(int width, int height) :
 	height_(height),
 	keyInput_(new bool[6])
 {
+	//	-- START GLFW --
+	glfwInit();
+
 	//	Version 3.2
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -34,6 +37,12 @@ WindowGL::WindowGL(int width, int height) :
 	{
 		keyInput_[i] = false;
 	}
+}
+
+WindowGL::~WindowGL()
+{
+	//	-- END GLFW --
+	glfwTerminate();
 }
 
 bool* WindowGL::getInput()
