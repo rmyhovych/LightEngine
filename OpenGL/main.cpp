@@ -138,6 +138,7 @@ int main()
 	glm::mat4 projection(1.0f);
 	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 100.0f);
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window.window_))
 	{
