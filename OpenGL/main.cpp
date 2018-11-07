@@ -17,13 +17,13 @@ int main()
 
 	
 	float eVertices[] = {
-		0.5,	0.5,	0.5,		1.0,	1.0,	1.0,
+		0.5,	0.5,	0.5,		1.0,	0.0,	0.0,
 		-0.5,	0.5,	0.5,		0.0,	1.0,	0.0,
 		0.5,	-0.5,	0.5,		0.0,	0.0,	1.0,
-		-0.5,	-0.5,	0.5,		1.0,	0.0,	0.0,
-		0.5,	0.5,	-0.5,		0.0,	1.0,	0.0,
-		-0.5,	0.5,	-0.5,		0.0,	0.0,	1.0,
-		0.5,	-0.5,	-0.5,		1.0,	0.0,	0.0,
+		-0.5,	-0.5,	0.5,		1.0,	1.0,	1.0,
+		0.5,	0.5,	-0.5,		1.0,	0.0,	0.0,
+		-0.5,	0.5,	-0.5,		0.0,	1.0,	0.0,
+		0.5,	-0.5,	-0.5,		0.0,	0.0,	1.0,
 		-0.5,	-0.5,	-0.5,		0.0,	0.0,	0.0
 	};
 	
@@ -42,7 +42,7 @@ int main()
 		6, 7, 2 
 	};
 
-	glm::vec3 cubePositions[] = {
+	glm::vec3 positions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(0.0f,  0.0f, -15.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
@@ -54,6 +54,15 @@ int main()
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
+
+	glm::mat4 models[10];
+
+	for (int i = 0; i < 10; i++)
+	{
+		glm::mat4 matrix(1.0f);
+		models[i] = glm::translate(matrix, positions[i]);
+	}
+
 
 	float bVertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -124,12 +133,10 @@ int main()
 	GLuint viewLoc = textureCube.bindUniform("uView");
 	GLuint projectionLoc = textureCube.bindUniform("uProjection");
 	
-
-
-	Camera camera(window.getInput());
+	Camera camera(window.getInput(), 15, positions[1]);
 
 	glm::mat4 projection(1.0f);
-	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 1000.0f);
+	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 100.0f);
 
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window.window_))
@@ -142,22 +149,23 @@ int main()
 
 		camera.refresh();
 
-		
+		models[1] = glm::rotate(models[1], 0.01f, glm::normalize(glm::vec3(1, 1, 0)));
+		//models[0] = glm::translate(models[0], 0.01f * glm::vec3(sin(glfwGetTime()), sin(glfwGetTime()), cos(glfwGetTime())));
+
 		textureCube.use();
 		for (int i = 0; i < 5; i++)
 		{
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(0.1f), cubePositions[i])));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			textureCube.draw();
 
 		}
 
-
 		colorCube.use();
 		for (int i = 5; i < 10; i++)
 		{
-			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(0.1f), cubePositions[i])));
+			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			colorCube.draw();
