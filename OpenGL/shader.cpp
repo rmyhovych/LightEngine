@@ -68,7 +68,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) :
 
 void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 {
-
 	attributeSize_ = attributeSize;
 	bufferSize_ = bufferSize * attributeSize;
 
@@ -84,8 +83,18 @@ void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
 }
 
+void Shader::addElementObject(int* elements, int elementSize)
+{
+	glGenBuffers(1, ebo_);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo_);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementSize * sizeof(float), elements, GL_STATIC_DRAW);
+}
+
 void Shader::addTexture(const char* name)
 {
+	glBindVertexArray(*vao_);
+
 	texture_ = new GLuint;
 
 	glGenTextures(1, texture_);
@@ -123,9 +132,21 @@ GLuint& Shader::addUniformMat4(const char* name)
 
 void Shader::use()
 {
+	glUseProgram(ID);
 	glBindVertexArray(*vao_);
 	glBindTexture(GL_TEXTURE_2D, *texture_);
-	glUseProgram(ID);
+}
+
+void Shader::draw()
+{
+	if (ebo_ == nullptr)
+	{
+		glDrawArrays(GL_TRIANGLES, 0, bufferSize_);
+	}
+	else
+	{
+		glDrawElements(GL_TRIANGLES, elementSize_, GL_UNSIGNED_INT, 0);
+	}
 }
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)

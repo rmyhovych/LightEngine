@@ -17,7 +17,7 @@ public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 
 	void addBufferObject(float* buffer, int bufferSize, int attributeSize);
-	void addElementObject();
+	void addElementObject(int* elements, int elementSize);
 	void addTexture(const char* name);
 
 	void addLayout(int location, int size, int position);
@@ -26,6 +26,7 @@ public:
 
 	void use();
 
+	void draw();
 
 private:
 	void checkCompileErrors(unsigned int shader, std::string type);
@@ -39,5 +40,6 @@ private:
 	std::vector<GLuint> uniMat4_;
 
 	int bufferSize_;
+	int elementSize_;
 	int attributeSize_;
 };

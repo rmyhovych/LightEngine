@@ -15,19 +15,18 @@ int main()
 	//	Create window
 	WindowGL window(1500, 1000);
 
-	//	=== CODE ===
-
-
-	//	Triangle vertecies (x, y, z) -> x, y = (-1, 1), (-1, 1)
 	
-	/*
-	float vertices[] = {
+	float eVertices[] = {
 		0.5,	0.5,	0,		1.0,	0.0,	0.0,		1.0,	1.0,
 		0.5,	-0.5,	0,		0.0,	1.0,	0.0,		1.0,	0.0,
 		-0.5,	-0.5,	0,		0.0,	0.0,	1.0,		0.0,	0.0,
 		-0.5,	0.5,	0,		0.5,	0.5,	0.5,		0.0,	1.0
 	};
-	*/
+	
+	GLuint elements[] = {
+		0, 1, 2,
+		2, 3, 0,
+	};
 
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
@@ -42,7 +41,7 @@ int main()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	float vertices[] = {
+	float bVertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
 	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -86,68 +85,8 @@ int main()
 	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	GLuint elements[] = {
-		0, 1, 2,
-		2, 3, 0,
-	};
-
-	/*
-
-	//	-- Vertex Array Object --
-	GLuint vao, vbo, ebo, texture;
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ebo);
-	glGenTextures(1, &texture);
-
-	//	Bind VAO
-	glBindVertexArray(vao);
-
-	//	Bind VBO
-	glBindBuffer(GL_ARRAY_BUFFER, vbo); // Setting vbo as an active array buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	//	Bind EBO
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-	
-
-	//	Bind Texture
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	int width;
-	int height;
-	int nrChannels;
-	unsigned char* data = stbi_load("textures/rainbow.png", &width, &height, &nrChannels, 0);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	stbi_image_free(data);
-
-	//		position
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//		color
-	
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	
-
-	//		texture coords
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-	*/
-
 	Shader cubeShader("Shaders/vertex.txt", "Shaders/fragment.txt");
-	cubeShader.addBufferObject(vertices, 36, 5);
+	cubeShader.addBufferObject(bVertices, 36, 5);
 	cubeShader.addTexture("textures/rainbow.png");
 
 	cubeShader.addLayout(0, 3, 0);
@@ -157,12 +96,6 @@ int main()
 	glm::mat4 model(1.0f);
 	glm::mat4 view(1.0f);
 	glm::mat4 projection(1.0f);
-
-	/*
-	GLuint modelLoc = glGetUniformLocation(cubeShader.ID, "uModel");
-	GLuint viewLoc = glGetUniformLocation(cubeShader.ID, "uView");
-	GLuint projectionLoc = glGetUniformLocation(cubeShader.ID, "uProjection");
-	*/
 
 	GLuint modelLoc = cubeShader.addUniformMat4("uModel");
 	GLuint viewLoc = cubeShader.addUniformMat4("uView");
