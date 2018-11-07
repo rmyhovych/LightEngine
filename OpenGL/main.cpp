@@ -13,7 +13,7 @@ void mouseInput(WindowGL& window, Camera& camera);
 int main()
 {
 	//	Create window
-	WindowGL window(1500, 1000);
+	WindowGL window(1000, 800);
 
 	
 	float eVertices[] = {
@@ -42,6 +42,18 @@ int main()
 		6, 7, 2 
 	};
 
+	float pVertices[] = {
+		0.5,	0.0,	0.5,		0.2,	0.8,	0.3,
+		-0.5,	0.0,	0.5,		0.2,	0.8,	0.3,
+		0.5,	0.0,	-0.5,		0.2,	0.8,	0.3,
+		-0.5,	0.0,	-0.5,		0.2,	0.8,	0.3
+	};
+
+	GLuint pElements[] = {
+		0, 1, 2,
+		3, 1, 2,
+	};
+
 	glm::vec3 positions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(0.0f,  0.0f, -15.0f),
@@ -52,12 +64,13 @@ int main()
 		glm::vec3(1.3f, -2.0f, -2.5f),
 		glm::vec3(1.5f,  2.0f, -2.5f),
 		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
+		glm::vec3(-1.3f,  1.0f, -1.5f),
+		glm::vec3(0, -5.0f, 0)
 	};
 
-	glm::mat4 models[10];
+	glm::mat4 models[11];
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		glm::mat4 matrix(1.0f);
 		models[i] = glm::translate(matrix, positions[i]);
@@ -132,6 +145,21 @@ int main()
 	GLuint modelLoc = textureCube.bindUniform("uModel");
 	GLuint viewLoc = textureCube.bindUniform("uView");
 	GLuint projectionLoc = textureCube.bindUniform("uProjection");
+
+	//==================	COLOR PLANE
+	Shader colorPlane("shaders/colorVertex.txt", "shaders/colorFragment.txt");
+
+	colorPlane.addBufferObject(pVertices, 4, 6);
+	colorPlane.addElementObject(pElements, 6);
+
+	colorPlane.addLayout(0, 3, 0);
+	colorPlane.addLayout(1, 3, 3);
+
+	GLuint pModelLoc = glGetUniformLocation(colorPlane.ID, "uModel");
+	GLuint pViewLoc = glGetUniformLocation(colorPlane.ID, "uView");
+	GLuint pProjectionLoc = glGetUniformLocation(colorPlane.ID, "uProjection");
+
+	models[10] = glm::scale(models[10], glm::vec3(10, 0, 20));
 	
 	Camera camera(window.getInput(), 15, positions[1]);
 
@@ -171,6 +199,12 @@ int main()
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			colorCube.draw();
 		}
+
+		colorPlane.use();
+		glUniformMatrix4fv(pModelLoc, 1, GL_FALSE, glm::value_ptr(models[10]));
+		glUniformMatrix4fv(pViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
+		glUniformMatrix4fv(pProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		colorPlane.draw();
 		
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();
