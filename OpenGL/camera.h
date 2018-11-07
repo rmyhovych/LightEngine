@@ -13,7 +13,7 @@
 class Camera
 {
 public:
-	Camera(bool* input, glm::vec3 position = glm::vec3(0, 0, 1), glm::vec3 direction = glm::vec3(0, 0, 0));
+	Camera(bool* input, float zoom = 50, glm::vec3 focus = glm::vec3(0, 0, 0), glm::vec3 direction = glm::vec3(0, 0, 1));
 
 	glm::mat4& getView();
 	
@@ -25,9 +25,11 @@ private:
 	void moveCamera();
 
 private:
-	glm::vec3 position_;
+	glm::vec3 focus_;
 	glm::vec3 direction_;
 	glm::vec3 up_;
+
+	float zoom_;
 
 	glm::mat4 view_;
 

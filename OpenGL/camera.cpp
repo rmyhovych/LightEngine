@@ -1,15 +1,17 @@
 #include "camera.h"
 
-Camera::Camera(bool* input, glm::vec3 position, glm::vec3 direction) :
+Camera::Camera(bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 	input_(input),
-	position_(position),
+	zoom_(zoom),
+	focus_(focus),
 	direction_(direction),
 	up_(glm::vec3(0, 1, 0)),
 
 	angleH_(0),
 	angleV_(PI/2)
 {
-	view_ = glm::lookAt(position_, direction_, up_);
+
+	view_ = glm::lookAt(focus_ - zoom * direction_, focus_, up_);
 }
 
 glm::mat4& Camera::getView()
@@ -48,27 +50,27 @@ void Camera::moveCamera()
 
 	if (input_[0])
 	{
-		position_ += speed * forward;
+		focus_ += speed * forward;
 	}
 	if (input_[1])
 	{
-		position_ -= speed * forward;
+		focus_ -= speed * forward;
 	}
 	if (input_[2])
 	{
-		position_ += speed * right;
+		focus_ += speed * right;
 	}
 	if (input_[3])
 	{
-		position_ -= speed * right;
+		focus_ -= speed * right;
 	}
 	if (input_[4])
 	{
-		position_ += speed * up_;
+		focus_ += speed * up_;
 	}
 	if (input_[5])
 	{
-		position_ -= speed * up_;
+		focus_ -= speed * up_;
 	}
 }
 
@@ -81,5 +83,5 @@ void Camera::refresh()
 	direction_.z = cos(angleH_) * sin(angleV_);
 	direction_.y = cos(angleV_);
 
-	view_ = glm::lookAt(position_, position_ + direction_, up_);
+	view_ = glm::lookAt(focus_ - zoom_ * direction_, focus_, up_);
 }
