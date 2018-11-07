@@ -1,5 +1,4 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 #include "camera.h"
 #include "shader.h"
@@ -18,7 +17,6 @@ int main()
 
 	//	=== CODE ===
 
-	Shader program("Shaders/vertex.txt", "Shaders/fragment.txt");
 
 	//	Triangle vertecies (x, y, z) -> x, y = (-1, 1), (-1, 1)
 	
@@ -33,7 +31,7 @@ int main()
 
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(0.0f,  0.0f, -15.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -12.3f),
 		glm::vec3(2.4f, -0.4f, -3.5f),
@@ -93,6 +91,7 @@ int main()
 		2, 3, 0,
 	};
 
+	/*
 
 	//	-- Vertex Array Object --
 	GLuint vao, vbo, ebo, texture;
@@ -109,10 +108,10 @@ int main()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	//	Bind EBO
-	/*
+	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-	*/
+	
 
 	//	Bind Texture
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -137,23 +136,38 @@ int main()
 	glEnableVertexAttribArray(0);
 
 	//		color
-	/*
+	
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	*/
+	
 
 	//		texture coords
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+	*/
+
+	Shader cubeShader("Shaders/vertex.txt", "Shaders/fragment.txt");
+	cubeShader.addBufferObject(vertices, 36, 5);
+	cubeShader.addTexture("textures/rainbow.png");
+
+	cubeShader.addLayout(0, 3, 0);
+	cubeShader.addLayout(2, 2, 3);
 
 	//	-- Uniform --
 	glm::mat4 model(1.0f);
 	glm::mat4 view(1.0f);
 	glm::mat4 projection(1.0f);
 
-	GLuint modelLoc = glGetUniformLocation(program.ID, "uModel");
-	GLuint viewLoc = glGetUniformLocation(program.ID, "uView");
-	GLuint projectionLoc = glGetUniformLocation(program.ID, "uProjection");
+	/*
+	GLuint modelLoc = glGetUniformLocation(cubeShader.ID, "uModel");
+	GLuint viewLoc = glGetUniformLocation(cubeShader.ID, "uView");
+	GLuint projectionLoc = glGetUniformLocation(cubeShader.ID, "uProjection");
+	*/
+
+	GLuint modelLoc = cubeShader.addUniformMat4("uModel");
+	GLuint viewLoc = cubeShader.addUniformMat4("uView");
+	GLuint projectionLoc = cubeShader.addUniformMat4("uProjection");
+
 
 	Camera camera(window.getInput());
 
@@ -170,7 +184,7 @@ int main()
 
 		camera.refresh();
 
-		program.use();
+		cubeShader.use();
 		for (int i = 0; i < 10; i++)
 		{
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(0.1f), cubePositions[i])));

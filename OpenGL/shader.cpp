@@ -66,8 +66,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) :
 	glDeleteShader(fragment);
 }
 
-void Shader::addBufferObject(float* buffer, int bufferSize)
+void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 {
+
+	attributeSize_ = attributeSize;
+	bufferSize_ = bufferSize * attributeSize;
+
 	vao_ = new GLuint;
 	vbo_ = new GLuint;
 
@@ -77,12 +81,50 @@ void Shader::addBufferObject(float* buffer, int bufferSize)
 	glBindVertexArray(*vao_);
 	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
 
-	glBufferData(GL_ARRAY_BUFFER, bufferSize * sizeof(float), buffer, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
+}
+
+void Shader::addTexture(const char* name)
+{
+	texture_ = new GLuint;
+
+	glGenTextures(1, texture_);
+
+	glBindTexture(GL_TEXTURE_2D, *texture_);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	int width;
+	int height;
+	int nrChannels;
+	unsigned char* data = stbi_load(name, &width, &height, &nrChannels, 0);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	stbi_image_free(data);
+}
+
+void Shader::addLayout(int location, int size, int position)
+{
+	glVertexAttribPointer(location, size, GL_FLOAT, GL_FALSE, attributeSize_ * sizeof(float), (void*)(position * sizeof(float)));
+	glEnableVertexAttribArray(location);
+}
+
+GLuint& Shader::addUniformMat4(const char* name)
+{
+	uniMat4_.push_back(glGetUniformLocation(ID, name));
+	return uniMat4_[uniMat4_.size() - 1];
 }
 
 
 void Shader::use()
 {
+	glBindVertexArray(*vao_);
+	glBindTexture(GL_TEXTURE_2D, *texture_);
 	glUseProgram(ID);
 }
 

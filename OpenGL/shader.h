@@ -4,7 +4,9 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
+#include "stb_image.h"
 #include "window_gl.h"
 
 class Shader
@@ -14,8 +16,13 @@ public:
 
 	Shader(const char* vertexPath, const char* fragmentPath);
 
-	void addBufferObject(float* buffer, int bufferSize);
+	void addBufferObject(float* buffer, int bufferSize, int attributeSize);
 	void addElementObject();
+	void addTexture(const char* name);
+
+	void addLayout(int location, int size, int position);
+
+	GLuint& addUniformMat4(const char* name);
 
 	void use();
 
@@ -28,4 +35,9 @@ private:
 	GLuint* vbo_;
 	GLuint* ebo_;
 	GLuint* texture_;
+
+	std::vector<GLuint> uniMat4_;
+
+	int bufferSize_;
+	int attributeSize_;
 };
