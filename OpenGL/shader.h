@@ -17,12 +17,12 @@ public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 
 	void addBufferObject(float* buffer, int bufferSize, int attributeSize);
-	void addElementObject(int* elements, int elementSize);
+	void addElementObject(GLuint* elements, int elementSize);
 	void addTexture(const char* name);
 
 	void addLayout(int location, int size, int position);
 
-	GLuint& addUniformMat4(const char* name);
+	GLuint bindUniform(const char* name);
 
 	void use();
 
@@ -36,8 +36,6 @@ private:
 	GLuint* vbo_;
 	GLuint* ebo_;
 	GLuint* texture_;
-
-	std::vector<GLuint> uniMat4_;
 
 	int bufferSize_;
 	int elementSize_;

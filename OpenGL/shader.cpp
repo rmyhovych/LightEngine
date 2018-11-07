@@ -78,17 +78,25 @@ void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 	glGenBuffers(1, vbo_);
 
 	glBindVertexArray(*vao_);
-	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
 
+	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
 	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
+	
+	glBindVertexArray(0);
 }
 
-void Shader::addElementObject(int* elements, int elementSize)
+void Shader::addElementObject(GLuint* elements, int elementSize)
 {
+	glBindVertexArray(*vao_);
+
+	elementSize_ = elementSize;
+
+	ebo_ = new GLuint;
 	glGenBuffers(1, ebo_);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo_);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementSize * sizeof(float), elements, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void Shader::addTexture(const char* name)
@@ -115,6 +123,7 @@ void Shader::addTexture(const char* name)
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Shader::addLayout(int location, int size, int position)
@@ -123,10 +132,9 @@ void Shader::addLayout(int location, int size, int position)
 	glEnableVertexAttribArray(location);
 }
 
-GLuint& Shader::addUniformMat4(const char* name)
+GLuint Shader::bindUniform(const char* name)
 {
-	uniMat4_.push_back(glGetUniformLocation(ID, name));
-	return uniMat4_[uniMat4_.size() - 1];
+	return (glGetUniformLocation(ID, name));
 }
 
 
@@ -134,7 +142,23 @@ void Shader::use()
 {
 	glUseProgram(ID);
 	glBindVertexArray(*vao_);
-	glBindTexture(GL_TEXTURE_2D, *texture_);
+	if (texture_ != nullptr)
+	{
+		glBindTexture(GL_TEXTURE_2D, *texture_);
+	}
+	else
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	if (ebo_ != nullptr)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo_);
+	}
+	else
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
 }
 
 void Shader::draw()
