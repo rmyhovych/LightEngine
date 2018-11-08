@@ -18,6 +18,7 @@ public:
 	
 	glm::f32* getProjection();
 	glm::mat4& getView();
+	glm::vec3& getFocus();
 
 	
 	void rotateCamera(float x, float y);
@@ -26,6 +27,9 @@ public:
 	void adjust(GLFWwindow* window);
 	void refresh();
 
+
+	float zoom_;
+
 private:
 	void moveCamera();
 
@@ -33,8 +37,6 @@ private:
 	glm::vec3 focus_;
 	glm::vec3 direction_;
 	glm::vec3 up_;
-
-	float zoom_;
 
 	glm::f32* projectionPtr_;
 
@@ -49,6 +51,6 @@ private:
 	int& width_;
 	int& height_;
 
-	float speed = 0.05;
+	float speed = 0.01;
 };
 

@@ -24,6 +24,11 @@ glm::mat4& Camera::getView()
 	return view_;
 }
 
+glm::vec3 & Camera::getFocus()
+{
+	return focus_;
+}
+
 glm::f32* Camera::getProjection()
 {
 	return projectionPtr_;

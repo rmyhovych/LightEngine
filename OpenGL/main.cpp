@@ -8,17 +8,24 @@ int width = 1200;
 int height = 800;
 
 bool pressed = false;
+double scroll = 0;
 glm::vec2 cursor;
 float inputForce = 0.005;
 void mouseInput(WindowGL& window, Camera& camera);
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	scroll = yoffset;
+}
 
 int main()
 {
 	//	Create window
 	WindowGL window(width, height);
+	glfwSetScrollCallback(window.window_, scroll_callback);
 
 	std::vector<glm::vec3> positions = {
-		glm::vec3(0.0f,  0.0f,  -7.0f),
+		glm::vec3(0.0f,  0.0f,  -3.0f),
 		glm::vec3(0.0f,  0.0f, -15.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -12.3f),
@@ -135,25 +142,23 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
+		models[0] = glm::translate(glm::mat4(1.0f), camera.getFocus());
+		models[0] = glm::scale(models[0], glm::vec3(0.1f));
 		
 		lampCube.use();
 
-		//models[0] = glm::translate(models[0], glm::vec3(0, 0, 0.005));
 		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
 		glUniformMatrix4fv(lTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[0]));
 		glUniformMatrix4fv(lViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 		glUniformMatrix4fv(lProjectionLoc, 1, GL_FALSE, camera.getProjection());
 		lampCube.draw();
 
-
 		colorCube.use();
-
-		positions[0] = models[0] * glm::vec4(positions[0], 1.0);
 
 		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 		for (int i = 1; i < models.size(); i++)
 		{
-			glUniform3f(cLightPosLoc, positions[0].x, positions[0].y, positions[0].z);
+			glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
 			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
 			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
 
@@ -196,5 +201,20 @@ void mouseInput(WindowGL& window, Camera& camera)
 
 		camera.rotateCamera(inputForce*(x - cursor.x), inputForce*(y - cursor.y));
 		glfwSetCursorPos(window.window_, (double)cursor.x, (double)cursor.y);
+	}
+
+	if (scroll != 0)
+	{
+
+		if (scroll == 1)
+		{
+			camera.zoom_ /= 1.1;
+		}
+		else
+		{
+			camera.zoom_ *= 1.1;
+		}
+
+		scroll = 0;
 	}
 }
