@@ -42,4 +42,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="shaders\fragment.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="shaders\vertex.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="shaders\fragmentLamp.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

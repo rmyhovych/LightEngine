@@ -152,10 +152,13 @@ int main()
 
 		camera.refresh();
 
-		models[0] = glm::rotate(models[0], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
+
+
 
 		colorCube.use();
-		for (int i = 0; i < 10; i++)
+
+		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
+		for (int i = 1; i < 10; i++)
 		{
 			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
 			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));

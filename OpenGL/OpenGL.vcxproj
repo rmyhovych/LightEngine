@@ -134,6 +134,11 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="window_gl.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="shaders\fragment.txt" />
+    <Text Include="shaders\fragmentLamp.txt" />
+    <Text Include="shaders\vertex.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
