@@ -27,11 +27,11 @@ int main()
 	glfwSetScrollCallback(window.window_, scroll_callback);
 
 	std::vector<glm::vec3> positions = {
-		glm::vec3(0.6f,  0.2f,  -1.2f),
-		glm::vec3(0.0f,  0.0f, -7.0f),
+		glm::vec3(0.0f,  0.0f,  -5.0f),
+		glm::vec3(0.0f,  0.0f, 0.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -6.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(5.4f, -0.4f, -3.5f),
 		glm::vec3(-1.7f,  3.0f, -7.5f),
 		glm::vec3(1.3f, -2.0f, -2.5f),
 		glm::vec3(1.5f,  2.0f, -2.5f),
@@ -133,7 +133,7 @@ int main()
 	
 	//	=== EVENT LOOP ===
 
-	Camera camera(width, height, window.getInput(), 10, positions[0]);
+	Camera camera(width, height, window.getInput(), 10);
 	while (!glfwWindowShouldClose(window.window_))
 	{
 		camera.adjust(window.window_);
@@ -145,8 +145,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
-		//models[0] = glm::translate(glm::mat4(1.0f), camera.getFocus());
-		//models[0] = glm::scale(models[0], glm::vec3(0.1f));
+		models[0] = glm::translate(glm::mat4(1.0f), 5.0f * glm::vec3(sin(glfwGetTime()/2), 0, cos(glfwGetTime()/2)));
+		models[0] = glm::scale(models[0], glm::vec3(0.1f));
 		
 		lampCube.use();
 		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
@@ -157,14 +157,14 @@ int main()
 
 		colorCube.use();
 
-		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(0, 1, 0)));
+		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 
 		for (int i = 1; i < models.size(); i++)
 		{
 			glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
 			glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
 			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
-			glUniform3f(cColorLoc, 0.6f, 0.8f, 0.6f);
+			glUniform3f(cColorLoc, 0.4f, 0.6f, 0.4f);
 
 			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
