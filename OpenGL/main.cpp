@@ -25,7 +25,7 @@ int main()
 	glfwSetScrollCallback(window.window_, scroll_callback);
 
 	std::vector<glm::vec3> positions = {
-		glm::vec3(0.0f,  0.0f,  -3.0f),
+		glm::vec3(0.6f,  0.2f,  -1.2f),
 		glm::vec3(0.0f,  0.0f, -15.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -12.3f),
@@ -98,6 +98,7 @@ int main()
 	colorCube.addLayout(1, 3, 3);
 
 	// Fragment
+	GLuint cViewPosLoc = colorCube.bindUniform("uViewPos");
 	GLuint cLightPosLoc = colorCube.bindUniform("uLightPos");
 	GLuint cLightColorLoc = colorCube.bindUniform("uLightColor");
 	GLuint cColorLoc = colorCube.bindUniform("uColor");
@@ -142,8 +143,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
-		models[0] = glm::translate(glm::mat4(1.0f), camera.getFocus());
-		models[0] = glm::scale(models[0], glm::vec3(0.1f));
+		//models[0] = glm::translate(glm::mat4(1.0f), camera.getFocus());
+		//models[0] = glm::scale(models[0], glm::vec3(0.1f));
 		
 		lampCube.use();
 
@@ -158,9 +159,10 @@ int main()
 		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 		for (int i = 1; i < models.size(); i++)
 		{
+			glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
 			glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
 			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
-			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
+			glUniform3f(cColorLoc, 0.5f, 0.0f, 0.5f);
 
 			glUniformMatrix4fv(cTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));

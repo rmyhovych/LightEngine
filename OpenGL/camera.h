@@ -19,6 +19,7 @@ public:
 	glm::f32* getProjection();
 	glm::mat4& getView();
 	glm::vec3& getFocus();
+	glm::vec3& getPosition();
 
 	
 	void rotateCamera(float x, float y);
@@ -36,6 +37,7 @@ private:
 private:
 	glm::vec3 focus_;
 	glm::vec3 direction_;
+	glm::vec3 position_;
 	glm::vec3 up_;
 
 	glm::f32* projectionPtr_;

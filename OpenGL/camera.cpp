@@ -24,9 +24,14 @@ glm::mat4& Camera::getView()
 	return view_;
 }
 
-glm::vec3 & Camera::getFocus()
+glm::vec3& Camera::getFocus()
 {
 	return focus_;
+}
+
+glm::vec3& Camera::getPosition()
+{
+	return position_;
 }
 
 glm::f32* Camera::getProjection()
@@ -114,5 +119,7 @@ void Camera::refresh()
 	direction_.z = cos(angleH_) * sin(angleV_);
 	direction_.y = cos(angleV_);
 
-	view_ = glm::lookAt(focus_ - zoom_ * direction_, focus_, up_);
+	position_ = focus_ - zoom_ * direction_;
+
+	view_ = glm::lookAt(position_, focus_, up_);
 }
