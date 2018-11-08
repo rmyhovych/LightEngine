@@ -30,13 +30,13 @@ int main()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	std::vector<glm::mat4> translations;
+	std::vector<glm::mat4> models;
 
 	for (int i = 0; i < positions.size(); i++)
 	{
-		translations.push_back(glm::translate(glm::mat4(1.0f), positions[i]));
+		models.push_back(glm::translate(glm::mat4(1.0f), positions[i]));
 	}
-	translations[0] = glm::scale(translations[0], glm::vec3(0.2f));
+	models[0] = glm::scale(models[0], glm::vec3(0.2f));
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -96,8 +96,7 @@ int main()
 	GLuint cColorLoc = colorCube.bindUniform("uColor");
 
 	// Vertex
-	GLuint cRotationLoc = colorCube.bindUniform("uRotation");
-	GLuint cTranslationLoc = colorCube.bindUniform("uTranslation");
+	GLuint cTranslationLoc = colorCube.bindUniform("uModel");
 	GLuint cViewLoc = colorCube.bindUniform("uView");
 	GLuint cProjectionLoc = colorCube.bindUniform("uProjection");
 		
@@ -112,7 +111,7 @@ int main()
 	GLuint lColorLoc = lampCube.bindUniform("uColor");
 
 	// Vertex
-	GLuint lTranslationLoc = lampCube.bindUniform("uTranslation");
+	GLuint lTranslationLoc = lampCube.bindUniform("uModel");
 	GLuint lViewLoc = lampCube.bindUniform("uView");
 	GLuint lProjectionLoc = lampCube.bindUniform("uProjection");
 
@@ -139,9 +138,9 @@ int main()
 		
 		lampCube.use();
 
-		translations[0] = glm::translate(translations[0], glm::vec3(0, 0, 0.005));
+		//models[0] = glm::translate(models[0], glm::vec3(0, 0, 0.005));
 		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
-		glUniformMatrix4fv(lTranslationLoc, 1, GL_FALSE, glm::value_ptr(translations[0]));
+		glUniformMatrix4fv(lTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[0]));
 		glUniformMatrix4fv(lViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 		glUniformMatrix4fv(lProjectionLoc, 1, GL_FALSE, camera.getProjection());
 		lampCube.draw();
@@ -149,14 +148,16 @@ int main()
 
 		colorCube.use();
 
-		positions[0] = translations[0] * glm::vec4(positions[0], 1.0);
-		for (int i = 1; i < translations.size(); i++)
+		positions[0] = models[0] * glm::vec4(positions[0], 1.0);
+
+		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
+		for (int i = 1; i < models.size(); i++)
 		{
 			glUniform3f(cLightPosLoc, positions[0].x, positions[0].y, positions[0].z);
 			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
 			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
 
-			glUniformMatrix4fv(cTranslationLoc, 1, GL_FALSE, glm::value_ptr(translations[i]));
+			glUniformMatrix4fv(cTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
 			colorCube.draw();

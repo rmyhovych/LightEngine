@@ -6,17 +6,17 @@ layout (location = 1) in vec3 normal_;
 out vec3 Normal;
 out vec3 FragPos;
 
-uniform mat4 uRotation = mat4(1.0);
-uniform mat4 uTranslation;
+uniform mat4 uModel;
 uniform mat4 uView;
 uniform mat4 uProjection;
 
 void main()
 {
-	mat4 model = uTranslation * uRotation;
+	mat4 rotation = uModel;
+	rotation[3] = vec4(0.0, 0.0, 0.0, 1.0);
 
-	Normal = vec3(normalize(uRotation * vec4(normal_, 1.0)));
-	FragPos = vec3(model * vec4(position_, 1.0));
+	Normal = vec3(normalize(rotation * vec4(normal_, 1.0)));
+	FragPos = vec3(uModel * vec4(position_, 1.0));
 
-	gl_Position = uProjection * uView * model * vec4(position_, 1.0);
+	gl_Position = uProjection * uView * uModel * vec4(position_, 1.0);
 }
