@@ -17,47 +17,8 @@ int main()
 	//	Create window
 	WindowGL window(width, height);
 
-	
-	float eVertices[] = {
-		0.5,	0.5,	0.5,		1.0,	0.0,	0.0,
-		-0.5,	0.5,	0.5,		0.0,	1.0,	0.0,
-		0.5,	-0.5,	0.5,		0.0,	0.0,	1.0,
-		-0.5,	-0.5,	0.5,		1.0,	1.0,	1.0,
-		0.5,	0.5,	-0.5,		1.0,	0.0,	0.0,
-		-0.5,	0.5,	-0.5,		0.0,	1.0,	0.0,
-		0.5,	-0.5,	-0.5,		0.0,	0.0,	1.0,
-		-0.5,	-0.5,	-0.5,		0.0,	0.0,	0.0
-	};
-	
-	GLuint elements[] = {
-		0, 1, 2, 
-		3, 1, 2,
-		4, 5, 6, 
-		7, 5, 6,
-		2, 0, 6,
-		4, 0, 6,
-		1, 5, 0, 
-		4, 5, 0,
-		1, 5, 3, 
-		7, 5, 3,
-		3, 7, 2, 
-		6, 7, 2 
-	};
-
-	float pVertices[] = {
-		0.5,	0.0,	0.5,		0.2,	0.4,	0.3,
-		-0.5,	0.0,	0.5,		0.2,	0.4,	0.3,
-		0.5,	0.0,	-0.5,		0.2,	0.4,	0.3,
-		-0.5,	0.0,	-0.5,		0.2,	0.4,	0.3
-	};
-
-	GLuint pElements[] = {
-		0, 1, 2,
-		3, 1, 2,
-	};
-
-	glm::vec3 positions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
+	std::vector<glm::vec3> positions = {
+		glm::vec3(0.0f,  0.0f,  -7.0f),
 		glm::vec3(0.0f,  0.0f, -15.0f),
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -12.3f),
@@ -69,71 +30,95 @@ int main()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	glm::mat4 models[10];
+	std::vector<glm::mat4> translations;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < positions.size(); i++)
 	{
-		glm::mat4 matrix(1.0f);
-		models[i] = glm::translate(matrix, positions[i]);
+		translations.push_back(glm::translate(glm::mat4(1.0f), positions[i]));
 	}
+	translations[0] = glm::scale(translations[0], glm::vec3(0.2f));
 
-	float bVertices[] = {
-	-0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
+	float vertices[] = {
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-	-0.5f, -0.5f,  0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-	-0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-	-0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
 
 	//==================	COLOR CUBES
 	Shader colorCube("shaders/vertex.txt", "shaders/fragment.txt");
 
-	colorCube.addBufferObject(bVertices, 36, 3);
+	colorCube.addBufferObject(vertices, 36, 6);
 
 	colorCube.addLayout(0, 3, 0);
+	colorCube.addLayout(1, 3, 3);
 
+	// Fragment
+	GLuint cLightPosLoc = colorCube.bindUniform("uLightPos");
+	GLuint cLightColorLoc = colorCube.bindUniform("uLightColor");
 	GLuint cColorLoc = colorCube.bindUniform("uColor");
-	GLuint cModelLoc = colorCube.bindUniform("uModel");
+
+	// Vertex
+	GLuint cRotationLoc = colorCube.bindUniform("uRotation");
+	GLuint cTranslationLoc = colorCube.bindUniform("uTranslation");
 	GLuint cViewLoc = colorCube.bindUniform("uView");
 	GLuint cProjectionLoc = colorCube.bindUniform("uProjection");
 		
+	//==================	LAMP
+	Shader lampCube("shaders/vertex.txt", "shaders/fragmentLamp.txt");
 
+	lampCube.addBufferObject(vertices, 36, 6);
+
+	lampCube.addLayout(0, 3, 0);
+
+	// Fragment
+	GLuint lColorLoc = lampCube.bindUniform("uColor");
+
+	// Vertex
+	GLuint lTranslationLoc = lampCube.bindUniform("uTranslation");
+	GLuint lViewLoc = lampCube.bindUniform("uView");
+	GLuint lProjectionLoc = lampCube.bindUniform("uProjection");
+
+
+	//---
+	glm::vec3 lightColor = glm::vec3(1);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
@@ -151,17 +136,27 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
+		
+		lampCube.use();
 
-
+		translations[0] = glm::translate(translations[0], glm::vec3(0, 0, 0.005));
+		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
+		glUniformMatrix4fv(lTranslationLoc, 1, GL_FALSE, glm::value_ptr(translations[0]));
+		glUniformMatrix4fv(lViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
+		glUniformMatrix4fv(lProjectionLoc, 1, GL_FALSE, camera.getProjection());
+		lampCube.draw();
 
 
 		colorCube.use();
 
-		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
-		for (int i = 1; i < 10; i++)
+		positions[0] = translations[0] * glm::vec4(positions[0], 1.0);
+		for (int i = 1; i < translations.size(); i++)
 		{
+			glUniform3f(cLightPosLoc, positions[0].x, positions[0].y, positions[0].z);
+			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
 			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
-			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
+
+			glUniformMatrix4fv(cTranslationLoc, 1, GL_FALSE, glm::value_ptr(translations[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
 			colorCube.draw();
