@@ -81,8 +81,6 @@ void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 
 	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
 	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
-	
-	glBindVertexArray(0);
 }
 
 void Shader::addElementObject(GLuint* elements, int elementSize)

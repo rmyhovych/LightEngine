@@ -4,16 +4,18 @@
 #include "shader.h"
 #include "window_gl.h"
 
+int width = 1200;
+int height = 800;
+
 bool pressed = false;
 glm::vec2 cursor;
 float inputForce = 0.005;
-
 void mouseInput(WindowGL& window, Camera& camera);
 
 int main()
 {
 	//	Create window
-	WindowGL window(1200, 800);
+	WindowGL window(width, height);
 
 	
 	float eVertices[] = {
@@ -64,148 +66,103 @@ int main()
 		glm::vec3(1.3f, -2.0f, -2.5f),
 		glm::vec3(1.5f,  2.0f, -2.5f),
 		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f),
-		glm::vec3(0, -5.0f, 0)
+		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	glm::mat4 models[11];
+	glm::mat4 models[10];
 
-	for (int i = 0; i < 11; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		glm::mat4 matrix(1.0f);
 		models[i] = glm::translate(matrix, positions[i]);
 	}
 
-
 	float bVertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f, -0.5f,
+	 0.5f,  0.5f, -0.5f,
+	 0.5f,  0.5f, -0.5f,
+	-0.5f,  0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,
+	 0.5f, -0.5f,  0.5f,
+	 0.5f,  0.5f,  0.5f,
+	 0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f,
+	-0.5f, -0.5f,  0.5f,
 
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,
+	 0.5f,  0.5f, -0.5f,
+	 0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f,  0.5f,
+	 0.5f,  0.5f,  0.5f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f,  0.5f,
+	 0.5f, -0.5f,  0.5f,
+	-0.5f, -0.5f,  0.5f,
+	-0.5f, -0.5f, -0.5f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	-0.5f,  0.5f, -0.5f,
+	 0.5f,  0.5f, -0.5f,
+	 0.5f,  0.5f,  0.5f,
+	 0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f, -0.5f
 	};
 
-	//==================	COLOR CUBE
-	Shader colorCube("shaders/colorVertex.txt", "shaders/colorFragment.txt");
+	//==================	COLOR CUBES
+	Shader colorCube("shaders/vertex.txt", "shaders/fragment.txt");
 
-	colorCube.addBufferObject(eVertices, 8, 6);
-	colorCube.addElementObject(elements, 36);
+	colorCube.addBufferObject(bVertices, 36, 3);
 
 	colorCube.addLayout(0, 3, 0);
-	colorCube.addLayout(1, 3, 3);
 
-	GLuint cModelLoc = glGetUniformLocation(colorCube.ID, "uModel");
-	GLuint cViewLoc = glGetUniformLocation(colorCube.ID, "uView");
-	GLuint cProjectionLoc = glGetUniformLocation(colorCube.ID, "uProjection");
-	
-	//===================	TEXTURE CUBE
-	Shader textureCube("shaders/vertex.txt", "shaders/fragment.txt");
-	textureCube.addBufferObject(bVertices, 36, 5);
-	textureCube.addTexture("textures/alex.JPG");
+	GLuint cColorLoc = colorCube.bindUniform("uColor");
+	GLuint cModelLoc = colorCube.bindUniform("uModel");
+	GLuint cViewLoc = colorCube.bindUniform("uView");
+	GLuint cProjectionLoc = colorCube.bindUniform("uProjection");
+		
 
-	textureCube.addLayout(0, 3, 0);
-	textureCube.addLayout(2, 2, 3);
-
-	GLuint modelLoc = textureCube.bindUniform("uModel");
-	GLuint viewLoc = textureCube.bindUniform("uView");
-	GLuint projectionLoc = textureCube.bindUniform("uProjection");
-
-	//==================	COLOR PLANE
-	Shader colorPlane("shaders/colorVertex.txt", "shaders/colorFragment.txt");
-
-	colorPlane.addBufferObject(pVertices, 4, 6);
-	colorPlane.addElementObject(pElements, 6);
-
-	colorPlane.addLayout(0, 3, 0);
-	colorPlane.addLayout(1, 3, 3);
-
-	GLuint pModelLoc = glGetUniformLocation(colorPlane.ID, "uModel");
-	GLuint pViewLoc = glGetUniformLocation(colorPlane.ID, "uView");
-	GLuint pProjectionLoc = glGetUniformLocation(colorPlane.ID, "uProjection");
-
-	models[10] = glm::scale(models[10], glm::vec3(50, 0, 50));
-	
-	Camera camera(window.getInput(), 15, positions[1]);
-
-	glm::mat4 projection(1.0f);
-	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 1000.0f);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//models[1] = glm::scale(models[1], glm::vec3(10, 1, 1));
+	
 	//	=== EVENT LOOP ===
+
+	Camera camera(width, height, window.getInput(), 10, positions[0]);
 	while (!glfwWindowShouldClose(window.window_))
 	{
+		camera.adjust(window.window_);
+
 		window.input();
 		mouseInput(window, camera);
 
-		glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
+		glClearColor(0.07f, 0.10f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
 
-		models[1] = glm::rotate(models[1], 0.01f, glm::normalize(glm::vec3(1, 1, 0)));
-		models[0] = glm::translate(models[0], 0.01f * glm::vec3(sin(glfwGetTime()), sin(glfwGetTime()), cos(glfwGetTime())));
-
-		textureCube.use();
-		for (int i = 0; i < 5; i++)
-		{
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			textureCube.draw();
-
-		}
+		models[0] = glm::rotate(models[0], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 
 		colorCube.use();
-		for (int i = 5; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 		{
+			glUniform3f(cColorLoc, 0.5f, 1.0f, 1.0f);
 			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
 			colorCube.draw();
 		}
-
-		colorPlane.use();
-		glUniformMatrix4fv(pModelLoc, 1, GL_FALSE, glm::value_ptr(models[10]));
-		glUniformMatrix4fv(pViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-		glUniformMatrix4fv(pProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		colorPlane.draw();
 		
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();

@@ -8,10 +8,8 @@ class WindowGL
 {
 public:
 	GLFWwindow* window_;
-	int width_;
-	int height_;
 
-	WindowGL(int width = 800, int height = 800);
+	WindowGL(int width = 1200, int height = 800);
 	~WindowGL();
 
 	bool* getInput();

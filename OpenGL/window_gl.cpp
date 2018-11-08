@@ -3,9 +3,8 @@
 
 
 WindowGL::WindowGL(int width, int height) :
-	width_(width),
-	height_(height),
 	keyInput_(new bool[6])
+
 {
 	//	-- START GLFW --
 	glfwInit();
@@ -22,7 +21,7 @@ WindowGL::WindowGL(int width, int height) :
 
 
 	//	Window creation + OpenGL Context
-	window_ = glfwCreateWindow(width_, height_, "OpenGL", nullptr, nullptr);
+	window_ = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(window_);
 	glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);

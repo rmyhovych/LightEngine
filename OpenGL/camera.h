@@ -4,6 +4,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+#include "window_gl.h"
 #include <iostream>
 
 #include <cmath>
@@ -13,12 +14,16 @@
 class Camera
 {
 public:
-	Camera(bool* input, float zoom = 50, glm::vec3 focus = glm::vec3(0, 0, 0), glm::vec3 direction = glm::vec3(0, 0, 1));
-
+	Camera(int& width, int& height, bool* input, float zoom = 50, glm::vec3 focus = glm::vec3(0, 0, 0), glm::vec3 direction = glm::vec3(0, 0, 1));
+	
+	glm::f32* getProjection();
 	glm::mat4& getView();
+
 	
 	void rotateCamera(float x, float y);
 
+
+	void adjust(GLFWwindow* window);
 	void refresh();
 
 private:
@@ -31,12 +36,18 @@ private:
 
 	float zoom_;
 
+	glm::f32* projectionPtr_;
+
+	glm::mat4 projection_;
 	glm::mat4 view_;
 
 	float angleH_;
 	float angleV_;
 
 	bool* input_;
+
+	int& width_;
+	int& height_;
 
 	float speed = 0.05;
 };

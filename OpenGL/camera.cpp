@@ -1,6 +1,6 @@
 #include "camera.h"
 
-Camera::Camera(bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
+Camera::Camera(int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 	input_(input),
 	zoom_(zoom),
 	focus_(focus),
@@ -8,8 +8,13 @@ Camera::Camera(bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 	up_(glm::vec3(0, 1, 0)),
 
 	angleH_(0),
-	angleV_(PI/2)
+	angleV_(PI/2),
+
+	width_(width),
+	height_(height)
 {
+	projection_ = glm::perspective(PI / 4, ((float)width_ / (float)height_), 0.1f, 1000.0f);
+	projectionPtr_ = glm::value_ptr(projection_);
 
 	view_ = glm::lookAt(focus_ - zoom * direction_, focus_, up_);
 }
@@ -17,6 +22,11 @@ Camera::Camera(bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 glm::mat4& Camera::getView()
 {
 	return view_;
+}
+
+glm::f32* Camera::getProjection()
+{
+	return projectionPtr_;
 }
 
 void Camera::rotateCamera(float x, float y)
@@ -74,6 +84,22 @@ void Camera::moveCamera()
 	}
 }
 
+
+void Camera::adjust(GLFWwindow* window)
+{
+	int newW, newH;
+
+	glfwGetWindowSize(window, &newW, &newH);
+
+	if (newW != width_ || newH != height_)
+	{
+		width_ = newW;
+		height_ = newH;
+
+		projection_ = glm::perspective(PI / 4, ((float)width_ / (float)height_), 0.1f, 1000.0f);
+		projectionPtr_ = glm::value_ptr(projection_);
+	}
+}
 
 void Camera::refresh()
 {
