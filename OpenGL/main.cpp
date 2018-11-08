@@ -1,5 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
+#include <iomanip>
+
 #include "camera.h"
 #include "shader.h"
 #include "window_gl.h"
@@ -104,7 +106,7 @@ int main()
 	GLuint cColorLoc = colorCube.bindUniform("uColor");
 
 	// Vertex
-	GLuint cTranslationLoc = colorCube.bindUniform("uModel");
+	GLuint cModelLoc = colorCube.bindUniform("uModel");
 	GLuint cViewLoc = colorCube.bindUniform("uView");
 	GLuint cProjectionLoc = colorCube.bindUniform("uProjection");
 		
@@ -119,7 +121,7 @@ int main()
 	GLuint lColorLoc = lampCube.bindUniform("uColor");
 
 	// Vertex
-	GLuint lTranslationLoc = lampCube.bindUniform("uModel");
+	GLuint lModelLoc = lampCube.bindUniform("uModel");
 	GLuint lViewLoc = lampCube.bindUniform("uView");
 	GLuint lProjectionLoc = lampCube.bindUniform("uProjection");
 
@@ -147,24 +149,24 @@ int main()
 		//models[0] = glm::scale(models[0], glm::vec3(0.1f));
 		
 		lampCube.use();
-
 		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
-		glUniformMatrix4fv(lTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[0]));
+		glUniformMatrix4fv(lModelLoc, 1, GL_FALSE, glm::value_ptr(models[0]));
 		glUniformMatrix4fv(lViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 		glUniformMatrix4fv(lProjectionLoc, 1, GL_FALSE, camera.getProjection());
 		lampCube.draw();
 
 		colorCube.use();
 
-		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
+		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(0, 1, 0)));
+
 		for (int i = 1; i < models.size(); i++)
 		{
 			glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
 			glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
 			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
-			glUniform3f(cColorLoc, 0.5f, 0.0f, 0.5f);
+			glUniform3f(cColorLoc, 0.6f, 0.8f, 0.6f);
 
-			glUniformMatrix4fv(cTranslationLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
+			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
 			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
 			colorCube.draw();

@@ -53,6 +53,6 @@ private:
 	int& width_;
 	int& height_;
 
-	float speed = 0.01;
+	float speed = 0.005;
 };
 
