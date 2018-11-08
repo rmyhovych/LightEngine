@@ -13,7 +13,7 @@ void mouseInput(WindowGL& window, Camera& camera);
 int main()
 {
 	//	Create window
-	WindowGL window(1000, 800);
+	WindowGL window(1200, 800);
 
 	
 	float eVertices[] = {
@@ -43,10 +43,10 @@ int main()
 	};
 
 	float pVertices[] = {
-		0.5,	0.0,	0.5,		0.2,	0.8,	0.3,
-		-0.5,	0.0,	0.5,		0.2,	0.8,	0.3,
-		0.5,	0.0,	-0.5,		0.2,	0.8,	0.3,
-		-0.5,	0.0,	-0.5,		0.2,	0.8,	0.3
+		0.5,	0.0,	0.5,		0.2,	0.4,	0.3,
+		-0.5,	0.0,	0.5,		0.2,	0.4,	0.3,
+		0.5,	0.0,	-0.5,		0.2,	0.4,	0.3,
+		-0.5,	0.0,	-0.5,		0.2,	0.4,	0.3
 	};
 
 	GLuint pElements[] = {
@@ -137,7 +137,7 @@ int main()
 	//===================	TEXTURE CUBE
 	Shader textureCube("shaders/vertex.txt", "shaders/fragment.txt");
 	textureCube.addBufferObject(bVertices, 36, 5);
-	textureCube.addTexture("textures/rainbow.png");
+	textureCube.addTexture("textures/alex.JPG");
 
 	textureCube.addLayout(0, 3, 0);
 	textureCube.addLayout(2, 2, 3);
@@ -159,14 +159,15 @@ int main()
 	GLuint pViewLoc = glGetUniformLocation(colorPlane.ID, "uView");
 	GLuint pProjectionLoc = glGetUniformLocation(colorPlane.ID, "uProjection");
 
-	models[10] = glm::scale(models[10], glm::vec3(10, 0, 20));
+	models[10] = glm::scale(models[10], glm::vec3(50, 0, 50));
 	
 	Camera camera(window.getInput(), 15, positions[1]);
 
 	glm::mat4 projection(1.0f);
-	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 100.0f);
+	projection = glm::perspective(PI/4, ((float)window.width_ / (float)window.height_), 0.1f, 1000.0f);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//models[1] = glm::scale(models[1], glm::vec3(10, 1, 1));
 	//	=== EVENT LOOP ===
 	while (!glfwWindowShouldClose(window.window_))
 	{
@@ -179,7 +180,7 @@ int main()
 		camera.refresh();
 
 		models[1] = glm::rotate(models[1], 0.01f, glm::normalize(glm::vec3(1, 1, 0)));
-		//models[0] = glm::translate(models[0], 0.01f * glm::vec3(sin(glfwGetTime()), sin(glfwGetTime()), cos(glfwGetTime())));
+		models[0] = glm::translate(models[0], 0.01f * glm::vec3(sin(glfwGetTime()), sin(glfwGetTime()), cos(glfwGetTime())));
 
 		textureCube.use();
 		for (int i = 0; i < 5; i++)
