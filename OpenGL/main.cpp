@@ -127,7 +127,7 @@ int main()
 
 
 	//---
-	glm::vec3 lightColor = glm::vec3(1);
+	glm::vec3 lightColor = glm::vec3(0, 0.5, 0.5);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
@@ -157,7 +157,7 @@ int main()
 
 		colorCube.use();
 
-		models[1] = glm::rotate(models[1], 0.001f, glm::normalize(glm::vec3(1, 1, 0)));
+		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 
 		for (int i = 1; i < models.size(); i++)
 		{
