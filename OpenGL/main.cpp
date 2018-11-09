@@ -91,6 +91,25 @@ int main()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
 
+	//==================	PLANE
+	Shader plane("shaders/vertex.txt", "shaders/fragment.txt");
+
+	plane.addBufferObject(vertices, 36, 6);
+
+	plane.addLayout(0, 3, 0);
+	plane.addLayout(1, 3, 3);
+
+	// Fragment
+	GLuint pViewPosLoc = plane.bindUniform("uViewPos");
+	GLuint pLightPosLoc = plane.bindUniform("uLightPos");
+	GLuint pLightColorLoc = plane.bindUniform("uLightColor");
+	GLuint pColorLoc = plane.bindUniform("uColor");
+
+	// Vertex
+	GLuint pModelLoc = plane.bindUniform("uModel");
+	GLuint pViewLoc = plane.bindUniform("uView");
+	GLuint pProjectionLoc = plane.bindUniform("uProjection");
+
 	//==================	COLOR CUBES
 	Shader colorCube("shaders/vertex.txt", "shaders/fragment.txt");
 
@@ -127,7 +146,7 @@ int main()
 
 
 	//---
-	glm::vec3 lightColor = glm::vec3(0, 0.5, 0.5);
+	glm::vec3 lightColor = glm::vec3(1);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
@@ -171,6 +190,18 @@ int main()
 			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
 			colorCube.draw();
 		}
+
+
+		plane.use();
+		glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+		glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
+		glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
+		glUniform3f(cColorLoc, 0.4f, 0.6f, 0.4f);
+
+		glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(mat));
+		glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
+		glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
+		colorCube.draw();
 		
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();
