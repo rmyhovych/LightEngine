@@ -49,7 +49,7 @@
     <Text Include="shaders\vertex.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="shaders\fragmentLamp.txt">
+    <Text Include="shaders\fragmentLight.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

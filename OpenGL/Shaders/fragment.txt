@@ -1,28 +1,45 @@
 #version 330 core
 
+struct Light
+{
+	vec3 color;
+	vec3 pos;
+	float intensity;
+};
+
 in vec3 Normal;
 in vec3 FragPos;
 
 out vec4 FragColor;
 
+//	Lights
+uniform  int uSize;
+uniform Light uLights[2];
+
+//	Object
 uniform vec3 uColor;
-uniform vec3 uLightColor;
-uniform vec3 uLightPos;
 uniform vec3 uViewPos;
 
 void main()
 {
-	vec3 lightDir = uLightPos - FragPos;
-	float fraction = 1/(1 + dot(lightDir, lightDir) / 100);
-	lightDir = normalize(lightDir);
-
-	vec3 reflectDir = reflect(-lightDir, Normal);
-	vec3 viewDir = normalize(uViewPos - FragPos);
-
 	float ambient = 0.1;
-	float diffuse = fraction * 1.0 * max(dot(Normal, lightDir), 0.0);
-	float specular = fraction * 0.5 * pow(max(dot(viewDir, reflectDir), 0.0), 32);
 
-	vec3 result = (ambient + diffuse + specular) * uLightColor * uColor;
+	vec3 result = vec3(0, 0, 0);
+	for (int i = 0; i < 2; i++)
+	{
+		vec3 lightDir = uLights[i].pos - FragPos;
+		float fraction = 1/(1 + dot(lightDir, lightDir) / uLights[i].intensity);
+		lightDir = normalize(lightDir);
+
+		vec3 reflectDir = reflect(-lightDir, Normal);
+		vec3 viewDir = normalize(uViewPos - FragPos);
+
+		float diffuse = fraction * 1.0 * max(dot(Normal, lightDir), 0.0);
+		float specular = fraction * 0.5 * pow(max(dot(viewDir, reflectDir), 0.0), 64);
+
+		result = (ambient + diffuse) * uLights[i].color * uColor + specular * uLights[i].color;
+	}
+
+
 	FragColor = vec4(result, 1.0f);
 }

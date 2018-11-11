@@ -6,8 +6,18 @@
 #include <iostream>
 #include <vector>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include "stb_image.h"
 #include "window_gl.h"
+
+struct Uniform
+{
+	GLuint id;
+	std::string name;
+};
 
 class Shader
 {
@@ -22,7 +32,10 @@ public:
 
 	void addLayout(int location, int size, int position);
 
-	GLuint bindUniform(const char* name);
+	void uniformMat4Ptr(const char* name, glm::f32* matrix);
+	void uniformVec3(const char* name, glm::vec3& vector);
+	void uniformFloat(const char* name, float number);
+	void uniformInt(const char* name, int number);
 
 	void use();
 

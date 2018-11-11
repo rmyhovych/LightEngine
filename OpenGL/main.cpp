@@ -15,6 +15,13 @@ glm::vec2 cursor;
 float inputForce = 0.005;
 void mouseInput(WindowGL& window, Camera& camera);
 
+struct Light
+{
+	glm::vec3 color;
+	glm::vec3 pos;
+	float intensity;
+};
+
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	scroll = yoffset;
@@ -40,12 +47,14 @@ int main()
 	};
 
 	std::vector<glm::mat4> models;
-
 	for (int i = 0; i < positions.size(); i++)
 	{
 		models.push_back(glm::translate(glm::mat4(1.0f), positions[i]));
+		if (i >= positions.size() - 2)
+		{
+			models[i] = glm::scale(models[i], glm::vec3(0.2f));
+		}
 	}
-	models[0] = glm::scale(models[0], glm::vec3(0.2f));
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -91,24 +100,28 @@ int main()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
 
-	//==================	PLANE
-	Shader plane("shaders/vertex.txt", "shaders/fragment.txt");
 
-	plane.addBufferObject(vertices, 36, 6);
+	//==================	LIGHT
+	Shader lightCube("shaders/vertex.txt", "shaders/fragmentLight.txt");
 
-	plane.addLayout(0, 3, 0);
-	plane.addLayout(1, 3, 3);
+	lightCube.addBufferObject(vertices, 36, 6);
 
-	// Fragment
-	GLuint pViewPosLoc = plane.bindUniform("uViewPos");
-	GLuint pLightPosLoc = plane.bindUniform("uLightPos");
-	GLuint pLightColorLoc = plane.bindUniform("uLightColor");
-	GLuint pColorLoc = plane.bindUniform("uColor");
+	lightCube.addLayout(0, 3, 0);
+	//==================
 
-	// Vertex
-	GLuint pModelLoc = plane.bindUniform("uModel");
-	GLuint pViewLoc = plane.bindUniform("uView");
-	GLuint pProjectionLoc = plane.bindUniform("uProjection");
+	std::vector<Light> lights;
+
+	lights.push_back({
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		positions[8],
+		50.0f
+		});
+
+	lights.push_back({
+		glm::vec3(0.3f, 1.0f, 0.3f),
+		positions[9],
+		50.0f
+		});
 
 	//==================	COLOR CUBES
 	Shader colorCube("shaders/vertex.txt", "shaders/fragment.txt");
@@ -118,40 +131,13 @@ int main()
 	colorCube.addLayout(0, 3, 0);
 	colorCube.addLayout(1, 3, 3);
 
-	// Fragment
-	GLuint cViewPosLoc = colorCube.bindUniform("uViewPos");
-	GLuint cLightPosLoc = colorCube.bindUniform("uLightPos");
-	GLuint cLightColorLoc = colorCube.bindUniform("uLightColor");
-	GLuint cColorLoc = colorCube.bindUniform("uColor");
+	glm::vec3 cubeColor = glm::vec3(0.4f, 0.6f, 0.4f);
+	//==================
 
-	// Vertex
-	GLuint cModelLoc = colorCube.bindUniform("uModel");
-	GLuint cViewLoc = colorCube.bindUniform("uView");
-	GLuint cProjectionLoc = colorCube.bindUniform("uProjection");
-		
-	//==================	LAMP
-	Shader lampCube("shaders/vertex.txt", "shaders/fragmentLamp.txt");
-
-	lampCube.addBufferObject(vertices, 36, 6);
-
-	lampCube.addLayout(0, 3, 0);
-
-	// Fragment
-	GLuint lColorLoc = lampCube.bindUniform("uColor");
-
-	// Vertex
-	GLuint lModelLoc = lampCube.bindUniform("uModel");
-	GLuint lViewLoc = lampCube.bindUniform("uView");
-	GLuint lProjectionLoc = lampCube.bindUniform("uProjection");
-
-
-	//---
-	glm::vec3 lightColor = glm::vec3(1);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
-
 	Camera camera(width, height, window.getInput(), 10);
 	while (!glfwWindowShouldClose(window.window_))
 	{
@@ -164,45 +150,49 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();
-		models[0] = glm::translate(glm::mat4(1.0f), 5.0f * glm::vec3(sin(glfwGetTime()/2), 0, cos(glfwGetTime()/2)));
-		models[0] = glm::scale(models[0], glm::vec3(0.1f));
-		
-		lampCube.use();
-		glUniform3f(lColorLoc, lightColor.x, lightColor.y, lightColor.z);
-		glUniformMatrix4fv(lModelLoc, 1, GL_FALSE, glm::value_ptr(models[0]));
-		glUniformMatrix4fv(lViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-		glUniformMatrix4fv(lProjectionLoc, 1, GL_FALSE, camera.getProjection());
-		lampCube.draw();
-
+	
 		colorCube.use();
-
 		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
-
-		for (int i = 1; i < models.size(); i++)
+		for (int i = 0; i < models.size() - 2; i++)
 		{
-			glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-			glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
-			glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
-			glUniform3f(cColorLoc, 0.4f, 0.6f, 0.4f);
+			//	- FRAGMENT -
+			//	Lights
+			colorCube.uniformInt("uSize", lights.size());
+			for (int j = 0; j < lights.size(); j++)
+			{
+				colorCube.uniformVec3(("uLights[" + std::to_string(j) + "].color").c_str(), lights[j].color);
+				colorCube.uniformVec3(("uLights[" + std::to_string(j) + "].pos").c_str(), lights[j].pos);
+				colorCube.uniformFloat(("uLights[" + std::to_string(j) + "].intensity").c_str(), lights[j].intensity);
+			}
 
-			glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(models[i]));
-			glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-			glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
+			//	Object
+			colorCube.uniformVec3("uColor", camera.getPosition());
+			colorCube.uniformVec3("uViewPos", cubeColor);
+
+
+			//	- VERTEX -
+			colorCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
+			colorCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
+			colorCube.uniformMat4Ptr("uProjection", camera.getProjection());
+
 			colorCube.draw();
 		}
 
+		lightCube.use();
+		for (int i = models.size() - 2; i < models.size(); i++)
+		{
+			//	- FRAGMENT -
+			lightCube.uniformVec3("uColor", lights[i - 8].color);
 
-		plane.use();
-		glUniform3f(cViewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-		glUniform3f(cLightPosLoc, models[0][3][0], models[0][3][1], models[0][3][2]);
-		glUniform3f(cLightColorLoc, lightColor.x, lightColor.y, lightColor.z);
-		glUniform3f(cColorLoc, 0.4f, 0.6f, 0.4f);
+			//	- VERTEX -
+			lightCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
+			lightCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
+			lightCube.uniformMat4Ptr("uProjection", camera.getProjection());
 
-		glUniformMatrix4fv(cModelLoc, 1, GL_FALSE, glm::value_ptr(mat));
-		glUniformMatrix4fv(cViewLoc, 1, GL_FALSE, glm::value_ptr(camera.getView()));
-		glUniformMatrix4fv(cProjectionLoc, 1, GL_FALSE, camera.getProjection());
-		colorCube.draw();
-		
+			lightCube.draw();
+		}
+
+
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();
 	}

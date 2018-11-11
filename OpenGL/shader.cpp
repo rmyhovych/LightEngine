@@ -130,9 +130,26 @@ void Shader::addLayout(int location, int size, int position)
 	glEnableVertexAttribArray(location);
 }
 
-GLuint Shader::bindUniform(const char* name)
+
+void Shader::uniformMat4Ptr(const char* name, glm::f32* matrix)
 {
-	return (glGetUniformLocation(ID, name));
+	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, matrix);
+
+}
+
+void Shader::uniformVec3(const char* name, glm::vec3& vector)
+{
+	glUniform3f(glGetUniformLocation(ID, name), vector.x, vector.y, vector.z);
+}
+
+void Shader::uniformFloat(const char* name, float number)
+{
+	glUniform1f(glGetUniformLocation(ID, name), number);
+}
+
+void Shader::uniformInt(const char* name, int number)
+{
+	glUniform1i(glGetUniformLocation(ID, name), number);
 }
 
 
