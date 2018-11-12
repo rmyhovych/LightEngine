@@ -114,13 +114,13 @@ int main()
 	lights.push_back({
 		glm::vec3(1.0f, 0.3f, 0.3f),
 		positions[8],
-		50.0f
+		10.0f
 		});
 
 	lights.push_back({
 		glm::vec3(0.3f, 1.0f, 0.3f),
 		positions[9],
-		50.0f
+		10.0f
 		});
 
 	//==================	COLOR CUBES
@@ -166,9 +166,9 @@ int main()
 			}
 
 			//	Object
-			colorCube.uniformVec3("uColor", camera.getPosition());
-			colorCube.uniformVec3("uViewPos", cubeColor);
-
+			colorCube.uniformVec3("uColor", cubeColor);
+			colorCube.uniformVec3("uViewPos", camera.getPosition());
+			
 
 			//	- VERTEX -
 			colorCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
