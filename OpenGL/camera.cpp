@@ -106,7 +106,7 @@ void Camera::adjust(GLFWwindow* window)
 		width_ = newW;
 		height_ = newH;
 
-		projection_ = glm::perspective(PI / 4, ((float)width_ / (float)height_), 0.1f, 1000.0f);
+		projection_ = glm::perspective(PI/3, ((float)width_ / (float)height_), 0.1f, 1000.0f);
 		projectionPtr_ = glm::value_ptr(projection_);
 	}
 }

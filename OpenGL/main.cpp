@@ -41,16 +41,16 @@ int main()
 		glm::vec3(5.4f, -0.4f, -3.5f),
 		glm::vec3(-1.7f,  3.0f, -7.5f),
 		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(0.0f,  1.0f, -6.5f),
 		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
+		glm::vec3(-3.3f,  1.0f, -5.5f)
 	};
 
 	std::vector<glm::mat4> models;
 	for (int i = 0; i < positions.size(); i++)
 	{
 		models.push_back(glm::translate(glm::mat4(1.0f), positions[i]));
-		if (i >= positions.size() - 2)
+		if (i >= positions.size() - 3)
 		{
 			models[i] = glm::scale(models[i], glm::vec3(0.2f));
 		}
@@ -112,15 +112,21 @@ int main()
 	std::vector<Light> lights;
 
 	lights.push_back({
+		glm::vec3(0.3f, 0.3f, 1.0f),
+		positions[7],
+		10.0f
+		});
+
+	lights.push_back({
 		glm::vec3(1.0f, 0.3f, 0.3f),
 		positions[8],
 		10.0f
 		});
 
 	lights.push_back({
-		glm::vec3(0.3f, 1.0f, 0.3f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
 		positions[9],
-		10.0f
+		20.0f
 		});
 
 	//==================	COLOR CUBES
@@ -153,7 +159,7 @@ int main()
 	
 		colorCube.use();
 		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
-		for (int i = 0; i < models.size() - 2; i++)
+		for (int i = 0; i < models.size() - 3; i++)
 		{
 			//	- FRAGMENT -
 			//	Lights
@@ -179,10 +185,10 @@ int main()
 		}
 
 		lightCube.use();
-		for (int i = models.size() - 2; i < models.size(); i++)
+		for (int i = models.size() - 3; i < models.size(); i++)
 		{
 			//	- FRAGMENT -
-			lightCube.uniformVec3("uColor", lights[i - 8].color);
+			lightCube.uniformVec3("uColor", lights[i - 7].color);
 
 			//	- VERTEX -
 			lightCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
