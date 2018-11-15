@@ -49,13 +49,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shaders\fragment.txt">
+    <Text Include="shaders\fragment.glsl">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="shaders\vertex.txt">
+    <Text Include="shaders\fragmentLight.glsl">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="shaders\fragmentLight.txt">
+    <Text Include="shaders\vertex.glsl">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

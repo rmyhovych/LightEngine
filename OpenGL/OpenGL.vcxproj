@@ -137,9 +137,9 @@
     <ClInclude Include="window_gl.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shaders\fragment.txt" />
-    <Text Include="shaders\fragmentLight.txt" />
-    <Text Include="shaders\vertex.txt" />
+    <Text Include="shaders\fragment.glsl" />
+    <Text Include="shaders\fragmentLight.glsl" />
+    <Text Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

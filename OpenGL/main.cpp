@@ -102,7 +102,7 @@ int main()
 
 
 	//==================	LIGHT
-	Shader lightCube("shaders/vertex.txt", "shaders/fragmentLight.txt");
+	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
 
 	lightCube.addBufferObject(vertices, 36, 6);
 
@@ -130,7 +130,7 @@ int main()
 		});
 
 	//==================	COLOR CUBES
-	Shader colorCube("shaders/vertex.txt", "shaders/fragment.txt");
+	Shader colorCube("shaders/vertex.glsl", "shaders/fragment.glsl");
 
 	colorCube.addBufferObject(vertices, 36, 6);
 
