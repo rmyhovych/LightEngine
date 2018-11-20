@@ -1,6 +1,7 @@
 #include "camera.h"
 
-Camera::Camera(int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
+Camera::Camera(double& time, int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
+	time_(time),
 	input_(input),
 	zoom_(zoom),
 	focus_(focus),
@@ -10,10 +11,15 @@ Camera::Camera(int& width, int& height, bool* input, float zoom, glm::vec3 focus
 	angleH_(0),
 	angleV_(PI/2),
 
+	fov_(PI/3),
+
 	width_(width),
-	height_(height)
+	height_(height),
+
+	acceleration_(0.3),
+	friction_(0.96)
 {
-	projection_ = glm::perspective(PI / 4, ((float)width_ / (float)height_), 0.1f, 1000.0f);
+	projection_ = glm::perspective(fov_, ((float)width_ / (float)height_), 0.1f, 1000.0f);
 	projectionPtr_ = glm::value_ptr(projection_);
 
 	view_ = glm::lookAt(focus_ - zoom * direction_, focus_, up_);
@@ -70,27 +76,34 @@ void Camera::moveCamera()
 
 	if (input_[0])
 	{
-		focus_ += speed * forward;
+		speeds_[0] += acceleration_;
 	}
 	if (input_[1])
 	{
-		focus_ -= speed * forward;
+		speeds_[0] -= acceleration_;
 	}
 	if (input_[2])
 	{
-		focus_ += speed * right;
+		speeds_[1] += acceleration_;
 	}
 	if (input_[3])
 	{
-		focus_ -= speed * right;
+		speeds_[1] -= acceleration_;
 	}
 	if (input_[4])
 	{
-		focus_ += speed * up_;
+		speeds_[2] += acceleration_;
 	}
 	if (input_[5])
 	{
-		focus_ -= speed * up_;
+		speeds_[2] -= acceleration_;
+	}
+
+	focus_ += (float)time_ * (speeds_[0] * forward + speeds_[1] * right + speeds_[2] * up_);
+
+	for (int i = 0; i < 3; i++)
+	{
+		speeds_[i] *= friction_;
 	}
 }
 
@@ -106,7 +119,7 @@ void Camera::adjust(GLFWwindow* window)
 		width_ = newW;
 		height_ = newH;
 
-		projection_ = glm::perspective(PI/3, ((float)width_ / (float)height_), 0.1f, 1000.0f);
+		projection_ = glm::perspective(fov_, ((float)width_ / (float)height_), 0.1f, 1000.0f);
 		projectionPtr_ = glm::value_ptr(projection_);
 	}
 }

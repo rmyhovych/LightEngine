@@ -31,7 +31,11 @@ WindowGL::WindowGL(int width, int height) :
 	glewInit();
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
+	glCullFace(GL_FRONT);
+	glFrontFace(GL_CCW);
+	
 	for (int i = 0; i < 6; i++)
 	{
 		keyInput_[i] = false;
