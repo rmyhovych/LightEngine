@@ -72,7 +72,8 @@ void Camera::rotateCamera(float x, float y)
 void Camera::moveCamera()
 {
 	glm::vec3 right = glm::normalize(glm::cross(direction_, up_));
-	glm::vec3 forward = glm::normalize(glm::cross(up_, right));
+	//glm::vec3 forward = glm::normalize(glm::cross(up_, right));
+	glm::vec3 forward = direction_;
 
 	if (input_[0])
 	{

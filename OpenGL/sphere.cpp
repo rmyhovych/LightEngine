@@ -5,10 +5,10 @@
 Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	shader_(Shader(vertexPath, fragmentPath))
 {
-	const int meridianSize = 20;
-	const int parallelSize = 20;
-	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
-	//float buffer[(parallelSize * meridianSize + 2) * 3];
+	const int meridianSize = 5;
+	const int parallelSize = 5;
+	//float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
+	float buffer[(parallelSize * meridianSize + 2) * 3];
 
 
 	float* meridians = new float[meridianSize];
@@ -55,9 +55,11 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	delete[] parallels;
 
 	shader_.addBufferObject(buffer, (parallelSize * meridianSize + 2) * 3, 3);
-	delete[] buffer;
+	//delete[] buffer;
 
-	GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
+	//GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
+	GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
+
 
 	int eCount = 0;
 	for (int i = 0; i < meridianSize; i++)
@@ -66,12 +68,20 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 		elements[eCount++] = (i + 1);
 		elements[eCount++] = ((i + 1) % meridianSize) + 1;
 	}
-	for (int i = 0; i < parallelSize - 1; i++)
+	for (int i = 1; i < parallelSize; i++)
 	{
-
+		for (int j = 0; j < meridianSize; j++)
+		{
+			elements[eCount++] = (i * meridianSize + j + 1);
+			elements[eCount++] = ((i + 1) * meridianSize + j + 1);
+			elements[eCount++] = (((i + 1) * meridianSize) + ((1 + j) % meridianSize) + 1);
+			elements[eCount++] = (i * meridianSize + j + 1);
+			elements[eCount++] = (((i + 1) * meridianSize) + ((1 + j) % meridianSize) + 1);
+			elements[eCount++] = (i * meridianSize + ((j + 1) % meridianSize) + 1);
+		}
 	}
 
-	shader_.addElementObject(elements, 3 * 2 * (meridianSize) * (parallelSize));
+	shader_.addElementObject(elements, 18);
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
@@ -79,7 +89,7 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 
 void Sphere::draw(std::vector<Light>& lights, Camera& camera)
 {
-	Parameters param = { 1, glm::vec3(-1.5, -0.4, -6), glm::vec3(0.5, 0.7, 0.8) };
+	Parameters param = { 1, glm::vec3(-1.5, 3.4, -6), glm::vec3(0.5, 0.7, 0.8) };
 	param.model = glm::translate(glm::mat4(1.0f), param.position);
 	param.model = glm::scale(param.model, param.radius * glm::vec3(1.0f));
 
