@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "shader.h"
 #include "window_gl.h"
+#include "sphere.h"
 
 int width = 1200;
 int height = 800;
@@ -14,13 +15,6 @@ double scroll = 0;
 glm::vec2 cursor;
 float inputForce = 0.005;
 void mouseInput(WindowGL& window, Camera& camera);
-
-struct Light
-{
-	glm::vec3 color;
-	glm::vec3 pos;
-	float intensity;
-};
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -104,6 +98,8 @@ int main()
 	};
 
 
+	Sphere sphere = Sphere("shaders/vertex.glsl", "shaders/fragment.glsl");
+
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
 
@@ -173,6 +169,8 @@ int main()
 
 		camera.refresh();
 	
+		sphere.draw(lights, camera);
+
 		colorCube.use();
 		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
 		for (int i = 0; i < models.size() - 3; i++)

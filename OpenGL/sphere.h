@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 
+#include "camera.h"
 #include "shader.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -12,6 +13,12 @@
 #define PI 3.14159265359f
 #endif // !PI
 
+struct Light
+{
+	glm::vec3 color;
+	glm::vec3 pos;
+	float intensity;
+};
 
 struct Parameters
 {
@@ -25,7 +32,9 @@ class Sphere
 {
 public:
 	Sphere(const char* vertexPath, const char* fragmentPath);
+	void addSphere();
 
+	void draw(std::vector<Light>& lights, Camera& camera);
 private:
 	std::vector<Parameters> params_;
 
