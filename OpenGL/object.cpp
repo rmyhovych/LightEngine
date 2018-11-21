@@ -63,7 +63,7 @@ void Object::use()
 void Object::constructModel()
 {
 	model_ = glm::translate(glm::mat4(1), position_);
-	model_ = rotation_ * model_;
+	model_ = model_ * rotation_;
 	model_ = glm::scale(model_, scale_);
 }
 

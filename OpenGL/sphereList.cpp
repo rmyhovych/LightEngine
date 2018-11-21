@@ -7,8 +7,8 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 	camera_(camera),
 	lights_(lights)
 {
-	const int meridianSize = 20;
-	const int parallelSize = 20;
+	const int meridianSize = 5;
+	const int parallelSize = 5;
 	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
 	//float buffer[(parallelSize * meridianSize + 2) * 3];
 
@@ -57,8 +57,8 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 	delete[] parallels;
 
 
-	GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
-	//GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
+	//GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
+	GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
 
 
 	int eCount = 0;
@@ -80,12 +80,19 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 			elements[eCount++] = (i * meridianSize + ((j + 1) % meridianSize) + 1);
 		}
 	}
+	int bufferSize = bCount / 3;
+	for (int i = bufferSize - meridianSize; i < bufferSize; i++)
+	{
+		elements[eCount++] = bufferSize - 1;
+		elements[eCount++] = (i + 1);
+		elements[eCount++] = (((i - (bufferSize - meridianSize) - 1) % meridianSize) + (bufferSize - meridianSize) - 1);
+	}
 
 	shader_.addBufferObject(buffer, bCount, 3);
 	shader_.addElementObject(elements, eCount);
 
 	delete[] buffer;
-	delete[] elements;
+	//delete[] elements;
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
