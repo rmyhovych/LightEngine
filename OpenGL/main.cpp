@@ -137,7 +137,7 @@ int main()
 	//==================
 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
 	Camera camera(time, width, height, window.getInput(), 0.1);
@@ -169,7 +169,7 @@ int main()
 		window.input();
 		mouseInput(window, camera);
 
-		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.refresh();

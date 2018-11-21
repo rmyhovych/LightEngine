@@ -7,8 +7,8 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 	camera_(camera),
 	lights_(lights)
 {
-	const int meridianSize = 5;
-	const int parallelSize = 5;
+	const int meridianSize = 20;
+	const int parallelSize = 20;
 	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
 	//float buffer[(parallelSize * meridianSize + 2) * 3];
 
@@ -84,8 +84,8 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 	for (int i = bufferSize - meridianSize; i < bufferSize; i++)
 	{
 		elements[eCount++] = bufferSize - 1;
-		elements[eCount++] = (i + 1);
-		elements[eCount++] = (((i - (bufferSize - meridianSize) - 1) % meridianSize) + (bufferSize - meridianSize) - 1);
+		elements[eCount++] = (((i - (bufferSize - meridianSize) + 1) % meridianSize) + (bufferSize - meridianSize)) - 1;
+		elements[eCount++] = i - 1;
 	}
 
 	shader_.addBufferObject(buffer, bCount, 3);
@@ -115,7 +115,7 @@ void SphereList::init()
 		lightsPtr_.push_back(ptr);
 	}
 
-	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
+	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uViewPos");
 }
 
 void SphereList::addSphere(glm::vec3 position, float radius, glm::vec3 color)
