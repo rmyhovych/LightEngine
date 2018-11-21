@@ -87,6 +87,23 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
+
+	viewPtr_ = glGetUniformLocation(shader_.ID, "uView");
+	projectionPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
+	sizePtr_ = glGetUniformLocation(shader_.ID, "uSize");
+	lightsPtr_ = glGetUniformLocation(shader_.ID, "uLights");
+	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
+}
+
+void SphereList::addSphere(glm::vec3& position, float radius, glm::vec3& color)
+{
+	Object sphere = Object(position, glm::vec3(radius), color);
+
+	sphere.linkColor("uColor", shader_.ID);
+	sphere.linkModel("uModel", shader_.ID);
+	sphere.linkRotation("uRotation", shader_.ID);
+
+	spheres_.push_back(sphere);
 }
 
 void SphereList::draw(std::vector<Light>& lights, Camera& camera)

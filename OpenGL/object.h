@@ -8,7 +8,7 @@
 class Object
 {
 public:
-	Object(glm::vec3& position, glm::vec3& scale, glm::vec3& color);
+	Object(glm::vec3 position, glm::vec3 scale, glm::vec3 color);
 
 	void move(glm::vec3& vector);
 	void rotate(glm::vec3& axis, float angle);

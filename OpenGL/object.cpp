@@ -1,6 +1,6 @@
 #include "object.h"
 
-Object::Object(glm::vec3& position, glm::vec3& scale, glm::vec3& color) :
+Object::Object(glm::vec3 position, glm::vec3 scale, glm::vec3 color) :
 	position_(position),
 	scale_(scale),
 	color_(color),

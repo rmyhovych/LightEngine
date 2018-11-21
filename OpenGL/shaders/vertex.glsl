@@ -6,13 +6,14 @@ layout (location = 1) in vec3 normal_;
 out vec3 Normal;
 out vec3 FragPos;
 
+uniform mat3 uRotation;
 uniform mat4 uModel;
 uniform mat4 uView;
 uniform mat4 uProjection;
 
 void main()
 {
-	Normal = mat3(transpose(inverse(uModel))) * normal_;
+	Normal = uRotation * normal_;
 	FragPos = vec3(uModel * vec4(position_, 1.0));
 
 	gl_Position = uProjection * uView * uModel * vec4(position_, 1.0);

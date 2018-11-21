@@ -14,7 +14,7 @@ in vec3 FragPos;
 out vec4 FragColor;
 
 //	Lights
-uniform  int uSize;
+uniform int uSize;
 uniform Light uLights[MAX_LIGHTING];
 
 //	Object
