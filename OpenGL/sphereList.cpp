@@ -5,8 +5,8 @@
 SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 	shader_(Shader(vertexPath, fragmentPath))
 {
-	const int meridianSize = 50;
-	const int parallelSize = 50;
+	const int meridianSize = 20;
+	const int parallelSize = 20;
 	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
 	//float buffer[(parallelSize * meridianSize + 2) * 3];
 

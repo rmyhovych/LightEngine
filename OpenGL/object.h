@@ -21,7 +21,7 @@ public:
 	void use();
 
 private:
-	void update();
+	void constructModel();
 
 protected:
 
@@ -29,12 +29,12 @@ protected:
 	glm::vec3 position_;
 	glm::vec3 scale_;
 	
-	glm::mat3 rotation_;
+	glm::mat4 rotation_;
 	glm::mat4 model_;
 
 	glm::vec3 color_;
 
-	char modified_;
+	bool modified_;
 
 	// Shader uniforms
 	GLuint rotationPtr_;

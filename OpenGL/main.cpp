@@ -140,13 +140,14 @@ int main()
 	//==================
 
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
-	Camera camera(time, width, height, window.getInput(), 10);
+	Camera camera(time, width, height, window.getInput(), 0.1);
 
 	glfwSetTime(0);
 	int k = 0;
+	double fps = 0;
 	while (!glfwWindowShouldClose(window.window_))
 	{
 		time = glfwGetTime();
@@ -154,10 +155,13 @@ int main()
 
 		if (k == 500)
 		{
-			std::cout << 1 / time << " fps\n";
+			std::cout << fps/500 << " fps\n";
+			fps = 0;
 			k = 0;
 		}
+		fps += 1 / time;
 		k++;
+
 
 		camera.adjust(window.window_);
 
