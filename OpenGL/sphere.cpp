@@ -5,10 +5,10 @@
 Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	shader_(Shader(vertexPath, fragmentPath))
 {
-	const int meridianSize = 5;
-	const int parallelSize = 5;
-	//float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
-	float buffer[(parallelSize * meridianSize + 2) * 3];
+	const int meridianSize = 50;
+	const int parallelSize = 50;
+	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
+	//float buffer[(parallelSize * meridianSize + 2) * 3];
 
 
 	float* meridians = new float[meridianSize];
@@ -31,7 +31,7 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	float* top = new float[3] {0, 1, 0};
 	for (int i = 0; i < 3; i++)
 	{
-		buffer[bCount++] = top[bCount];
+		buffer[bCount++] = top[i];
 	}
 	delete[] top;
 
@@ -48,17 +48,15 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	float* bot = new float[3]{ 0, -1, 0 };
 	for (int i = 0; i < 3; i++)
 	{
-		buffer[bCount++] = bot[bCount];
+		buffer[bCount++] = bot[i];
 	}
 	delete[] bot;
 	delete[] meridians;
 	delete[] parallels;
 
-	shader_.addBufferObject(buffer, (parallelSize * meridianSize + 2) * 3, 3);
-	//delete[] buffer;
 
-	//GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
-	GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
+	GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
+	//GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
 
 
 	int eCount = 0;
@@ -68,7 +66,7 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 		elements[eCount++] = (i + 1);
 		elements[eCount++] = ((i + 1) % meridianSize) + 1;
 	}
-	for (int i = 1; i < parallelSize; i++)
+	for (int i = 0; i < parallelSize - 1; i++)
 	{
 		for (int j = 0; j < meridianSize; j++)
 		{
@@ -81,7 +79,11 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 		}
 	}
 
-	shader_.addElementObject(elements, 18);
+	shader_.addBufferObject(buffer, bCount, 3);
+	shader_.addElementObject(elements, eCount);
+
+	delete[] buffer;
+	delete[] elements;
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
@@ -89,7 +91,7 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 
 void Sphere::draw(std::vector<Light>& lights, Camera& camera)
 {
-	Parameters param = { 1, glm::vec3(-1.5, 3.4, -6), glm::vec3(0.5, 0.7, 0.8) };
+	Parameters param = { 0.5, glm::vec3(-1.5, -3.4, -6), glm::vec3(0.5, 0.7, 0.8) };
 	param.model = glm::translate(glm::mat4(1.0f), param.position);
 	param.model = glm::scale(param.model, param.radius * glm::vec3(1.0f));
 
