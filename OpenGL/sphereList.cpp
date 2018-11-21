@@ -91,7 +91,7 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 
 void SphereList::draw(std::vector<Light>& lights, Camera& camera)
 {
-	Parameters param = { 0.5, glm::vec3(-1.5, -3.4, -6), glm::vec3(0.5, 0.7, 0.8) };
+	Parameters param = { 1, glm::vec3(-1.5, -1.4, -6), glm::vec3(0.5, 0.7, 0.8) };
 	param.model = glm::translate(glm::mat4(1.0f), param.position);
 	param.model = glm::scale(param.model, param.radius * glm::vec3(1.0f));
 
