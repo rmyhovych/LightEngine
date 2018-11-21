@@ -50,6 +50,8 @@ void Object::use()
 		modified_ = false;
 	}
 
+	glm::mat3 rotate = glm::mat3(rotation_);
+
 	glUniformMatrix3fv(rotationPtr_, 1, GL_FALSE, glm::value_ptr(glm::mat3(rotation_)));
 	glUniformMatrix4fv(modelPtr_, 1, GL_FALSE, glm::value_ptr(model_));
 	glUniform3f(colorPtr_, color_.x, color_.y, color_.z);

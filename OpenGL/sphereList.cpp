@@ -2,8 +2,10 @@
 
 
 
-SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
-	shader_(Shader(vertexPath, fragmentPath))
+SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera& camera, std::vector<Light>& lights) :
+	shader_(Shader(vertexPath, fragmentPath)),
+	camera_(camera),
+	lights_(lights)
 {
 	const int meridianSize = 20;
 	const int parallelSize = 20;
@@ -89,11 +91,8 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 	shader_.addLayout(1, 3, 0);
 }
 
-void SphereList::init(Camera& camera, std::vector<Light>& lights)
+void SphereList::init()
 {
-	lights_ = lights;
-
-
 	viewPtr_ = glGetUniformLocation(shader_.ID, "uView");
 	projectionPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 	sizePtr_ = glGetUniformLocation(shader_.ID, "uSize");
@@ -112,7 +111,7 @@ void SphereList::init(Camera& camera, std::vector<Light>& lights)
 	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 }
 
-void SphereList::addSphere(glm::vec3& position, float radius, glm::vec3& color)
+void SphereList::addSphere(glm::vec3 position, float radius, glm::vec3 color)
 {
 	Object sphere = Object(position, glm::vec3(radius), color);
 

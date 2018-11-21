@@ -97,9 +97,6 @@ int main()
 	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
 	};
 
-
-	SphereList sphere = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl");
-
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
 
@@ -140,10 +137,14 @@ int main()
 	//==================
 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
 	Camera camera(time, width, height, window.getInput(), 0.1);
+
+	SphereList spheres = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
+	spheres.addSphere(glm::vec3(1), 1, glm::vec3(0.5));
+	spheres.init();
 
 	glfwSetTime(0);
 	int k = 0;
@@ -173,7 +174,7 @@ int main()
 
 		camera.refresh();
 	
-		sphere.draw(lights, camera);
+		spheres.draw();
 
 		colorCube.use();
 		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));

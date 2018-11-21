@@ -31,11 +31,11 @@ struct LightPtr
 class SphereList
 {
 public:
-	SphereList(const char* vertexPath, const char* fragmentPath);
+	SphereList(const char* vertexPath, const char* fragmentPath, Camera& camera, std::vector<Light>& lights);
 
-	void init(Camera& camera, std::vector<Light>& lights);
+	void init();
 
-	void addSphere(glm::vec3& position, float radius, glm::vec3& color);
+	void addSphere(glm::vec3 position, float radius, glm::vec3 color);
 
 	void draw();
 
