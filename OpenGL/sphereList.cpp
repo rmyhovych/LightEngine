@@ -87,12 +87,21 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
+}
 
+SphereList::~SphereList()
+{
+	delete[] lightsPtr_;
+}
+
+void SphereList::init(std::vector<Light>& lights)
+{
 	viewPtr_ = glGetUniformLocation(shader_.ID, "uView");
 	projectionPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 	sizePtr_ = glGetUniformLocation(shader_.ID, "uSize");
 	lightsPtr_ = glGetUniformLocation(shader_.ID, "uLights");
 	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
+
 }
 
 void SphereList::addSphere(glm::vec3& position, float radius, glm::vec3& color)
