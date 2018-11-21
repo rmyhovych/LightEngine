@@ -21,26 +21,36 @@ struct Light
 	float intensity;
 };
 
+struct LightPtr
+{
+	GLuint color_;
+	GLuint pos_;
+	GLuint intensity_;
+};
+
 class SphereList
 {
 public:
 	SphereList(const char* vertexPath, const char* fragmentPath);
-	~SphereList();
 
-	void init(std::vector<Light>& lights);
+	void init(Camera& camera, std::vector<Light>& lights);
 
 	void addSphere(glm::vec3& position, float radius, glm::vec3& color);
 
-	void draw(std::vector<Light>& lights, Camera& camera);
+	void draw();
+
 private:
 	std::vector<Object> spheres_;
+	std::vector<Light>& lights_;
+	std::vector<LightPtr> lightsPtr_;
 
 	Shader shader_;
+	Camera& camera_;
 
 	GLuint viewPtr_;
 	GLuint projectionPtr_;
 	GLuint sizePtr_;
-	GLuint* lightsPtr_;
+
 	GLuint viewPosPtr_;
 };
 

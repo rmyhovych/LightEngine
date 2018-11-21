@@ -89,19 +89,27 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 	shader_.addLayout(1, 3, 0);
 }
 
-SphereList::~SphereList()
+void SphereList::init(Camera& camera, std::vector<Light>& lights)
 {
-	delete[] lightsPtr_;
-}
+	lights_ = lights;
 
-void SphereList::init(std::vector<Light>& lights)
-{
+
 	viewPtr_ = glGetUniformLocation(shader_.ID, "uView");
 	projectionPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 	sizePtr_ = glGetUniformLocation(shader_.ID, "uSize");
-	lightsPtr_ = glGetUniformLocation(shader_.ID, "uLights");
-	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 
+	LightPtr ptr;
+
+	for (int i = 0; i < lights_.size(); i++)
+	{
+		ptr.color_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].color").c_str());
+		ptr.pos_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].pos").c_str());
+		ptr.intensity_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].intensity").c_str());
+
+		lightsPtr_.push_back(ptr);
+	}
+
+	viewPosPtr_ = glGetUniformLocation(shader_.ID, "uProjection");
 }
 
 void SphereList::addSphere(glm::vec3& position, float radius, glm::vec3& color)
@@ -115,33 +123,43 @@ void SphereList::addSphere(glm::vec3& position, float radius, glm::vec3& color)
 	spheres_.push_back(sphere);
 }
 
-void SphereList::draw(std::vector<Light>& lights, Camera& camera)
+void SphereList::draw()
 {
-	Parameters param = { 1, glm::vec3(-1.5, -1.4, -6), glm::vec3(0.5, 0.7, 0.8) };
-	param.model = glm::translate(glm::mat4(1.0f), param.position);
-	param.model = glm::scale(param.model, param.radius * glm::vec3(1.0f));
-
 	shader_.use();
 
-	shader_.uniformInt("uSize", lights.size());
-	for (int j = 0; j < lights.size(); j++)
+	if (lights_.size() != lightsPtr_.size())
 	{
-		shader_.uniformVec3(("uLights[" + std::to_string(j) + "].color").c_str(), lights[j].color);
-		shader_.uniformVec3(("uLights[" + std::to_string(j) + "].pos").c_str(), lights[j].pos);
-		shader_.uniformFloat(("uLights[" + std::to_string(j) + "].intensity").c_str(), lights[j].intensity);
+		LightPtr ptr;
+
+		for (int i = lightsPtr_.size(); i < lights_.size(); i++)
+		{
+			ptr.color_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].color").c_str());
+			ptr.pos_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].pos").c_str());
+			ptr.intensity_ = glGetUniformLocation(shader_.ID, ("uLights[" + std::to_string(i) + "].intensity").c_str());
+
+			lightsPtr_.push_back(ptr);
+		}
 	}
 
-	//	Object
-	shader_.uniformVec3("uColor", param.color);
-	shader_.uniformVec3("uViewPos", camera.getPosition());
+	for (int i = 0; i < lights_.size(); i++)
+	{
+		glUniform3f(lightsPtr_[i].color_, lights_[i].color.x, lights_[i].color.y, lights_[i].color.z);
+		glUniform3f(lightsPtr_[i].pos_, lights_[i].pos.x, lights_[i].pos.y, lights_[i].pos.z);
+		glUniform1f(lightsPtr_[i].intensity_, lights_[i].intensity);
+	}
 
+	glUniformMatrix4fv(viewPtr_, 1, GL_FALSE, glm::value_ptr(camera_.getView()));
+	glUniformMatrix4fv(projectionPtr_, 1, GL_FALSE, camera_.getProjection());
+	glUniform1f(sizePtr_, lights_.size());
 
-	//	- VERTEX -
-	shader_.uniformMat4Ptr("uModel", glm::value_ptr(param.model));
-	shader_.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
-	shader_.uniformMat4Ptr("uProjection", camera.getProjection());
+	glm::vec3 cameraPos = camera_.getPosition();
+	glUniform3f(viewPosPtr_, cameraPos.x, cameraPos.y, cameraPos.z);
 
+	for (int i = 0; i < spheres_.size(); i++)
+	{
+		spheres_[i].use();
+		shader_.draw();
+	}
 
-	shader_.draw();
 }
 
