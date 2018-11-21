@@ -37,6 +37,8 @@ public:
 
 	void addSphere(glm::vec3 position, float radius, glm::vec3 color);
 
+	Object& operator[](int index);
+
 	void draw();
 
 private:

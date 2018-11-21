@@ -175,6 +175,7 @@ int main()
 		camera.refresh();
 	
 		spheres.draw();
+		spheres[0].move(glm::vec3(0, 0, -0.0001));
 
 		colorCube.use();
 		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
@@ -196,6 +197,7 @@ int main()
 			
 
 			//	- VERTEX -
+			glUniformMatrix3fv(glGetUniformLocation(colorCube.ID, "uRotation"), 1, GL_FALSE, glm::value_ptr(glm::mat3(models[i])));
 			colorCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
 			colorCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
 			colorCube.uniformMat4Ptr("uProjection", camera.getProjection());

@@ -122,6 +122,11 @@ void SphereList::addSphere(glm::vec3 position, float radius, glm::vec3 color)
 	spheres_.push_back(sphere);
 }
 
+Object& SphereList::operator[](int index)
+{
+	return spheres_[index];
+}
+
 void SphereList::draw()
 {
 	shader_.use();
@@ -149,7 +154,7 @@ void SphereList::draw()
 
 	glUniformMatrix4fv(viewPtr_, 1, GL_FALSE, glm::value_ptr(camera_.getView()));
 	glUniformMatrix4fv(projectionPtr_, 1, GL_FALSE, camera_.getProjection());
-	glUniform1f(sizePtr_, lights_.size());
+	glUniform1i(sizePtr_, lights_.size());
 
 	glm::vec3 cameraPos = camera_.getPosition();
 	glUniform3f(viewPosPtr_, cameraPos.x, cameraPos.y, cameraPos.z);

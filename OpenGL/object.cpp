@@ -12,19 +12,22 @@ Object::Object(glm::vec3 position, glm::vec3 scale, glm::vec3 color) :
 {
 }
 
-void Object::move(glm::vec3& vector)
+void Object::move(glm::vec3 vector)
 {
 	position_ += vector;
+	modified_ = true;
 }
 
-void Object::rotate(glm::vec3& axis, float angle)
+void Object::rotate(glm::vec3 axis, float angle)
 {
 	rotation_ = glm::rotate(rotation_, angle, axis);
+	modified_ = true;
 }
 
-void Object::scale(glm::vec3& vector)
+void Object::scale(glm::vec3 vector)
 {
 	scale_ *= vector;
+	modified_ = true;
 }
 
 void Object::linkRotation(const char* name, GLuint ID)
@@ -52,7 +55,7 @@ void Object::use()
 
 	glm::mat3 rotate = glm::mat3(rotation_);
 
-	glUniformMatrix3fv(rotationPtr_, 1, GL_FALSE, glm::value_ptr(glm::mat3(rotation_)));
+	glUniformMatrix3fv(rotationPtr_, 1, GL_FALSE, glm::value_ptr(rotate));
 	glUniformMatrix4fv(modelPtr_, 1, GL_FALSE, glm::value_ptr(model_));
 	glUniform3f(colorPtr_, color_.x, color_.y, color_.z);
 }
