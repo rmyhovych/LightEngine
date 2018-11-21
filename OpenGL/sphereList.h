@@ -28,10 +28,10 @@ struct Parameters
 	glm::mat4 model;
 };
 
-class Sphere
+class SphereList
 {
 public:
-	Sphere(const char* vertexPath, const char* fragmentPath);
+	SphereList(const char* vertexPath, const char* fragmentPath);
 	void addSphere();
 
 	void draw(std::vector<Light>& lights, Camera& camera);

@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "shader.h"
 #include "window_gl.h"
-#include "sphere.h"
+#include "sphereList.h"
 
 int width = 1200;
 int height = 800;
@@ -98,7 +98,7 @@ int main()
 	};
 
 
-	Sphere sphere = Sphere("shaders/vertex.glsl", "shaders/fragment.glsl");
+	SphereList sphere = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl");
 
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");

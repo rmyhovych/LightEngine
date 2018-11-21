@@ -1,8 +1,8 @@
-#include "sphere.h"
+#include "sphereList.h"
 
 
 
-Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
+SphereList::SphereList(const char* vertexPath, const char* fragmentPath) :
 	shader_(Shader(vertexPath, fragmentPath))
 {
 	const int meridianSize = 50;
@@ -89,7 +89,7 @@ Sphere::Sphere(const char* vertexPath, const char* fragmentPath) :
 	shader_.addLayout(1, 3, 0);
 }
 
-void Sphere::draw(std::vector<Light>& lights, Camera& camera)
+void SphereList::draw(std::vector<Light>& lights, Camera& camera)
 {
 	Parameters param = { 0.5, glm::vec3(-1.5, -3.4, -6), glm::vec3(0.5, 0.7, 0.8) };
 	param.model = glm::translate(glm::mat4(1.0f), param.position);
