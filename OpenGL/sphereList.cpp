@@ -1,5 +1,5 @@
 #include "sphereList.h"
-
+#include <fstream>
 
 
 SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera& camera, std::vector<Light>& lights) :
@@ -7,92 +7,36 @@ SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera&
 	camera_(camera),
 	lights_(lights)
 {
-	const int meridianSize = 20;
-	const int parallelSize = 20;
-	float* buffer = new float[(parallelSize * meridianSize + 2) * 3];
-	//float buffer[(parallelSize * meridianSize + 2) * 3];
+	std::ifstream bufferData("data/sphereBuffer", std::ios::binary);
+	std::ifstream elementData("data/sphereElements", std::ios::binary);
+
+	int bCount;
+	bufferData.read((char*)&bCount, sizeof(bCount));
+
+	int eCount;
+	elementData.read((char*)&eCount, sizeof(eCount));
 
 
-	float* meridians = new float[meridianSize];
-	float* parallels = new float[parallelSize];
-	//float meridians[meridianSize];
-	//float parallels[parallelSize];
-
-	for (int i = 0; i < meridianSize; i++)
+	float* buffer = new float[bCount];
+	for (int i = 0; i < bCount; i++)
 	{
-		meridians[i] = i * (2 * PI / meridianSize);
+		bufferData.read((char*)&(buffer[i]), sizeof(float));
 	}
+	bufferData.close();
 
-	for (int i = 0; i < parallelSize; i++)
+	GLuint* elements = new GLuint[eCount];
+	for (int i = 0; i < eCount; i++)
 	{
-		parallels[i] = (i + 1) * (PI / (parallelSize + 1));
+		elementData.read((char*)&(elements[i]), sizeof(GLuint));
 	}
-
-
-	int bCount = 0;
-	float* top = new float[3] {0, 1, 0};
-	for (int i = 0; i < 3; i++)
-	{
-		buffer[bCount++] = top[i];
-	}
-	delete[] top;
-
-	for (int y = 0; y < parallelSize; y++)
-	{
-		for (int x = 0; x < meridianSize; x++)
-		{
-			buffer[bCount++] = sin(parallels[y]) * cos(meridians[x]);
-			buffer[bCount++] = cos(parallels[y]);
-			buffer[bCount++] = sin(parallels[y]) * sin(meridians[x]);
-		}
-	}
-
-	float* bot = new float[3]{ 0, -1, 0 };
-	for (int i = 0; i < 3; i++)
-	{
-		buffer[bCount++] = bot[i];
-	}
-	delete[] bot;
-	delete[] meridians;
-	delete[] parallels;
-
-
-	//GLuint* elements = new GLuint[3 * 2 * (meridianSize) * (parallelSize)];
-	GLuint elements[3 * 2 * (meridianSize) * (parallelSize)];
-
-
-	int eCount = 0;
-	for (int i = 0; i < meridianSize; i++)
-	{
-		elements[eCount++] = 0;
-		elements[eCount++] = (i + 1);
-		elements[eCount++] = ((i + 1) % meridianSize) + 1;
-	}
-	for (int i = 0; i < parallelSize - 1; i++)
-	{
-		for (int j = 0; j < meridianSize; j++)
-		{
-			elements[eCount++] = (i * meridianSize + j + 1);
-			elements[eCount++] = ((i + 1) * meridianSize + j + 1);
-			elements[eCount++] = (((i + 1) * meridianSize) + ((1 + j) % meridianSize) + 1);
-			elements[eCount++] = (i * meridianSize + j + 1);
-			elements[eCount++] = (((i + 1) * meridianSize) + ((1 + j) % meridianSize) + 1);
-			elements[eCount++] = (i * meridianSize + ((j + 1) % meridianSize) + 1);
-		}
-	}
-	int bufferSize = bCount / 3;
-	for (int i = bufferSize - meridianSize; i < bufferSize; i++)
-	{
-		elements[eCount++] = bufferSize - 1;
-		elements[eCount++] = (((i - (bufferSize - meridianSize) + 1) % meridianSize) + (bufferSize - meridianSize)) - 1;
-		elements[eCount++] = i - 1;
-	}
+	elementData.close();
+	
 
 	shader_.addBufferObject(buffer, bCount, 3);
 	shader_.addElementObject(elements, eCount);
 
 	delete[] buffer;
-	//delete[] elements;
+	delete[] elements;
 
 	shader_.addLayout(0, 3, 0);
 	shader_.addLayout(1, 3, 0);
