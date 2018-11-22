@@ -5,7 +5,10 @@
 #include "camera.h"
 #include "shader.h"
 #include "window.h"
+
+#include "objectList.h"
 #include "sphereList.h"
+#include "prismList.h"
 
 int width = 1200;
 int height = 800;
@@ -22,7 +25,7 @@ int main()
 		glm::vec3(-1.5f, -2.2f, -2.5f),
 		glm::vec3(-3.8f, -2.0f, -6.3f),
 		glm::vec3(5.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(-1.7f,  -5.0f, -7.5f),
 		glm::vec3(1.3f, -2.0f, -2.5f),
 		glm::vec3(0.0f,  1.0f, -6.5f),
 		glm::vec3(1.5f,  0.2f, -1.5f),
@@ -40,49 +43,50 @@ int main()
 	}
 
 	float vertices[] = {
-	// Bottom face
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	// Front face
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	// Left face
-	-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
-	// Right face
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	// Bottom face          
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	// Top face
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		// Bottom face
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		// Front face
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		// Left face
+		-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,
+		// Right face
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 // Bottom face          
+		 -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		  0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		  0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		  0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 // Top face
+		 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		  0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		  0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		  0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
 	};
+
 
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
@@ -113,16 +117,6 @@ int main()
 		});
 
 	//==================	COLOR CUBES
-	Shader colorCube("shaders/vertex.glsl", "shaders/fragment.glsl");
-
-	colorCube.addBufferObject(vertices, 36, 6);
-
-	colorCube.addLayout(0, 3, 0);
-	colorCube.addLayout(1, 3, 3);
-
-	glm::vec3 cubeColor = glm::vec3(0.4f, 0.6f, 0.4f);
-	//==================
-
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
@@ -130,8 +124,15 @@ int main()
 	Camera camera(time, width, height, window.getInput(), 0.1);
 
 	SphereList spheres = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
-	spheres.addSphere(glm::vec3(0, 0, -3), 1, glm::vec3(0.5));
-	spheres.init();
+	spheres.addSphere(glm::vec3(0, 0, -3), 1, glm::vec3(1));
+	spheres[0].scale(glm::vec3(0.1));
+
+	PrismList cubes = PrismList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
+	for (int i = 0; i < positions.size() - 3; i++)
+	{
+		cubes.addPrism(positions[i], glm::vec3(1), glm::vec3(0.4, 0.6, 0.4));
+	}
+	cubes[5].scale(glm::vec3(30, 0.1, 30));
 
 	glfwSetTime(0);
 	int k = 0;
@@ -162,36 +163,8 @@ int main()
 		camera.refresh();
 	
 		spheres.draw();
-		//spheres[0].move(glm::vec3(0, 0, -0.0001));
-		spheres[0].rotate(glm::vec3(0, 1, 0), 0.001);
 
-		colorCube.use();
-		models[1] = glm::rotate(models[1], -0.001f, glm::normalize(glm::vec3(1, 1, 0)));
-		for (int i = 0; i < models.size() - 3; i++)
-		{
-			//	- FRAGMENT -
-			//	Lights
-			colorCube.uniformInt("uSize", lights.size());
-			for (int j = 0; j < lights.size(); j++)
-			{
-				colorCube.uniformVec3(("uLights[" + std::to_string(j) + "].color").c_str(), lights[j].color);
-				colorCube.uniformVec3(("uLights[" + std::to_string(j) + "].pos").c_str(), lights[j].pos);
-				colorCube.uniformFloat(("uLights[" + std::to_string(j) + "].intensity").c_str(), lights[j].intensity);
-			}
-
-			//	Object
-			colorCube.uniformVec3("uColor", cubeColor);
-			colorCube.uniformVec3("uViewPos", camera.getPosition());
-			
-
-			//	- VERTEX -
-			glUniformMatrix3fv(glGetUniformLocation(colorCube.ID, "uRotation"), 1, GL_FALSE, glm::value_ptr(glm::mat3(models[i])));
-			colorCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
-			colorCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
-			colorCube.uniformMat4Ptr("uProjection", camera.getProjection());
-
-			colorCube.draw();
-		}
+		cubes.draw();
 
 		lightCube.use();
 		for (int i = models.size() - 3; i < models.size(); i++)

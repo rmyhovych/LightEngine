@@ -126,16 +126,19 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="prismList.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="objectList.cpp" />
     <ClCompile Include="sphereList.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="prismList.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="objectList.h" />
     <ClInclude Include="sphereList.h" />
-    <ClInclude Include="stb_image.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
