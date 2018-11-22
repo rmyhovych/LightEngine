@@ -128,7 +128,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="sphereList.cpp" />
-    <ClCompile Include="window_gl.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
@@ -136,7 +136,7 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="sphereList.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="window_gl.h" />
+    <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="shaders\fragment.glsl" />

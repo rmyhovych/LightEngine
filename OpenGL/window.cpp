@@ -1,10 +1,16 @@
-#include "window_gl.h"
+#include "window.h"
 
+double scroll = 0;
 
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	scroll = yoffset;
+}
 
-WindowGL::WindowGL(int width, int height) :
-	keyInput_(new bool[6])
-
+Window::Window(int width, int height) :
+	keyInput_(new bool[6]),
+	pressed_(false),
+	inputForce_(0.005)
 {
 	//	-- START GLFW --
 	glfwInit();
@@ -25,6 +31,7 @@ WindowGL::WindowGL(int width, int height) :
 
 	glfwMakeContextCurrent(window_);
 	glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
+	glfwSetScrollCallback(window_, scroll_callback);
 
 	//	Setup GLEW
 	glewExperimental = GL_TRUE;
@@ -42,18 +49,18 @@ WindowGL::WindowGL(int width, int height) :
 	}
 }
 
-WindowGL::~WindowGL()
+Window::~Window()
 {
 	//	-- END GLFW --
 	glfwTerminate();
 }
 
-bool* WindowGL::getInput()
+bool* Window::getInput()
 {
 	return keyInput_;
 }
 
-void WindowGL::input()
+void Window::input()
 {
 	if (glfwGetKey(window_, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
@@ -95,6 +102,50 @@ void WindowGL::input()
 	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_RELEASE)
 	{
 		keyInput_[3] = false;
+	}
+}
+
+void Window::mouseInput(Camera& camera)
+{
+	double x;
+	double y;
+	if (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed_)
+	{
+		pressed_ = true;
+		glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwGetCursorPos(window_, &x, &y);
+		glfwSetCursorPos(window_, x, y);
+
+		cursorPosition_.x = x;
+		cursorPosition_.y = y;
+	}
+	else if (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
+	{
+		pressed_ = false;
+		glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	if (pressed_)
+	{
+		glfwGetCursorPos(window_, &x, &y);
+
+		camera.rotateCamera(inputForce_*(x - cursorPosition_.x), inputForce_*(y - cursorPosition_.y));
+		glfwSetCursorPos(window_, (double)cursorPosition_.x, (double)cursorPosition_.y);
+	}
+
+	if (scroll != 0)
+	{
+
+		if (scroll == 1)
+		{
+			camera.zoom_ /= 1.1;
+		}
+		else
+		{
+			camera.zoom_ *= 1.1;
+		}
+
+		scroll = 0;
 	}
 }
 

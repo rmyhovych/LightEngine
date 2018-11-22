@@ -4,30 +4,17 @@
 
 #include "camera.h"
 #include "shader.h"
-#include "window_gl.h"
+#include "window.h"
 #include "sphereList.h"
 
 int width = 1200;
 int height = 800;
 
-bool pressed = false;
-double scroll = 0;
-glm::vec2 cursor;
-float inputForce = 0.005;
-void mouseInput(WindowGL& window, Camera& camera);
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	scroll = yoffset;
-}
-
 int main()
 {
 	//	Create window
-	WindowGL window(width, height);
+	Window window(width, height);
 	double time;
-
-	glfwSetScrollCallback(window.window_, scroll_callback);
 
 	std::vector<glm::vec3> positions = {
 		glm::vec3(0.0f,  0.0f,  -5.0f),
@@ -167,7 +154,7 @@ int main()
 		camera.adjust(window.window_);
 
 		window.input();
-		mouseInput(window, camera);
+		window.mouseInput(camera);
 
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -226,48 +213,4 @@ int main()
 	}
 
 	return 0;
-}
-
-void mouseInput(WindowGL& window, Camera& camera)
-{
-	double x;
-	double y;
-	if (glfwGetMouseButton(window.window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed)
-	{
-		pressed = true;
-		glfwSetInputMode(window.window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-		glfwGetCursorPos(window.window_, &x, &y);
-		glfwSetCursorPos(window.window_, x, y);
-
-		cursor.x = x;
-		cursor.y = y;
-	}
-	else if (glfwGetMouseButton(window.window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
-	{
-		pressed = false;
-		glfwSetInputMode(window.window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	}
-
-	if (pressed)
-	{		
-		glfwGetCursorPos(window.window_, &x, &y);
-
-		camera.rotateCamera(inputForce*(x - cursor.x), inputForce*(y - cursor.y));
-		glfwSetCursorPos(window.window_, (double)cursor.x, (double)cursor.y);
-	}
-
-	if (scroll != 0)
-	{
-
-		if (scroll == 1)
-		{
-			camera.zoom_ /= 1.1;
-		}
-		else
-		{
-			camera.zoom_ *= 1.1;
-		}
-
-		scroll = 0;
-	}
 }
