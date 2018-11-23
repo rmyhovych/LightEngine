@@ -113,7 +113,7 @@ int main()
 	lights.push_back({
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		positions[9],
-		20.0f
+		50.0f
 		});
 
 	//==================	COLOR CUBES
@@ -133,6 +133,7 @@ int main()
 		cubes.addPrism(positions[i], glm::vec3(1), glm::vec3(0.4, 0.6, 0.4));
 	}
 	cubes[5].scale(glm::vec3(30, 0.1, 30));
+	cubes[5].setColor(glm::vec3(1));
 
 	glfwSetTime(0);
 	int k = 0;

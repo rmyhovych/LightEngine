@@ -13,6 +13,7 @@ public:
 	void move(glm::vec3 vector);
 	void rotate(glm::vec3 axis, float angle);
 	void scale(glm::vec3 vector);
+	void setColor(glm::vec3 color);
 
 	void linkRotation(const char* name, GLuint ID);
 	void linkModel(const char* name, GLuint ID);

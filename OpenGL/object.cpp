@@ -30,6 +30,11 @@ void Object::scale(glm::vec3 vector)
 	modified_ = true;
 }
 
+void Object::setColor(glm::vec3 color)
+{
+	color_ = color;
+}
+
 void Object::linkRotation(const char* name, GLuint ID)
 {
 	rotationPtr_ = glGetUniformLocation(ID, name);
