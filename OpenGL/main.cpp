@@ -171,11 +171,13 @@ int main()
 		camera.refresh();
 
 		sphereSpeed.y += -0.0001;
+		sphereSpeed *= 0.999;
 		spheres[0].move(sphereSpeed);
 
-		if (spheres[0].getPosition().y < -5)
+		if (spheres[0].getPosition().y < -5 + 0.15)
 		{
-			sphereSpeed.y -= 0.1 * (spheres[0].getPosition().y - -5);
+			sphereSpeed *= 0.95;
+			sphereSpeed.y -= 0.1 * (spheres[0].getPosition().y - (-5 + 0.15));
 		}
 
 		glViewport(0, 0, width / 3, height / 3);
