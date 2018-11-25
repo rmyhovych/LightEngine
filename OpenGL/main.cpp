@@ -87,6 +87,14 @@ int main()
 		 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
 	};
 
+	//==================	FBO
+
+	Shader fboShader("shaders/vertex_fbo.glsl", "shaders/fragment_fbo.glsl");
+
+	fboShader.addFramebufferObject(width, height);
+	fboShader.addLayout(0, 2, 0);
+	fboShader.addLayout(1, 2, 2);
+	//fboShader.uniformInt("screenTexture", 0);
 
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
@@ -113,7 +121,7 @@ int main()
 	lights.push_back({
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		positions[9],
-		50.0f
+		20.0f
 		});
 
 	//==================	COLOR CUBES
@@ -135,6 +143,8 @@ int main()
 	cubes[5].scale(glm::vec3(30, 0.1, 30));
 	cubes[5].setColor(glm::vec3(1));
 
+	glm::vec3 sphereSpeed = glm::vec3(0);
+	
 	glfwSetTime(0);
 	int k = 0;
 	double fps = 0;
@@ -158,11 +168,22 @@ int main()
 		window.input();
 		window.mouseInput(camera);
 
+		camera.refresh();
+
+		sphereSpeed.y += -0.0001;
+		spheres[0].move(sphereSpeed);
+
+		if (spheres[0].getPosition().y < -5)
+		{
+			sphereSpeed.y -= 0.1 * (spheres[0].getPosition().y - -5);
+		}
+
+		glViewport(0, 0, width / 3, height / 3);
+		fboShader.render();
+		
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		camera.refresh();
-	
 		spheres.draw();
 
 		cubes.draw();
@@ -179,9 +200,13 @@ int main()
 			lightCube.uniformMat4Ptr("uProjection", camera.getProjection());
 
 			lightCube.draw();
-		}
+		}		
+		
+		glViewport(0, 0, width, height);
+		fboShader.use();
 
-
+		fboShader.draw();
+		
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();
 	}

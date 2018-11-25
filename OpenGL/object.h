@@ -15,6 +15,8 @@ public:
 	void scale(glm::vec3 vector);
 	void setColor(glm::vec3 color);
 
+	glm::vec3& getPosition();
+
 	void linkRotation(const char* name, GLuint ID);
 	void linkModel(const char* name, GLuint ID);
 	void linkColor(const char* name, GLuint ID);

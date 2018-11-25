@@ -28,6 +28,8 @@ public:
 
 	void addBufferObject(float* buffer, int bufferSize, int attributeSize);
 	void addElementObject(GLuint* elements, int elementSize);
+	void addFramebufferObject(int& width, int& height);
+
 	void addTexture(const char* name);
 
 	void addLayout(int location, int size, int position);
@@ -39,6 +41,8 @@ public:
 
 	void use();
 
+	void render();
+
 	void draw();
 
 private:
@@ -48,6 +52,9 @@ private:
 	GLuint* vao_;
 	GLuint* vbo_;
 	GLuint* ebo_;
+
+	GLuint* fbo_;
+	GLuint* rbo_;
 	GLuint* texture_;
 
 	int bufferSize_;

@@ -146,6 +146,10 @@
     <Text Include="shaders\fragmentLight.glsl" />
     <Text Include="shaders\vertex.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_fbo.glsl" />
+    <None Include="shaders\vertex_fbo.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

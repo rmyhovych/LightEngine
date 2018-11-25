@@ -74,4 +74,12 @@
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_fbo.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\vertex_fbo.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

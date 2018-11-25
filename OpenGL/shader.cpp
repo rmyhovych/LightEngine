@@ -4,6 +4,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) :
 	vao_(nullptr),
 	vbo_(nullptr),
 	ebo_(nullptr),
+	fbo_(nullptr),
+	rbo_(nullptr),
 	texture_(nullptr)
 {
 	// 1. retrieve the vertex/fragment source code from filePath
@@ -69,7 +71,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) :
 void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 {
 	attributeSize_ = attributeSize;
-	bufferSize_ = bufferSize * attributeSize;
+	bufferSize_ = bufferSize;
 
 	vao_ = new GLuint;
 	vbo_ = new GLuint;
@@ -80,7 +82,7 @@ void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 	glBindVertexArray(*vao_);
 
 	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
-	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * attributeSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
 }
 
 void Shader::addElementObject(GLuint* elements, int elementSize)
@@ -95,6 +97,47 @@ void Shader::addElementObject(GLuint* elements, int elementSize)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo_);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementSize * sizeof(float), elements, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Shader::addFramebufferObject(int& w, int& h)
+{
+	int width = w / 3;
+	int height = h / 3;
+	float fboVertecies[] = {
+
+		// positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		1.0f,  1.0f,  1.0f, 1.0f,
+		1.0f, -1.0f,  1.0f, 0.0f
+	};
+
+	addBufferObject(fboVertecies, 6, 4);
+
+	fbo_ = new GLuint;
+	glGenFramebuffers(1, fbo_);
+	glBindFramebuffer(GL_FRAMEBUFFER, *fbo_);
+
+	texture_ = new GLuint;
+	glGenTextures(1, texture_);
+	glBindTexture(GL_TEXTURE_2D, *texture_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, *texture_, 0);
+
+	rbo_ = new GLuint;
+	glGenRenderbuffers(1, rbo_);
+	glBindRenderbuffer(GL_RENDERBUFFER, *rbo_);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, *rbo_);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void Shader::addTexture(const char* name)
@@ -157,6 +200,16 @@ void Shader::use()
 {
 	glUseProgram(ID);
 	glBindVertexArray(*vao_);
+
+	if (fbo_ != nullptr)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST);
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+	}
+
 	if (texture_ != nullptr)
 	{
 		glBindTexture(GL_TEXTURE_2D, *texture_);
@@ -173,6 +226,15 @@ void Shader::use()
 	else
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+}
+
+void Shader::render()
+{
+	if (fbo_ != nullptr)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, *fbo_);
+		glEnable(GL_DEPTH_TEST);
 	}
 }
 
