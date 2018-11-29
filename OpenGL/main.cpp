@@ -87,15 +87,6 @@ int main()
 		 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
 	};
 
-	//==================	FBO
-
-	Shader fboShader("shaders/vertex_fbo.glsl", "shaders/fragment_fbo.glsl");
-
-	fboShader.addFramebufferObject(width, height);
-	fboShader.addLayout(0, 2, 0);
-	fboShader.addLayout(1, 2, 2);
-	//fboShader.uniformInt("screenTexture", 0);
-
 	//==================	LIGHT
 	Shader lightCube("shaders/vertex.glsl", "shaders/fragmentLight.glsl");
 
@@ -109,19 +100,19 @@ int main()
 	lights.push_back({
 		glm::vec3(0.3f, 0.3f, 1.0f),
 		positions[7],
-		10.0f
+		3.0f
 		});
 
 	lights.push_back({
 		glm::vec3(1.0f, 0.3f, 0.3f),
 		positions[8],
-		10.0f
+		3.0f
 		});
 
 	lights.push_back({
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		positions[9],
-		20.0f
+		5.0f
 		});
 
 	//==================	COLOR CUBES
@@ -129,7 +120,7 @@ int main()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
-	Camera camera(time, width, height, window.getInput(), 0.1);
+	Camera camera(time, width, height, window.getInput(), 5);
 
 	SphereList spheres = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
 	spheres.addSphere(glm::vec3(0, 0, -3), 1, glm::vec3(1));
@@ -169,19 +160,18 @@ int main()
 		window.mouseInput(camera);
 
 		camera.refresh();
-
+		//camera.getFocus() = spheres[0].getPosition();
+		/*
 		sphereSpeed.y += -0.0001;
 		sphereSpeed *= 0.999;
 		spheres[0].move(sphereSpeed);
 
 		if (spheres[0].getPosition().y < -5 + 0.15)
 		{
-			sphereSpeed *= 0.95;
+			sphereSpeed *= 0.99;
 			sphereSpeed.y -= 0.1 * (spheres[0].getPosition().y - (-5 + 0.15));
 		}
-
-		glViewport(0, 0, width / 3, height / 3);
-		fboShader.render();
+		*/
 		
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -203,11 +193,6 @@ int main()
 
 			lightCube.draw();
 		}		
-		
-		glViewport(0, 0, width, height);
-		fboShader.use();
-
-		fboShader.draw();
 		
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();

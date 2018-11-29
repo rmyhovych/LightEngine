@@ -29,6 +29,7 @@ void main()
 	float fraction;
 
 	vec3 reflectDir;
+	vec3 halfwayDir;
 	vec3 viewDir = normalize(uViewPos - FragPos);
 
 	float diffuse;
@@ -41,14 +42,15 @@ void main()
 		fraction = 1/(1 + dot(lightDir, lightDir) / uLights[i].intensity);
 		lightDir = normalize(lightDir);
 
-		reflectDir = reflect(-lightDir, Normal);
+		//reflectDir = reflect(-lightDir, Normal);
+		halfwayDir = normalize(viewDir + lightDir);
 
 		diffuse = fraction * max(dot(Normal, lightDir), 0.0);
-		specular = fraction * pow(max(dot(viewDir, reflectDir), 0.0), 32);
+		specular = fraction * pow(max(dot(halfwayDir, Normal), 0.0), 64);
 
 		result += (uColor - result) * (diffuse + specular) * uLights[i].color;
 	}
 
-
-	FragColor = vec4(result, 1.0f);
+	vec3 gamma = vec3(0.4545);
+	FragColor.rgb = pow(result.rgb, gamma);
 }
