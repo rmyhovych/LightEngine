@@ -30,8 +30,9 @@ public:
 
 
 	void adjust(GLFWwindow* window);
-	void refresh();
+	void refresh(unsigned i, unsigned max);
 
+	void calculateBokeh(unsigned i, unsigned max);
 
 	float zoom_;
 
@@ -40,6 +41,10 @@ private:
 
 private:
 	double& time_;
+
+	float aperture_;
+
+	glm::vec3 bokeh_;
 
 	glm::vec3 focus_;
 	glm::vec3 direction_;

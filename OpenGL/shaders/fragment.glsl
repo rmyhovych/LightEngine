@@ -42,15 +42,22 @@ void main()
 		fraction = 1/(1 + dot(lightDir, lightDir) / uLights[i].intensity);
 		lightDir = normalize(lightDir);
 
-		//reflectDir = reflect(-lightDir, Normal);
-		halfwayDir = normalize(viewDir + lightDir);
+		reflectDir = reflect(-lightDir, Normal);
+		//halfwayDir = normalize(viewDir + lightDir);
 
 		diffuse = fraction * max(dot(Normal, lightDir), 0.0);
-		specular = fraction * pow(max(dot(halfwayDir, Normal), 0.0), 64);
+		specular = fraction * pow(max(dot(reflectDir, viewDir), 0.0), 16);
+		//specular = fraction * pow(max(dot(Normal, halfwayDir), 0.0), 256);
 
 		result += (uColor - result) * (diffuse + specular) * uLights[i].color;
 	}
 
 	vec3 gamma = vec3(0.4545);
+
+	/*
+	uvec3 adjustedResult = uvec3(result * 40);
+	result = vec3(adjustedResult) / 40.0f;
+	*/
+
 	FragColor.rgb = pow(result.rgb, gamma);
 }

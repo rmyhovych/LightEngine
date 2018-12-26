@@ -2,6 +2,9 @@
 
 Camera::Camera(double& time, int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 	time_(time),
+
+	aperture_(0.005),
+
 	input_(input),
 	zoom_(zoom),
 	focus_(focus),
@@ -72,7 +75,6 @@ void Camera::rotateCamera(float x, float y)
 void Camera::moveCamera()
 {
 	glm::vec3 right = glm::normalize(glm::cross(direction_, up_));
-	//glm::vec3 forward = glm::normalize(glm::cross(up_, right));
 	glm::vec3 forward = direction_;
 
 	if (input_[0])
@@ -125,7 +127,7 @@ void Camera::adjust(GLFWwindow* window)
 	}
 }
 
-void Camera::refresh()
+void Camera::refresh(unsigned i, unsigned max)
 {
 	moveCamera();
 
@@ -135,5 +137,13 @@ void Camera::refresh()
 
 	position_ = focus_ - zoom_ * direction_;
 
-	view_ = glm::lookAt(position_, focus_, up_);
+	calculateBokeh(i, max);
+
+	view_ = glm::lookAt(position_ + bokeh_, focus_, up_);
+}
+
+void Camera::calculateBokeh(unsigned i, unsigned max)
+{
+	float number = (float)i * 2.0 * PI / (float)max;
+	bokeh_ = aperture_ * (glm::normalize(glm::cross(direction_, up_)) * cosf(number) + up_ * sinf(number));
 }

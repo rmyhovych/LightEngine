@@ -70,7 +70,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) :
 
 void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 {
-	attributeSize_ = attributeSize;
+	attributeSize_ = attributeSize;	
 	bufferSize_ = bufferSize;
 
 	vao_ = new GLuint;
@@ -82,6 +82,7 @@ void Shader::addBufferObject(float* buffer, int bufferSize, int attributeSize)
 	glBindVertexArray(*vao_);
 
 	glBindBuffer(GL_ARRAY_BUFFER, *vbo_);
+
 	glBufferData(GL_ARRAY_BUFFER, bufferSize_ * attributeSize_ * sizeof(float), buffer, GL_STATIC_DRAW);
 }
 
