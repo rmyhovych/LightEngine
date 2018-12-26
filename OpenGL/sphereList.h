@@ -10,3 +10,4 @@ public:
 	virtual void addSphere(glm::vec3 position, float radius, glm::vec3 color);
 };
 
+void createSphere(int meridianSize, int parallelSize);

@@ -120,7 +120,8 @@ int main()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	//	=== EVENT LOOP ===
-	Camera camera(time, width, height, window.getInput(), 5);
+
+	Camera camera(time, width, height, window.getInput(), 5, glm::vec3(0, 0, -3));
 
 	SphereList spheres = SphereList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
 	spheres.addSphere(glm::vec3(0, 0, -3), 1, glm::vec3(1));
@@ -129,16 +130,18 @@ int main()
 	PrismList cubes = PrismList("shaders/vertex.glsl", "shaders/fragment.glsl", camera, lights);
 	for (int i = 0; i < positions.size() - 3; i++)
 	{
-		cubes.addPrism(positions[i], glm::vec3(1), glm::vec3(0.4, 0.6, 0.4));
+		cubes.addPrism(positions[i], glm::vec3(1), glm::vec3(0.1, 0.6, 0.1));
 	}
 	cubes[5].scale(glm::vec3(30, 0.1, 30));
-	cubes[5].setColor(glm::vec3(1));
+	cubes[5].setColor(glm::vec3(0.2, 0.2, 0.6));
 
 	glm::vec3 sphereSpeed = glm::vec3(0);
 	
 	glfwSetTime(0);
+
 	int k = 0;
 	double fps = 0;
+
 	while (!glfwWindowShouldClose(window.window_))
 	{
 		time = glfwGetTime();
@@ -153,25 +156,17 @@ int main()
 		fps += 1 / time;
 		k++;
 
+		lights[2].pos.z += 0.001;
+		lights[2].pos.x += 0.001;
+		lights[2].pos.y -= 0.0005;
 
+		models[9] = glm::scale(glm::translate(glm::mat4(1.0f), lights[2].pos), glm::vec3(0.2));
 		camera.adjust(window.window_);
 
 		window.input();
 		window.mouseInput(camera);
 
 		camera.refresh();
-		//camera.getFocus() = spheres[0].getPosition();
-		/*
-		sphereSpeed.y += -0.0001;
-		sphereSpeed *= 0.999;
-		spheres[0].move(sphereSpeed);
-
-		if (spheres[0].getPosition().y < -5 + 0.15)
-		{
-			sphereSpeed *= 0.99;
-			sphereSpeed.y -= 0.1 * (spheres[0].getPosition().y - (-5 + 0.15));
-		}
-		*/
 		
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
