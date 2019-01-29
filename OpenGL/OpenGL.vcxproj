@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>

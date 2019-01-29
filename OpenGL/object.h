@@ -1,47 +1,64 @@
 #pragma once
 
-#include "window.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include "shader.h"
+
 
 class Object
 {
 public:
-	Object(glm::vec3 position, glm::vec3 scale, glm::vec3 color);
+	Object();
+	~Object();
 
-	void move(glm::vec3 vector);
-	void rotate(glm::vec3 axis, float angle);
-	void scale(glm::vec3 vector);
-	void setColor(glm::vec3 color);
 
-	glm::vec3& getPosition();
-
-	void linkRotation(const char* name, GLuint ID);
-	void linkModel(const char* name, GLuint ID);
-	void linkColor(const char* name, GLuint ID);
-
-	void use();
-
-private:
-	void constructModel();
 
 protected:
 
-	// Object properties
-	glm::vec3 position_;
-	glm::vec3 scale_;
-	
-	glm::mat4 rotation_;
-	glm::mat4 model_;
+	static int rotationHandle;
+	static int modelHandle;
 
-	glm::vec3 color_;
+	//      color
+	static int colorHandle;
 
-	bool modified_;
 
-	// Shader uniforms
-	GLuint rotationPtr_;
-	GLuint modelPtr_;
-	GLuint colorPtr_;
+
+
+
+	//  global
+	//      matrices
+	static int viewHandle;
+	static int projectionHandle;
+	static int lightSpaceHandle;
+
+
+	//      lights
+	static int sizeHandle;
+	static std::vector<LightHandle> lightHandles;
+	static int dirLightHandle;
+
+
+
+	//  shadow
+	static int modelHandleShadow;
+	static int lightSpaceHandleShadow;
+
+
+
+private:
+
+	static Shader program;
+	static Shader programShadow;
+
+	static GLuint fbo;
+	static GLuint depthMap;
+
+	static const int depthMapSize = 1024;
 };
 
+
+
+
+struct LightHandle
+{
+	GLuint posHandle;
+	GLuint intensityHandle;
+};
