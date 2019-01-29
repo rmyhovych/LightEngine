@@ -3,7 +3,6 @@
 Camera::Camera(double& time, int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
 	time_(time),
 
-	aperture_(0.005),
 
 	input_(input),
 	zoom_(zoom),
@@ -127,7 +126,7 @@ void Camera::adjust(GLFWwindow* window)
 	}
 }
 
-void Camera::refresh(unsigned i, unsigned max)
+void Camera::refresh()
 {
 	moveCamera();
 
@@ -137,13 +136,7 @@ void Camera::refresh(unsigned i, unsigned max)
 
 	position_ = focus_ - zoom_ * direction_;
 
-	calculateBokeh(i, max);
 
-	view_ = glm::lookAt(position_ + bokeh_, focus_, up_);
+	view_ = glm::lookAt(position_, focus_, up_);
 }
 
-void Camera::calculateBokeh(unsigned i, unsigned max)
-{
-	float number = (float)i * 2.0 * PI / (float)max;
-	bokeh_ = aperture_ * (glm::normalize(glm::cross(direction_, up_)) * cosf(number) + up_ * sinf(number));
-}

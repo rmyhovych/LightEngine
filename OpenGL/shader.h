@@ -13,51 +13,79 @@
 #include "stb_image.h"
 #include "window.h"
 
-struct Uniform
-{
-	GLuint id;
-	std::string name;
-};
+
+
 
 class Shader
 {
+
+
+	//=============================================================================================
+	//  STATIC
+	//=============================================================================================
+
 public:
-	unsigned int ID;
 
-	Shader(const char* vertexPath, const char* fragmentPath);
+	static GLuint vao;
+	static GLuint ebo;
 
-	void addBufferObject(float* buffer, int bufferSize, int attributeSize);
-	void addElementObject(GLuint* elements, int elementSize);
-	void addFramebufferObject(int& width, int& height);
+	static int vertexDataSize;
+	static int elementDataSize;
 
-	void addTexture(const char* name);
 
-	void addLayout(int location, int size, int position);
 
-	void uniformMat4Ptr(const char* name, glm::f32* matrix);
-	void uniformVec3(const char* name, glm::vec3& vector);
-	void uniformFloat(const char* name, float number);
-	void uniformInt(const char* name, int number);
+	static void addVertexArray();
+
+	static void addVertexBuffer(const char* path);
+
+	static void addElementBuffer(const char* path);
+
+	static void linkLayout(int index, int size, int attributeSize, int offset);
+
+		
+	static void render(int size, bool ebo);
+
+
+
+
+
+
+
+	//=============================================================================================
+	//  OBJECT
+	//=============================================================================================
+
+public:
+
+	Shader(const char* vertexCodePath, const char* fragmentCodePath);
+
+
+	int getUniformLocation(const char* name);
 
 	void use();
 
-	void render();
-
-	void draw();
-
 private:
-	void checkCompileErrors(unsigned int shader, std::string type);
 
-private:
-	GLuint* vao_;
-	GLuint* vbo_;
-	GLuint* ebo_;
+	GLuint id;
 
-	GLuint* fbo_;
-	GLuint* rbo_;
-	GLuint* texture_;
-
-	int bufferSize_;
-	int elementSize_;
-	int attributeSize_;
 };
+
+
+
+
+
+
+struct ByteBuffer
+{
+	uint8_t* data;
+	unsigned size;
+};
+
+
+ByteBuffer loadFile(const char* path);
+
+
+
+GLuint compileShader(GLuint type, ByteBuffer shaderCode);
+
+GLuint createProgram(ByteBuffer vertexShaderCode, ByteBuffer fragmentShaderCode);

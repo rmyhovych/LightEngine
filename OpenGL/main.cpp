@@ -13,8 +13,10 @@
 int width = 1200;
 int height = 800;
 
+
 int main()
 {
+
 	//	Create window
 	Window window(width, height);
 	double time;
@@ -171,35 +173,28 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		for (unsigned j = 0; j < 10; j++)
+
+		camera.refresh();
+
+		spheres.draw();
+
+		cubes.draw();
+
+		lightCube.use();
+		for (int i = models.size() - 3; i < models.size(); i++)
 		{
-			camera.refresh(j, 10);
+			//	- FRAGMENT -
+			lightCube.uniformVec3("uColor", lights[i - 7].color);
 
-			spheres.draw();
+			//	- VERTEX -
+			lightCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
+			lightCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
+			lightCube.uniformMat4Ptr("uProjection", camera.getProjection());
 
-			cubes.draw();
-
-			lightCube.use();
-			for (int i = models.size() - 3; i < models.size(); i++)
-			{
-				//	- FRAGMENT -
-				lightCube.uniformVec3("uColor", lights[i - 7].color);
-
-				//	- VERTEX -
-				lightCube.uniformMat4Ptr("uModel", glm::value_ptr(models[i]));
-				lightCube.uniformMat4Ptr("uView", glm::value_ptr(camera.getView()));
-				lightCube.uniformMat4Ptr("uProjection", camera.getProjection());
-
-				lightCube.draw();
-			}
-
-
-			glAccum(j ? GL_ACCUM : GL_LOAD, 1.0 / 10);
+			lightCube.draw();
 		}
 			
-
-		glAccum(GL_RETURN, 1);
-		
+	
 		glfwSwapBuffers(window.window_);
 		glfwPollEvents();
 	}

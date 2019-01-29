@@ -5,6 +5,8 @@
 SphereList::SphereList(const char* vertexPath, const char* fragmentPath, Camera& camera, std::vector<Light>& lights) :
 	ObjectList(vertexPath, fragmentPath, camera, lights)
 {
+	//createSphere(100, 100);
+
 	std::ifstream bufferData("data/sphereBuffer", std::ios::binary);
 	std::ifstream elementData("data/sphereElements", std::ios::binary);
 

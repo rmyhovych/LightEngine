@@ -125,30 +125,13 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="object.cpp" />
-    <ClCompile Include="prismList.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="objectList.cpp" />
-    <ClCompile Include="sphereList.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
-    <ClInclude Include="object.h" />
-    <ClInclude Include="prismList.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="objectList.h" />
-    <ClInclude Include="sphereList.h" />
     <ClInclude Include="window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="shaders\fragment.glsl" />
-    <Text Include="shaders\fragmentLight.glsl" />
-    <Text Include="shaders\vertex.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\fragment_fbo.glsl" />
-    <None Include="shaders\vertex_fbo.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
