@@ -6,13 +6,17 @@
 
 #include "camera.h"
 
-class Window
+class GLWindow
 {
 public:
 	GLFWwindow* window_;
 
-	Window(int width = 1200, int height = 800);
-	~Window();
+	static int width;
+	static int height;
+
+
+	GLWindow(int width = 1200, int height = 800);
+	~GLWindow();
 
 	bool* getInput();
 

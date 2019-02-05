@@ -126,14 +126,16 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="prism.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="window.cpp" />
+    <ClCompile Include="gl_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="prism.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="window.h" />
+    <ClInclude Include="gl_window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "window.h"
+#include "gl_window.h"
 
 double scroll = 0;
 
@@ -7,7 +7,10 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	scroll = yoffset;
 }
 
-Window::Window(int width, int height) :
+
+
+
+GLWindow::GLWindow(int width, int height) :
 	keyInput_(new bool[6]),
 	pressed_(false),
 	inputForce_(0.005)
@@ -47,20 +50,32 @@ Window::Window(int width, int height) :
 	{
 		keyInput_[i] = false;
 	}
+
+
+
+
+	GLWindow::width = width;
+	GLWindow::height = height;
 }
 
-Window::~Window()
+
+
+GLWindow::~GLWindow()
 {
 	//	-- END GLFW --
 	glfwTerminate();
 }
 
-bool* Window::getInput()
+
+
+bool* GLWindow::getInput()
 {
 	return keyInput_;
 }
 
-void Window::input()
+
+
+void GLWindow::input()
 {
 	if (glfwGetKey(window_, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
@@ -105,7 +120,9 @@ void Window::input()
 	}
 }
 
-void Window::mouseInput(Camera& camera)
+
+
+void GLWindow::mouseInput(Camera& camera)
 {
 	double x;
 	double y;
@@ -148,6 +165,8 @@ void Window::mouseInput(Camera& camera)
 		scroll = 0;
 	}
 }
+
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
