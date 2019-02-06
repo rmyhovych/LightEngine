@@ -129,6 +129,7 @@
     <ClCompile Include="prism.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="gl_window.cpp" />
+    <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="prism.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="gl_window.h" />
+    <ClInclude Include="sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
