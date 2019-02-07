@@ -4,7 +4,7 @@
 
 #include "camera.h"
 #include "shader.h"
-#include "gl_window.h"
+#include "window.h"
 
 
 int width = 1200;
@@ -15,7 +15,7 @@ int main()
 {
 
 	//	Create window
-	GLWindow window(width, height);
+	Window window(width, height);
 	double time;
 
 
@@ -31,7 +31,7 @@ int main()
 	int k = 0;
 	double fps = 0;
 
-	while (!glfwWindowShouldClose(window.window_))
+	while (!glfwWindowShouldClose(window.windowHandle))
 	{
 		//	=======	FPS	========
 		time = glfwGetTime();
@@ -51,7 +51,7 @@ int main()
 		
 			
 	
-		glfwSwapBuffers(window.window_);
+		glfwSwapBuffers(window.windowHandle);
 		glfwPollEvents();
 	}
 

@@ -1,4 +1,4 @@
-#include "gl_window.h"
+#include "window.h"
 
 double scroll = 0;
 
@@ -10,7 +10,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 
 
-GLWindow::GLWindow(int width, int height) :
+Window::Window(int width, int height) :
 	keyInput_(new bool[6]),
 	pressed_(false),
 	inputForce_(0.005)
@@ -18,23 +18,27 @@ GLWindow::GLWindow(int width, int height) :
 	//	-- START GLFW --
 	glfwInit();
 
+
 	//	Version 3.2
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
+
 	//	Core profile OpenGL
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 
 	//	Forward compatibility
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 
 	//	Window creation + OpenGL Context
-	window_ = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
+	windowHandle = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
 
-	glfwMakeContextCurrent(window_);
-	glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
-	glfwSetScrollCallback(window_, scroll_callback);
+	glfwMakeContextCurrent(windowHandle);
+	glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
+	glfwSetScrollCallback(windowHandle, scroll_callback);
+
 
 	//	Setup GLEW
 	glewExperimental = GL_TRUE;
@@ -54,13 +58,15 @@ GLWindow::GLWindow(int width, int height) :
 
 
 
-	GLWindow::width = width;
-	GLWindow::height = height;
+
+
+	Window::width = width;
+	Window::height = height;
 }
 
 
 
-GLWindow::~GLWindow()
+Window::~Window()
 {
 	//	-- END GLFW --
 	glfwTerminate();
@@ -68,53 +74,53 @@ GLWindow::~GLWindow()
 
 
 
-bool* GLWindow::getInput()
+bool* Window::getInput()
 {
 	return keyInput_;
 }
 
 
 
-void GLWindow::input()
+void Window::input()
 {
-	if (glfwGetKey(window_, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	if (glfwGetKey(windowHandle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
-		glfwSetWindowShouldClose(window_, GL_TRUE);
+		glfwSetWindowShouldClose(windowHandle, GL_TRUE);
 	}
 
 
-	if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		keyInput_[0] = true;
 	}
-	else if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_RELEASE)
+	else if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_RELEASE)
 	{
 		keyInput_[0] = false;
 	}
 
-	if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS)
+	if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		keyInput_[1] = true;
 	}
-	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_RELEASE)
+	else if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_RELEASE)
 	{
 		keyInput_[1] = false;
 	}
 
-	if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS)
+	if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		keyInput_[2] = true;
 	}
-	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_RELEASE)
+	else if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_RELEASE)
 	{
 		keyInput_[2] = false;
 	}
 
-	if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS)
+	if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		keyInput_[3] = true;
 	}
-	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_RELEASE)
+	else if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_RELEASE)
 	{
 		keyInput_[3] = false;
 	}
@@ -122,32 +128,32 @@ void GLWindow::input()
 
 
 
-void GLWindow::mouseInput(Camera& camera)
+void Window::mouseInput(Camera& camera)
 {
 	double x;
 	double y;
-	if (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed_)
+	if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed_)
 	{
 		pressed_ = true;
-		glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-		glfwGetCursorPos(window_, &x, &y);
-		glfwSetCursorPos(window_, x, y);
+		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwGetCursorPos(windowHandle, &x, &y);
+		glfwSetCursorPos(windowHandle, x, y);
 
 		cursorPosition_.x = x;
 		cursorPosition_.y = y;
 	}
-	else if (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
+	else if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
 	{
 		pressed_ = false;
-		glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 
 	if (pressed_)
 	{
-		glfwGetCursorPos(window_, &x, &y);
+		glfwGetCursorPos(windowHandle, &x, &y);
 
 		camera.rotateCamera(inputForce_*(x - cursorPosition_.x), inputForce_*(y - cursorPosition_.y));
-		glfwSetCursorPos(window_, (double)cursorPosition_.x, (double)cursorPosition_.y);
+		glfwSetCursorPos(windowHandle, (double)cursorPosition_.x, (double)cursorPosition_.y);
 	}
 
 	if (scroll != 0)

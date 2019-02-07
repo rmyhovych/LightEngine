@@ -124,19 +124,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="drawables.cpp" />
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="prism.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="gl_window.cpp" />
+    <ClCompile Include="window.cpp" />
     <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="drawables.h" />
+    <ClInclude Include="framebuffer.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="prism.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="gl_window.h" />
+    <ClInclude Include="window.h" />
     <ClInclude Include="sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -7,7 +7,7 @@
 #include <vector>
 
 
-#include "gl_window.h"
+#include "window.h"
 
 
 

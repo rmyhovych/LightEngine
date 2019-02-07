@@ -41,7 +41,7 @@ void Object::initRendering()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glViewport(0, 0, GLWindow::width, GLWindow::height);
+	glViewport(0, 0, Window::width, Window::height);
 
 	glColorMask(true, true, true, true);
 
