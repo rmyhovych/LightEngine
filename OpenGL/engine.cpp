@@ -2,25 +2,17 @@
 
 
 
-Engine::Engine()
+Engine::Engine() :
+	window(),
+
+	camera(&time, Window::width, Window::height, window.keyInput),
+	
+	dirLight(2, 3, camera.focus, camera.zoom)
 {
-	window = Window();
-
-
-	Engine::dirLight = new DirLight(2, 3);
-
-	Engine::camera = new Camera(&time, Window::width, Window::height, window.keyInput);
-
-
 	initShapes();
 }
 
 
-Engine::~Engine()
-{
-	delete dirLight;
-	delete camera;
-}
 
 void Engine::initShapes()
 {
@@ -52,9 +44,8 @@ void Engine::initShapes()
 
 void Engine::step()
 {
-
-	dirLight->update();
-	camera->refresh();
+	dirLight.update();
+	camera.update();
 
 
 	drawables.draw();

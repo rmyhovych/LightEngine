@@ -3,25 +3,20 @@
 
 
 
-DirLight::DirLight()
+DirLight::DirLight(float angleH, float angleV, glm::vec3& focus, float shadowSize) :
+	angleH(angleH),
+	angleV(angleV),
+
+	focus(focus),
+	shadowSize(shadowSize)
 {
-}
-
-
-void DirLight::init(float angleH, float angleV)
-{
-	this->angleH = angleH;
-	this->angleV = angleV;
-
-	shadowLimit = Engine::camera->zoom;
-
-	projection = glm::ortho(-shadowLimit, shadowLimit, -shadowLimit, shadowLimit, 0.0f, 2 * shadowLimit);
+	projection = glm::ortho(-shadowSize, shadowSize, -shadowSize, shadowSize, 0.0f, 2 * shadowSize);
 
 
 	setDirection();
 	update();
-
 }
+
 
 void DirLight::rotate(float deltaH, float deltaV)
 {
@@ -34,14 +29,13 @@ void DirLight::rotate(float deltaH, float deltaV)
 
 void DirLight::update()
 {
-	glm::vec3& focus = Engine::camera->focus;
-
-	glm::vec3 position = focus - (direction * shadowLimit);
+	glm::vec3 position = focus - (direction * shadowSize);
 
 	glm::mat4 view = glm::lookAt(position, focus, glm::vec3(0, 1, 0));
 
 	lightSpace = projection * view;
 }
+
 
 void DirLight::setDirection()
 {

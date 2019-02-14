@@ -1,7 +1,5 @@
 #pragma once
 
-#include "engine.h"
-
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -16,9 +14,8 @@ public:
 	glm::vec3 direction;
 
 
-	DirLight();
+	DirLight(float angleH, float angleV, glm::vec3& focus, float shadowSize);
 
-	void init(float angleH, float angleV);
 
 	void rotate(float deltaH, float deltaV);
 
@@ -28,12 +25,12 @@ private:
 
 	void setDirection();
 
-
+	glm::vec3& focus;
 	glm::mat4 projection;
 
 	float angleH;
 	float angleV;
 
-	float shadowLimit;
+	float shadowSize;
 };
 

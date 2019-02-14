@@ -4,16 +4,14 @@
 #include "dirLight.h"
 #include "camera.h"
 
+#include "window.h"
+
 
 class Engine
 {
 public:
 
-	static Camera* camera;
-	static DirLight* dirLight;
-
 	Engine();
-	~Engine();
 
 
 	void initShapes();
@@ -30,6 +28,10 @@ public:
 private:
 
 	Drawables drawables;
+
+	Camera camera;
+	DirLight dirLight;
+
 
 	Window window;
 

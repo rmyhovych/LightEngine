@@ -29,7 +29,7 @@ public:
 	void rotateCamera(float x, float y);
 
 
-	void refresh();
+	void update();
 
 
 	float zoom;

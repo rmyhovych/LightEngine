@@ -112,7 +112,7 @@ void Camera::moveCamera()
 }
 
 
-void Camera::refresh()
+void Camera::update()
 {
 	moveCamera();
 

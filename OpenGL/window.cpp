@@ -1,5 +1,7 @@
 #include "window.h"
 
+#include "camera.h"
+
 double scroll = 0;
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -36,7 +38,6 @@ Window::Window(int width, int height) :
 	windowHandle = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(windowHandle);
-	glfwSetFramebufferSizeCallback(windowHandle, framebuffer_size_callback);
 	glfwSetScrollCallback(windowHandle, scroll_callback);
 
 
@@ -171,11 +172,4 @@ void Window::mouseInput(Camera& camera)
 
 		scroll = 0;
 	}
-}
-
-
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
 }
