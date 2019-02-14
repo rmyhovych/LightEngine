@@ -1,142 +1,128 @@
 #include "camera.h"
 
-Camera::Camera(double& time, int& width, int& height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
-	time_(time),
+Camera::Camera(double* time, int width, int height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
+	time(time),
 
 
-	input_(input),
-	zoom_(zoom),
-	focus_(focus),
-	direction_(direction),
-	up_(glm::vec3(0, 1, 0)),
+	input(input),
+	zoom(zoom),
+	focus(focus),
+	direction(direction),
+	up(glm::vec3(0, 1, 0)),
 
-	angleH_(0),
-	angleV_(PI/2),
+	angleH(0),
+	angleV(PI/2),
 
-	fov_(PI/3),
+	fov(PI/3),
 
-	width_(width),
-	height_(height),
+	width(width),
+	height(height),
 
-	acceleration_(0.3),
-	friction_(0.96)
+	acceleration(0.3),
+	friction(0.96)
 {
-	projection_ = glm::perspective(fov_, ((float)width_ / (float)height_), 0.1f, 1000.0f);
-	projectionPtr_ = glm::value_ptr(projection_);
+	projection = glm::perspective(fov, ((float)width / (float)height), 0.1f, 1000.0f);
+	projectionPtr = glm::value_ptr(projection);
 
-	view_ = glm::lookAt(focus_ - zoom * direction_, focus_, up_);
+	view = glm::lookAt(focus - zoom * direction, focus, up);
 }
+
+
 
 glm::mat4& Camera::getView()
 {
-	return view_;
+	return view;
 }
 
 glm::vec3& Camera::getFocus()
 {
-	return focus_;
+	return focus;
 }
 
 glm::vec3& Camera::getPosition()
 {
-	return position_;
+	return position;
 }
 
 glm::f32* Camera::getProjection()
 {
-	return projectionPtr_;
+	return projectionPtr;
 }
 
 void Camera::rotateCamera(float x, float y)
 {
-	angleH_ -= x;
-	angleV_ += y;
+	angleH -= x;
+	angleV += y;
 
-	if (angleH_ < 0)
+	if (angleH < 0)
 	{
-		angleH_ += 2 * PI;
+		angleH += 2 * PI;
 	}
-	else if (angleH_ > 2 * PI)
+	else if (angleH > 2 * PI)
 	{
-		angleH_ -= 2 * PI;
+		angleH -= 2 * PI;
 	}
 
-	if (angleV_ > PI - 0.01)
+	if (angleV > PI - 0.01)
 	{
-		angleV_ = PI - 0.01;
+		angleV = PI - 0.01;
 	}
-	else if (angleV_ < 0.01)
+	else if (angleV < 0.01)
 	{
-		angleV_ = 0.01;
+		angleV = 0.01;
 	}
 }
 
 void Camera::moveCamera()
 {
-	glm::vec3 right = glm::normalize(glm::cross(direction_, up_));
-	glm::vec3 forward = direction_;
+	glm::vec3 right = glm::normalize(glm::cross(direction, up));
+	glm::vec3 forward = direction;
 
-	if (input_[0])
+	if (input[0])
 	{
-		speeds_[0] += acceleration_;
+		speeds[0] += acceleration;
 	}
-	if (input_[1])
+	if (input[1])
 	{
-		speeds_[0] -= acceleration_;
+		speeds[0] -= acceleration;
 	}
-	if (input_[2])
+	if (input[2])
 	{
-		speeds_[1] += acceleration_;
+		speeds[1] += acceleration;
 	}
-	if (input_[3])
+	if (input[3])
 	{
-		speeds_[1] -= acceleration_;
+		speeds[1] -= acceleration;
 	}
-	if (input_[4])
+	if (input[4])
 	{
-		speeds_[2] += acceleration_;
+		speeds[2] += acceleration;
 	}
-	if (input_[5])
+	if (input[5])
 	{
-		speeds_[2] -= acceleration_;
+		speeds[2] -= acceleration;
 	}
 
-	focus_ += (float)time_ * (speeds_[0] * forward + speeds_[1] * right + speeds_[2] * up_);
+	focus += (float)(*time) * (speeds[0] * forward + speeds[1] * right + speeds[2] * up);
 
 	for (int i = 0; i < 3; i++)
 	{
-		speeds_[i] *= friction_;
+		speeds[i] *= friction;
 	}
 }
 
-
-void Camera::adjust(GLFWwindow* window)
-{
-	int newW, newH;
-
-	glfwGetWindowSize(window, &newW, &newH);
-
-	if (newW != width_ || newH != height_)
-	{
-		width_ = newW;
-		height_ = newH;
-
-		projection_ = glm::perspective(fov_, ((float)width_ / (float)height_), 0.1f, 1000.0f);
-		projectionPtr_ = glm::value_ptr(projection_);
-	}
-}
 
 void Camera::refresh()
 {
 	moveCamera();
 
-	direction_.x = sin(angleH_) * sin(angleV_);
-	direction_.z = cos(angleH_) * sin(angleV_);
-	direction_.y = cos(angleV_);
+	direction.x = sin(angleH) * sin(angleV);
+	direction.z = cos(angleH) * sin(angleV);
+	direction.y = cos(angleV);
 
-	position_ = focus_ - zoom_ * direction_;
+	position = focus - zoom * direction;
 
 
-	view_ = glm::lookAt(position_, focus_, up_);
+	view = glm::lookAt(position, focus, up);
 }
 

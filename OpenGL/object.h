@@ -7,6 +7,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 
+struct LightHandle;
 
 class Object
 {

@@ -11,8 +11,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 
 Window::Window(int width, int height) :
-	keyInput_(new bool[6]),
-	pressed_(false),
+	keyInput(new bool[6]),
+	rightClickPressed(false),
 	inputForce_(0.005)
 {
 	//	-- START GLFW --
@@ -52,7 +52,7 @@ Window::Window(int width, int height) :
 	
 	for (int i = 0; i < 6; i++)
 	{
-		keyInput_[i] = false;
+		keyInput[i] = false;
 	}
 
 
@@ -76,7 +76,7 @@ Window::~Window()
 
 bool* Window::getInput()
 {
-	return keyInput_;
+	return keyInput;
 }
 
 
@@ -91,38 +91,38 @@ void Window::input()
 
 	if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		keyInput_[0] = true;
+		keyInput[0] = true;
 	}
 	else if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_RELEASE)
 	{
-		keyInput_[0] = false;
+		keyInput[0] = false;
 	}
 
 	if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		keyInput_[1] = true;
+		keyInput[1] = true;
 	}
 	else if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_RELEASE)
 	{
-		keyInput_[1] = false;
+		keyInput[1] = false;
 	}
 
 	if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		keyInput_[2] = true;
+		keyInput[2] = true;
 	}
 	else if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_RELEASE)
 	{
-		keyInput_[2] = false;
+		keyInput[2] = false;
 	}
 
 	if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		keyInput_[3] = true;
+		keyInput[3] = true;
 	}
 	else if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_RELEASE)
 	{
-		keyInput_[3] = false;
+		keyInput[3] = false;
 	}
 }
 
@@ -132,9 +132,10 @@ void Window::mouseInput(Camera& camera)
 {
 	double x;
 	double y;
-	if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !pressed_)
+
+	if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !rightClickPressed)
 	{
-		pressed_ = true;
+		rightClickPressed = true;
 		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 		glfwGetCursorPos(windowHandle, &x, &y);
 		glfwSetCursorPos(windowHandle, x, y);
@@ -144,11 +145,11 @@ void Window::mouseInput(Camera& camera)
 	}
 	else if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
 	{
-		pressed_ = false;
+		rightClickPressed = false;
 		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 
-	if (pressed_)
+	if (rightClickPressed)
 	{
 		glfwGetCursorPos(windowHandle, &x, &y);
 
@@ -161,11 +162,11 @@ void Window::mouseInput(Camera& camera)
 
 		if (scroll == 1)
 		{
-			camera.zoom_ /= 1.1;
+			camera.zoom /= 1.1;
 		}
 		else
 		{
-			camera.zoom_ *= 1.1;
+			camera.zoom *= 1.1;
 		}
 
 		scroll = 0;

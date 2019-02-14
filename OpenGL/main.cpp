@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "shader.h"
 #include "window.h"
-
+#include "engine.h"
 
 int width = 1200;
 int height = 800;
@@ -22,7 +22,7 @@ int main()
 	
 
 
-
+	Engine engine;
 
 
 
@@ -48,6 +48,7 @@ int main()
 		//	=====================
 
 
+		engine.step();
 		
 			
 	

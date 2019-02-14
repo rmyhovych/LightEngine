@@ -14,6 +14,8 @@ public:
 	static int width;
 	static int height;
 
+	bool* keyInput;
+
 
 	Window(int width = 1200, int height = 800);
 	~Window();
@@ -24,9 +26,9 @@ public:
 	void mouseInput(Camera& camera);
 
 private:
-	bool* keyInput_;
 
-	bool pressed_;
+	bool rightClickPressed;
+
 	glm::vec2 cursorPosition_;
 	float inputForce_;
 
