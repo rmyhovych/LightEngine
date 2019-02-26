@@ -16,6 +16,7 @@ public:
 
 	void initShapes();
 
+	GLFWwindow* getWindow();
 
 	void step();
 

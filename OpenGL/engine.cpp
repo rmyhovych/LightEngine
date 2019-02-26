@@ -42,6 +42,11 @@ void Engine::initShapes()
 	createSphere(0.5f, glm::vec3(0, 0, -(depth - 0.5f)), 1.0f);
 }
 
+GLFWwindow * Engine::getWindow()
+{
+	return window.windowHandle;
+}
+
 void Engine::step()
 {
 	dirLight.update();

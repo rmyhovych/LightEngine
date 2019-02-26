@@ -32,6 +32,7 @@ Window::Window(int width, int height) :
 
 	//	Forward compatibility
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 
 	//	Window creation + OpenGL Context

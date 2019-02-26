@@ -2,9 +2,6 @@
 
 #include <iomanip>
 
-#include "camera.h"
-#include "shader.h"
-#include "window.h"
 #include "engine.h"
 
 int width = 1200;
@@ -15,7 +12,6 @@ int main()
 {
 
 	//	Create window
-	Window window(width, height);
 	double time;
 
 
@@ -23,7 +19,7 @@ int main()
 
 
 	Engine engine;
-
+	GLFWwindow* window = engine.getWindow();
 
 
 	glfwSetTime(0);
@@ -31,7 +27,7 @@ int main()
 	int k = 0;
 	double fps = 0;
 
-	while (!glfwWindowShouldClose(window.windowHandle))
+	while (!glfwWindowShouldClose(window))
 	{
 		//	=======	FPS	========
 		time = glfwGetTime();
@@ -52,7 +48,7 @@ int main()
 		
 			
 	
-		glfwSwapBuffers(window.windowHandle);
+		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
