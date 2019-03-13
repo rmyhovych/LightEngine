@@ -134,6 +134,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectHandler.cpp" />
     <ClCompile Include="prism.cpp" />
+    <ClCompile Include="ProgramRenderer.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="sphere.cpp" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="prism.h" />
     <ClInclude Include="GLShader.h" />
+    <ClInclude Include="ProgramRenderer.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="sphere.h" />
   </ItemGroup>

@@ -18,7 +18,7 @@ ObjectHandler::~ObjectHandler()
 
 
 
-void ObjectHandler::render()
+void ObjectHandler::draw()
 {
 }
 
