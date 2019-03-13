@@ -7,19 +7,23 @@
 class ProgramRenderer
 {
 public:
-	ProgramRenderer(const char* vPathRender, const char* fPathRender);
+	ProgramRenderer(const char* pathVertex, const char* pathFragment);
 
 	~ProgramRenderer();
 
 
+	void draw();
 
 private:
 
 	void createUniforms();
 
+
+
 	GLShader program;
 
 
+	std::vector<ObjectHandler*> objectHandlerArray;
 
 
 
