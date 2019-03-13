@@ -1,11 +1,10 @@
 #include "ProgramRenderer.h"
 
-
-
-ProgramRenderer::ProgramRenderer()
+ProgramRenderer::ProgramRenderer(const char * vPathRender, const char * fPathRender) :
+	program(vPathRender, fPathRender)
 {
+	createUniforms();
 }
-
 
 ProgramRenderer::~ProgramRenderer()
 {

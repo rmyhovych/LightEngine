@@ -4,11 +4,8 @@
 
 
 
-ObjectHandler::ObjectHandler(const char* vPathRender, const char* fPathRender) :
-
-	program(vPathRender, fPathRender)
+ObjectHandler::ObjectHandler()
 {
-	createUniforms();
 }
 
 
@@ -22,9 +19,3 @@ void ObjectHandler::draw()
 {
 }
 
-
-
-void ObjectHandler::createUniforms()
-{
-
-}

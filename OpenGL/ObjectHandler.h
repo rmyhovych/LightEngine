@@ -1,33 +1,24 @@
 #pragma once
 
-#include "GLShader.h"
+#include <vector>
+
+#include "Object.h"
 
 
 
 class ObjectHandler
 {
 public:
-	ObjectHandler(const char* vPathRender, const char* fPathRender);
+	ObjectHandler();
 
 	~ObjectHandler();
 
 
-
-	void draw();
-
-	void drawDepth();
-
-
+	virtual void draw() = 0;
 
 protected:
 
-	void createUniforms();
-
-	GLShader program;
-
-
-
-
+	std::vector<Object*> objectArray;
 
 
 };
