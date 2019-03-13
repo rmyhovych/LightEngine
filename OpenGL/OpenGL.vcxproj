@@ -126,7 +126,7 @@
     <ClCompile Include="FileData.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="dirLight.cpp" />
-    <ClCompile Include="drawables.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="GLShader.cpp" />
@@ -141,7 +141,7 @@
     <ClInclude Include="FileData.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="dirLight.h" />
-    <ClInclude Include="drawables.h" />
+    <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="framebuffer.h" />
     <ClInclude Include="Object.h" />

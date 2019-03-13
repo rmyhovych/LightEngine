@@ -15,11 +15,11 @@ struct CommonData
 
 
 
-class Renderer
+class GameRenderer
 {
 public:
-	Renderer();
-	~Renderer();
+	GameRenderer();
+	~GameRenderer();
 
 	ObjectHandler* addObjectHandler(const char* vPathRender, const char* fPathRender);
 

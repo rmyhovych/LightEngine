@@ -27,9 +27,6 @@
     <ClCompile Include="sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="drawables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -63,9 +63,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="drawables.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="framebuffer.h">
@@ -90,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

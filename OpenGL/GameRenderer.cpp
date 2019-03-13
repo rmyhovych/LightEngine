@@ -1,10 +1,10 @@
-#include "Renderer.h"
+#include "GameRenderer.h"
 
 
-int Renderer::depthMapSize = 1024;
+int GameRenderer::depthMapSize = 1024;
 
 
-Renderer::Renderer() :
+GameRenderer::GameRenderer() :
 	programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
 	createDepthMap();
@@ -12,7 +12,7 @@ Renderer::Renderer() :
 
 }
 
-Renderer::~Renderer()
+GameRenderer::~GameRenderer()
 {
 	for (int i = 0; i < objectHandlers.size(); i++)
 	{
@@ -23,7 +23,7 @@ Renderer::~Renderer()
 
 
 
-ObjectHandler* Renderer::addObjectHandler(const char* vPathRender, const char* fPathRender)
+ObjectHandler* GameRenderer::addObjectHandler(const char* vPathRender, const char* fPathRender)
 {
 	ObjectHandler* objectHandler = new ObjectHandler(vPathRender, fPathRender);
 
@@ -38,7 +38,7 @@ ObjectHandler* Renderer::addObjectHandler(const char* vPathRender, const char* f
 
 
 
-void Renderer::draw()
+void GameRenderer::draw()
 {
 	initRenderingDepth();
 
@@ -51,7 +51,7 @@ void Renderer::draw()
 
 
 
-void Renderer::createDepthMap()
+void GameRenderer::createDepthMap()
 {
 	//  DEPTH MAP TEXTURE
 
@@ -110,7 +110,7 @@ void Renderer::createDepthMap()
 
 
 
-void Renderer::createUniforms()
+void GameRenderer::createUniforms()
 {
 }
 
@@ -121,7 +121,7 @@ void Renderer::createUniforms()
 
 
 
-void Renderer::initRenderingDepth()
+void GameRenderer::initRenderingDepth()
 {
 	glViewport(0, 0, depthMapSize, depthMapSize);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
@@ -140,7 +140,7 @@ void Renderer::initRenderingDepth()
 
 
 
-void Renderer::initRendering()
+void GameRenderer::initRendering()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
