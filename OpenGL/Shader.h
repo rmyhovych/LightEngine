@@ -16,7 +16,7 @@
 
 
 
-class GLShader
+class Shader
 {
 
 
@@ -64,7 +64,7 @@ private:
 
 public:
 
-	GLShader(const char* vertexCodePath, const char* fragmentCodePath);
+	Shader(const char* vertexCodePath, const char* fragmentCodePath);
 
 
 	int getUniformLocation(const char* name);

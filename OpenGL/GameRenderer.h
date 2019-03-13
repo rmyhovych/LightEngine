@@ -44,7 +44,7 @@ private:
 
 	std::vector<ObjectHandler*> objectHandlers;
 
-	GLShader programDepth;
+	Shader programDepth;
 
 	GLuint depthFbo;
 	GLuint depthMap;

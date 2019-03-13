@@ -1,7 +1,9 @@
 #pragma once
 
-#include "ObjectHandler.h"
-#include "GLShader.h"
+#include "VBOHandler.h"
+#include "EBOHandler.h"
+
+#include "Shader.h"
 
 
 class ProgramRenderer
@@ -20,12 +22,10 @@ private:
 
 
 
-	GLShader program;
+	Shader program;
 
 
 	std::vector<ObjectHandler*> objectHandlerArray;
-
-
 
 };
 

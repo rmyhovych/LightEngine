@@ -8,7 +8,7 @@ ProgramRenderer::ProgramRenderer(const char* pathVertex, const char* pathFragmen
 
 ProgramRenderer::~ProgramRenderer()
 {
-	for (uint32_t i = 0; i < objectHandlerArray.size(); i++)
+	for (int i = 0; i < objectHandlerArray.size(); i++)
 	{
 		delete objectHandlerArray[i];
 		objectHandlerArray[i] = nullptr;

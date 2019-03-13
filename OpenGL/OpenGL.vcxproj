@@ -123,22 +123,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EBOHandler.cpp" />
     <ClCompile Include="FileData.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="dirLight.cpp" />
     <ClCompile Include="GameRenderer.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="framebuffer.cpp" />
-    <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectHandler.cpp" />
     <ClCompile Include="prism.cpp" />
     <ClCompile Include="ProgramRenderer.cpp" />
+    <ClCompile Include="VBOHandler.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EBOHandler.h" />
     <ClInclude Include="FileData.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="dirLight.h" />
@@ -148,8 +151,9 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="prism.h" />
-    <ClInclude Include="GLShader.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="ProgramRenderer.h" />
+    <ClInclude Include="VBOHandler.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="sphere.h" />
   </ItemGroup>
