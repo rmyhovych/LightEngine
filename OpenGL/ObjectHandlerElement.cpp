@@ -1,27 +1,39 @@
-#include "ObjectHandlerVertex.h"
+#include "ObjectHandlerElement.h"
 
 
 
-ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
+ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* elementPath) :
 	vao(0),
-	nVertices(0)
+	ebo(0),
+
+	nElements(0)
 {
 	FileData vertexBuffer(vertexPath);
-	nVertices = vertexBuffer.size;
+	FileData elementBuffer(elementPath);
+	nElements = elementBuffer.size / sizeof(int);
+
 
 	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &ebo);
+
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
 
 	Shader::addVertexBuffer(vertexBuffer);
-	Shader::linkLayout(0, 3, 6, 0);
-	Shader::linkLayout(1, 3, 6, 3);
+	Shader::addElementBuffer(elementBuffer);
 
 
+	Shader::linkLayout(0, 3, 3, 0);
+	Shader::linkLayout(1, 3, 3, 0);
+
+
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
 
-ObjectHandlerVertex::~ObjectHandlerVertex()
+ObjectHandlerElement::~ObjectHandlerElement()
 {
 }

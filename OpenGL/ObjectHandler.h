@@ -14,9 +14,13 @@ public:
 	~ObjectHandler();
 
 
-	virtual void draw() = 0;
+	virtual void renderDepth() = 0;
+
+	virtual void render() = 0;
 
 protected:
+
+	virtual void initRendering() = 0;
 
 	std::vector<Object*> objectArray;
 

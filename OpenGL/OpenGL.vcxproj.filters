@@ -57,7 +57,7 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EBOHandler.cpp">
+    <ClCompile Include="ObjectHandlerVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjectHandlerElement.cpp">

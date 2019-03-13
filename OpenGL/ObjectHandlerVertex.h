@@ -14,14 +14,14 @@ public:
 	~ObjectHandlerVertex();
 
 
-	void renderDepth();
+	virtual void renderDepth();
 
-	void render();
+	virtual void render();
 	
 
 private:
 
-	void initRendering();
+	virtual void initRendering();
 
 
 
