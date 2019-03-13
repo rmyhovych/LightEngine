@@ -52,7 +52,7 @@ public:
 
 private:
 
-	Shader program;
+	glShader program;
 
 	GLuint paletteTexture;
 

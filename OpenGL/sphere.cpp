@@ -6,19 +6,19 @@
 
 void Sphere::init()
 {
-	Shader::addVertexBuffer("data/sphereBuffer");
-	Shader::addElementBuffer("data/sphereElements");
+	glShader::addVertexBuffer("data/sphereBuffer");
+	glShader::addElementBuffer("data/sphereElements");
 
-	vao = Shader::vao;
-	ebo = Shader::ebo;
-	eboSize = Shader::elementDataSize;
+	vao = glShader::vao;
+	ebo = glShader::ebo;
+	eboSize = glShader::elementDataSize;
 
 
 
 	glBindVertexArray(vao);
 
-	Shader::linkLayout(0, 3, 3, 0);
-	Shader::linkLayout(1, 3, 3, 0);
+	glShader::linkLayout(0, 3, 3, 0);
+	glShader::linkLayout(1, 3, 3, 0);
 }
 
 
@@ -54,16 +54,16 @@ Sphere::Sphere(float radius, glm::vec3 position, float color) :
 
 void Sphere::drawShadow()
 {
-	Object::drawShadow();
+	Object::useDepth();
 
-	Shader::render(eboSize, true);
+	glShader::render(eboSize, true);
 }
 
 
 
 void Sphere::draw()
 {
-	Object::draw();
+	Object::use();
 
-	Shader::render(eboSize, true);
+	glShader::render(eboSize, true);
 }

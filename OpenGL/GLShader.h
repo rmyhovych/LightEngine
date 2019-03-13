@@ -10,7 +10,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-class Shader
+
+
+#include "FileData.h"
+
+
+
+class GLShader
 {
 
 
@@ -20,25 +26,32 @@ class Shader
 
 public:
 
-	static GLuint vao;
-	static GLuint ebo;
+	//	USE DIRECTLY IN CODE
+	static GLuint genVertexArray();
 
-	static int vertexDataSize;
-	static int elementDataSize;
+	static void addVertexBuffer(FileData& vertexBuffer);
 
-
-
-	static void addVertexArray();
-
-	static void addVertexBuffer(const char* path);
-
-	static void addElementBuffer(const char* path);
+	static void addElementBuffer(FileData& elementBuffer);
 
 	static void linkLayout(int index, int size, int attributeSize, int offset);
 
-		
-	static void render(int size, bool ebo);
 
+
+	GLuint createProgram(FileData& vertexShaderCode, FileData& fragmentShaderCode);
+
+
+		
+
+
+	//	USE DIRECTLY IN CODE
+	static void drawArrays(int size);
+	static void renderElements(int size);
+
+
+
+private:
+
+	GLuint compileShader(GLuint type, FileData& shaderCode);
 
 
 
@@ -51,7 +64,7 @@ public:
 
 public:
 
-	Shader(const char* vertexCodePath, const char* fragmentCodePath);
+	GLShader(const char* vertexCodePath, const char* fragmentCodePath);
 
 
 	int getUniformLocation(const char* name);
@@ -63,23 +76,3 @@ private:
 	GLuint id;
 
 };
-
-
-
-
-
-
-struct ByteBuffer
-{
-	uint8_t* data;
-	unsigned size;
-};
-
-
-ByteBuffer loadFile(const char* path);
-
-
-
-GLuint compileShader(GLuint type, ByteBuffer shaderCode);
-
-GLuint createProgram(ByteBuffer vertexShaderCode, ByteBuffer fragmentShaderCode);

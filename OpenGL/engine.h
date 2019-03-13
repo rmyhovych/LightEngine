@@ -28,7 +28,7 @@ public:
 
 private:
 
-	Drawables drawables;
+	Renderer drawables;
 
 	Camera camera;
 	DirLight dirLight;

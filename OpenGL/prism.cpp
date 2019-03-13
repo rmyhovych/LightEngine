@@ -9,20 +9,20 @@
 
 void Prism::init()
 {
-	Shader::addVertexArray();
+	glShader::genVertexArray();
 
 
-	Shader::addVertexBuffer("data/prismBuffer");
+	glShader::addVertexBuffer("data/prismBuffer");
 
-	vao = Shader::vao;
-	vboSize = Shader::vertexDataSize / (4 * 6);
+	vao = glShader::vao;
+	vboSize = glShader::vertexDataSize / (4 * 6);
 
 
 
 	glBindVertexArray(vao);
 
-	Shader::linkLayout(0, 3, 6, 0);
-	Shader::linkLayout(1, 3, 6, 3);
+	glShader::linkLayout(0, 3, 6, 0);
+	glShader::linkLayout(1, 3, 6, 3);
 
 	glBindVertexArray(0);
 }
@@ -57,14 +57,14 @@ Prism::Prism(glm::vec3 scale, glm::vec3 position, float angle, float color) :
 
 void Prism::drawShadow()
 {
-	Object::drawShadow();
+	Object::useDepth();
 
-	Shader::render(vboSize, false);
+	glShader::render(vboSize, false);
 }
 
 void Prism::draw()
 {
-	Object::draw();
+	Object::use();
 
-	Shader::render(vboSize, false);
+	glShader::render(vboSize, false);
 }

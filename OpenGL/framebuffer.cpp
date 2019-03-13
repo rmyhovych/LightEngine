@@ -63,20 +63,20 @@ void Framebuffer::addFramebuffer(float whRatio)
 Framebuffer::Framebuffer(int paletteNumber) :
 	program("shaders/vertex_fbo.glsl", "shaders/fragment_fbo_pixel.glsl")
 {
-	Shader::addVertexArray();
+	glShader::genVertexArray();
 
-	Shader::addVertexBuffer("data/fboBuffer");
+	glShader::addVertexBuffer("data/fboBuffer");
 
 
-	vao = Shader::vao;
-	vboSize = Shader::vertexDataSize / (4 * 4);
+	vao = glShader::vao;
+	vboSize = glShader::vertexDataSize / (4 * 4);
 
 
 
 	glBindVertexArray(vao);
 
-	Shader::linkLayout(0, 2, 4, 0);
-	Shader::linkLayout(1, 2, 4, 2);
+	glShader::linkLayout(0, 2, 4, 0);
+	glShader::linkLayout(1, 2, 4, 2);
 
 	glBindVertexArray(0);
 

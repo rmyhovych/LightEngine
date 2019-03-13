@@ -18,13 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="prism.cpp">
@@ -48,15 +42,21 @@
     <ClCompile Include="dirLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="prism.h">
@@ -80,5 +80,43 @@
     <ClInclude Include="dirLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_shadow.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\fragmentLight.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\vertex.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\vertex_fbo.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\vertex_shadow.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\fragment.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\fragment_fbo.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\fragment_fbo_pixel.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

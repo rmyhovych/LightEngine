@@ -123,29 +123,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileData.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="dirLight.cpp" />
     <ClCompile Include="drawables.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="framebuffer.cpp" />
+    <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="object.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectHandler.cpp" />
     <ClCompile Include="prism.cpp" />
-    <ClCompile Include="shader.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileData.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="dirLight.h" />
     <ClInclude Include="drawables.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="framebuffer.h" />
-    <ClInclude Include="object.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="prism.h" />
-    <ClInclude Include="shader.h" />
+    <ClInclude Include="GLShader.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="sphere.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment.glsl" />
+    <None Include="shaders\fragmentLight.glsl" />
+    <None Include="shaders\fragment_fbo.glsl" />
+    <None Include="shaders\fragment_fbo_pixel.glsl" />
+    <None Include="shaders\fragment_shadow.glsl" />
+    <None Include="shaders\vertex.glsl" />
+    <None Include="shaders\vertex_fbo.glsl" />
+    <None Include="shaders\vertex_shadow.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

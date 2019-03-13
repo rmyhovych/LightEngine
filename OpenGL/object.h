@@ -1,6 +1,5 @@
 #pragma once
 
-#include "shader.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -11,133 +10,54 @@ struct LightHandle;
 
 class Object
 {
-
-
-	//=============================================================================================
-	//  STATIC
-	//=============================================================================================
-
-
 public:
 
-	static void compilePrograms();
+	glm::mat4 mRotation;
+	glm::mat4 mModel;
 
 
-
-	static void initRenderingShadow();
-
-	static void initRendering();
-
-
-
-	
-
-
-protected:
-
-	static int rotationHandle;
-	static int modelHandle;
-
-	//      color
-	static int colorHandle;
+	glm::vec3 color;
 
 
 
 
-
-	//  global
-	//      matrices
-	static int viewHandle;
-	static int projectionHandle;
-	static int lightSpaceHandle;
-
-
-	//      lights
-	static int sizeHandle;
-	static std::vector<LightHandle> lightHandles;
-	static int dirLightHandle;
-
-
-
-	//  shadow
-	static int modelHandleShadow;
-	static int lightSpaceHandleShadow;
-
-
-
-
-
-
-private:
-
-
-	static void addFramebuffer();
-
-	static void createUniforms();
-
-
-
-
-	static Shader program;
-	static Shader programShadow;
-
-	static GLuint fbo;
-	static GLuint depthMap;
-
-	static const int depthMapSize = 1024;
-
-
-
-
-
-
-
-
-	//=============================================================================================
-	//  OBJECT
-	//=============================================================================================
-
-public:
 
 	Object();
 
-	Object(glm::vec3 scale, glm::vec3 position, float angle, float color);
+	Object(glm::vec3 position, glm::vec3 orientation, glm::vec3 scale, glm::vec3 color);
 
 
 
-	void setPosition(glm::vec3 v);
 
-	void setPosition(float x, float y, float z);
+	void addPosition(glm::vec3 position);
 
-
-
-	void setAngle(float angle, glm::vec3 v);
-
-	void setAngle(float angle, float x, float y, float z);
+	void setPosition(glm::vec3 position);
 
 
+
+	void addOrientation(glm::vec3 rotation);
+
+	void setOrientation(glm::vec3 rotation);
+
+
+
+
+	void addScale(glm::vec3 v);
 
 	void setScale(glm::vec3 v);
-
-	void setScale(float x, float y, float z);
 
 	void setScale(float v);
 
 
 
-	void drawShadow();
+	void setColor(glm::vec3 color);
 
-	void draw();
-
-
+	void setColor(float r, float g, float b);
 
 
+	void useDepth();
 
-protected:
-
-	glm::vec3 position;
-
-	float color;
+	void use();
 
 
 
@@ -147,17 +67,15 @@ private:
 	void model();
 
 
-
-	glm::mat4 scaleMatrix;
-	glm::mat4 rotationMatrix;
-	glm::mat4 translationMatrix;
-
-	glm::mat4 modelMatrix;
+	static const glm::vec3 x;
+	static const glm::vec3 y;
+	static const glm::vec3 z;
 
 
-	glm::vec3 scale;
+	glm::mat4 mScale;
+	glm::mat4 mTranslation;
 
-	float angle;
+
 };
 
 

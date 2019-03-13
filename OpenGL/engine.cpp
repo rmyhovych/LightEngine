@@ -53,7 +53,7 @@ void Engine::step()
 	camera.update();
 
 
-	drawables.draw();
+	drawables.render();
 }
 
 void Engine::createSphere(float radius, glm::vec3 position, float color)
