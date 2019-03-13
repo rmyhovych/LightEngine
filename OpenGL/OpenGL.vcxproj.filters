@@ -60,7 +60,7 @@
     <ClCompile Include="EBOHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VBOHandler.cpp">
+    <ClCompile Include="ObjectHandlerElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +104,10 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EBOHandler.h">
+    <ClInclude Include="ObjectHandlerVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VBOHandler.h">
+    <ClInclude Include="ObjectHandlerElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

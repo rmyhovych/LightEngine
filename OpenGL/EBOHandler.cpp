@@ -1,12 +1,12 @@
-#include "EBOHandler.h"
+#include "ObjectHandlerElement.h"
 
 
 
-EBOHandler::EBOHandler()
+ObjectHandlerElement::ObjectHandlerElement()
 {
 }
 
 
-EBOHandler::~EBOHandler()
+ObjectHandlerElement::~ObjectHandlerElement()
 {
 }

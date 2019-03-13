@@ -7,19 +7,6 @@
 
 
 
-GLuint Shader::genVertexArray()
-{
-	GLuint vao;
-
-	glGenVertexArrays(1, &vao);
-
-	return vao;
-}
-
-
-
-
-
 void Shader::addVertexBuffer(FileData& vertexBuffer)
 {
 	GLuint vbo;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VBOHandler.h"
-#include "EBOHandler.h"
+#include "ObjectHandlerVertex.h"
+#include "ObjectHandlerElement.h"
 
 #include "Shader.h"
 
