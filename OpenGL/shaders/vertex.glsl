@@ -31,13 +31,8 @@ out vec4 vFragPosLight;
 
 
 
-
-
-
 uniform mat4 mRotation;
 uniform mat4 mModel;		
-
-
 
 
 

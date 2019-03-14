@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Object.h"
-
+#include "ObjectUniforms.h"
 
 
 class ObjectHandler

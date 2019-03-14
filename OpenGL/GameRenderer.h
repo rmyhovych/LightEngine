@@ -7,21 +7,13 @@
 
 
 
-
-struct CommonData
-{
-
-};
-
-
-
 class GameRenderer
 {
 public:
 	GameRenderer();
 	~GameRenderer();
 
-	ObjectHandler* addObjectHandler(const char* vPathRender, const char* fPathRender);
+	ProgramRenderer* addProgramRenderer(const char* vPathRender, const char* fPathRender);
 
 
 	void draw();
@@ -42,7 +34,7 @@ private:
 
 
 
-	std::vector<ObjectHandler*> objectHandlers;
+	std::vector<ProgramRenderer*> programRendererArray;
 
 	Shader programDepth;
 

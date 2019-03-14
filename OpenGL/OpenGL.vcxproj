@@ -150,6 +150,7 @@
     <ClInclude Include="framebuffer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
+    <ClInclude Include="ObjectUniforms.h" />
     <ClInclude Include="prism.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ProgramRenderer.h" />

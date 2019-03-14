@@ -28,3 +28,13 @@ ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
 ObjectHandlerVertex::~ObjectHandlerVertex()
 {
 }
+
+
+// program is set
+void ObjectHandlerVertex::renderDepth()
+{
+	for (int i = 0; i < objectArray.size(); i++)
+	{
+		glUniformMatrix4fv(modelHandleShadow, 1, GL_FALSE, glm::value_ptr(mModel));
+	}
+}

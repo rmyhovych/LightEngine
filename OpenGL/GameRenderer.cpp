@@ -14,20 +14,20 @@ GameRenderer::GameRenderer() :
 
 GameRenderer::~GameRenderer()
 {
-	for (int i = 0; i < objectHandlers.size(); i++)
+	for (int i = 0; i < programRendererArray.size(); i++)
 	{
-		delete objectHandlers[i];
-		objectHandlers[i] = nullptr;
+		delete programRendererArray[i];
+		programRendererArray[i] = nullptr;
 	}
 }
 
 
 
-ObjectHandler* GameRenderer::addObjectHandler(const char* vPathRender, const char* fPathRender)
+ProgramRenderer* GameRenderer::addProgramRenderer(const char* pathVertex, const char* pathFragment)
 {
-	ObjectHandler* objectHandler = new ObjectHandler(vPathRender, fPathRender);
+	ProgramRenderer* objectHandler = new ProgramRenderer(pathVertex, pathFragment);
 
-	objectHandlers.push_back(objectHandler);
+	programRendererArray.push_back(objectHandler);
 
 	return objectHandler;
 }
@@ -46,9 +46,6 @@ void GameRenderer::draw()
 
 
 }
-
-
-
 
 
 void GameRenderer::createDepthMap()
@@ -70,12 +67,9 @@ void GameRenderer::createDepthMap()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0,
-		GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0,	GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-
 
 
 
@@ -94,8 +88,7 @@ void GameRenderer::createDepthMap()
 
 
 	//      bind data to fbo
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
-		GL_TEXTURE_2D, depthMap, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,	GL_TEXTURE_2D, depthMap, 0);
 
 
 

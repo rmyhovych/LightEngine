@@ -110,6 +110,9 @@
     <ClInclude Include="ObjectHandlerElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectUniforms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment_shadow.glsl">

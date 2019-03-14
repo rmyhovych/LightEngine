@@ -151,7 +151,7 @@ void Object::model()
 
 void Object::useDepth()
 {
-	glUniformMatrix4fv(modelHandleShadow, 1, GL_FALSE, glm::value_ptr(mModel));
+	
 }
 
 void Object::use()
