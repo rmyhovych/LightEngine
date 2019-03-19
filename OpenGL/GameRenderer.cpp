@@ -42,7 +42,7 @@ void GameRenderer::draw()
 {
 	initRenderingDepth();
 
-	
+	// TODO : draw objects
 
 
 }
@@ -105,6 +105,7 @@ void GameRenderer::createDepthMap()
 
 void GameRenderer::createUniforms()
 {
+	// TODO : create uniforms
 }
 
 

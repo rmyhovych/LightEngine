@@ -14,6 +14,11 @@ public:
 	~ProgramRenderer();
 
 
+	ObjectHandler* addObjectHandler(const char* arrayPath);
+	ObjectHandler* addObjectHandler(const char* arrayPath, const char* elementPath);
+
+
+
 	void draw();
 
 private:
