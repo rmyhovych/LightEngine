@@ -3,29 +3,31 @@
 precision mediump float;
 
 
-struct sLight							// +
-{
-	vec3 pos;
-	float intensity;
-};
-
-
-
-
-
 in vec3 vRotNormal;
 in vec3 vFragPos;
 in vec4 vFragPosLight;
+
+in vec3 color;
+
+
 
 out vec4 FragColor;
 
 
 
+layout (std140)	uniform CommonData
+{
+	vec3 vDirLight;
+
+	mat4 mVP;
+	mat4 mLightSpace;
+};
+
+
+
+
 //  Depth Map
-uniform sampler2DShadow depthMap;
-
-
-uniform float vColor;
+//uniform sampler2DShadow depthMap;
 
 
 
@@ -33,6 +35,8 @@ uniform float vColor;
 
 
 
+
+/*	=== SHADOW MAPPING ===
 
 float lookup(float x, float y)
 {
@@ -65,7 +69,7 @@ float shadow()
 
     return sum * 0.11;
 }
-
+*/
 
 
 
@@ -76,39 +80,9 @@ void main()
 	vec3 lightDir;
 	float fraction;
 
-
-	float diffuse;
-
-    float result = 0.0f;
-
-
-
-    //  point lights
-	for (int i = 0; i < uSize; i++)
-	{
-		lightDir = lights[i].pos - vFragPos;
-
-		fraction = 1.0f / (1.0f + dot(lightDir, lightDir) / lights[i].intensity);
-
-		lightDir = normalize(lightDir);
-
-
-		diffuse = fraction * max(dot(vRotNormal, lightDir), 0.0f);
-		result += (1.0f - result) * diffuse;
-	}
-
-
-
     //  directionnal light
-    diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
-	result += (1.0f - result) * diffuse * shadow();
+    float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
+	float result = (1.0f - ambient) * diffuse + ambient;// * shadow();
 
-
-
-    //  ambient light
-    result *= 1.0f - ambient;
-    result += ambient;
-
-
-	FragColor = vec4(result * vec3(vColor), 1.0);
+	FragColor = vec4(result * color, 1.0);
 }

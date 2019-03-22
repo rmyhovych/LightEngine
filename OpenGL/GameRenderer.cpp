@@ -40,9 +40,8 @@ ProgramRenderer* GameRenderer::addProgramRenderer(const char* pathVertex, const 
 
 void GameRenderer::draw()
 {
-	initRenderingDepth();
 
-	// TODO : draw objects
+	// TODO : draw depthMap objects
 
 
 }
