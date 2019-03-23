@@ -123,40 +123,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="ObjectHandlerElement.cpp" />
     <ClCompile Include="FileData.cpp" />
-    <ClCompile Include="camera.cpp" />
     <ClCompile Include="dirLight.cpp" />
     <ClCompile Include="GameRenderer.cpp" />
-    <ClCompile Include="engine.cpp" />
     <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectHandler.cpp" />
-    <ClCompile Include="prism.cpp" />
     <ClCompile Include="ProgramRenderer.cpp" />
     <ClCompile Include="ObjectHandlerVertex.cpp" />
     <ClCompile Include="window.cpp" />
-    <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="ObjectHandlerElement.h" />
     <ClInclude Include="FileData.h" />
-    <ClInclude Include="camera.h" />
     <ClInclude Include="dirLight.h" />
     <ClInclude Include="GameRenderer.h" />
-    <ClInclude Include="engine.h" />
     <ClInclude Include="framebuffer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="ObjectUniforms.h" />
-    <ClInclude Include="prism.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ProgramRenderer.h" />
     <ClInclude Include="ObjectHandlerVertex.h" />
     <ClInclude Include="window.h" />
-    <ClInclude Include="sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment.glsl" />

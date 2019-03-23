@@ -9,7 +9,7 @@ GameRenderer::GameRenderer() :
 {
 	createDepthMap();
 
-
+	createUniforms();
 }
 
 GameRenderer::~GameRenderer()

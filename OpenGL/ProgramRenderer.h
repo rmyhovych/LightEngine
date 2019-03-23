@@ -14,8 +14,8 @@ public:
 	~ProgramRenderer();
 
 
-	ObjectHandler* addObjectHandler(const char* arrayPath);
-	ObjectHandler* addObjectHandler(const char* arrayPath, const char* elementPath);
+	ObjectHandlerVertex* addObjectHandler(const char* arrayPath);
+	ObjectHandlerElement* addObjectHandler(const char* arrayPath, const char* elementPath);
 
 
 

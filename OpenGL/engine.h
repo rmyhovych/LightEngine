@@ -1,8 +1,6 @@
 #pragma once
 
-#include "drawables.h"
-#include "dirLight.h"
-#include "camera.h"
+#include "GameRenderer.h"
 
 #include "window.h"
 
@@ -28,11 +26,7 @@ public:
 
 private:
 
-	Renderer drawables;
-
-	Camera camera;
-	DirLight dirLight;
-
+	GameRenderer gameRenderer;
 
 	Window window;
 

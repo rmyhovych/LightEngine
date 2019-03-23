@@ -17,9 +17,9 @@ ProgramRenderer::~ProgramRenderer()
 
 
 
-ObjectHandler* ProgramRenderer::addObjectHandler(const char* arrayPath)
+ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const char* arrayPath)
 {
-	ObjectHandler* oHandler = new ObjectHandlerVertex(arrayPath);
+	ObjectHandlerVertex* oHandler = new ObjectHandlerVertex(arrayPath);
 
 	objectHandlerArray.push_back(oHandler);
 
@@ -29,9 +29,9 @@ ObjectHandler* ProgramRenderer::addObjectHandler(const char* arrayPath)
 
 
 
-ObjectHandler* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
+ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
 {
-	ObjectHandler* oHandler = new ObjectHandlerElement(arrayPath, elementPath);
+	ObjectHandlerElement* oHandler = new ObjectHandlerElement(arrayPath, elementPath);
 
 	objectHandlerArray.push_back(oHandler);
 
