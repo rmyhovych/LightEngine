@@ -2,7 +2,7 @@
 
 #include <iomanip>
 
-#include "engine.h"
+#include "Engine.h"
 
 int width = 1200;
 int height = 800;
@@ -19,7 +19,6 @@ int main()
 
 
 	Engine engine;
-	GLFWwindow* window = engine.getWindow();
 
 
 	glfwSetTime(0);

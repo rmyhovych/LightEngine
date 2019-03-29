@@ -1,5 +1,7 @@
 #include "ProgramRenderer.h"
 
+
+
 ProgramRenderer::ProgramRenderer(const char* pathVertex, const char* pathFragment) :
 	program(pathVertex, pathFragment)
 {
@@ -14,6 +16,8 @@ ProgramRenderer::~ProgramRenderer()
 		objectHandlerArray[i] = nullptr;
 	}
 }
+
+
 
 
 

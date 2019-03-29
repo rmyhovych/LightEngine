@@ -1,9 +1,8 @@
 #pragma once
 
-#include "ObjectHandlerVertex.h"
-#include "ObjectHandlerElement.h"
 
-#include "Shader.h"
+#include "ObjectHandler.h"
+
 
 
 class ProgramRenderer

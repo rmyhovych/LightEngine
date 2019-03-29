@@ -1,10 +1,17 @@
 #include "GameRenderer.h"
 
+#include "window.h"
+
+
+
 
 int GameRenderer::depthMapSize = 1024;
 
 
-GameRenderer::GameRenderer() :
+GameRenderer::GameRenderer(int windowW, int windowH) :
+	windowW(windowW),
+	windowH(windowH),
+
 	programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
 	createDepthMap();
@@ -38,7 +45,7 @@ ProgramRenderer* GameRenderer::addProgramRenderer(const char* pathVertex, const 
 
 
 
-void GameRenderer::draw()
+void GameRenderer::render()
 {
 
 	// TODO : draw depthMap objects

@@ -6,6 +6,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 
+
 struct LightHandle;
 
 class Object
@@ -20,37 +21,37 @@ public:
 
 
 
-
-
-	Object();
-
-	Object(glm::vec3 position, glm::vec3 orientation, glm::vec3 scale, glm::vec3 color);
-
-
-
-
-	void addPosition(glm::vec3 position);
-
-	void setPosition(glm::vec3 position);
-
-
-
-	void addOrientation(glm::vec3 rotation);
-
-	void setOrientation(glm::vec3 rotation);
+	Object(
+		const glm::vec3& position = glm::vec3(0), 
+		const glm::vec3& orientation = glm::vec3(0),
+		const glm::vec3& scale = glm::vec3(1),
+		const glm::vec3& color = glm::vec3(1));
 
 
 
 
-	void addScale(glm::vec3 v);
+	void addPosition(const glm::vec3& position);
 
-	void setScale(glm::vec3 v);
+	void setPosition(const glm::vec3& position);
+
+
+
+	void addOrientation(const glm::vec3& rotation);
+
+	void setOrientation(const glm::vec3& rotation);
+
+
+
+
+	void addScale(const glm::vec3& v);
+
+	void setScale(const glm::vec3& v);
 
 	void setScale(float v);
 
 
 
-	void setColor(glm::vec3 color);
+	void setColor(const glm::vec3& color);
 
 	void setColor(float r, float g, float b);
 

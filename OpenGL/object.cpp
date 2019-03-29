@@ -1,5 +1,6 @@
 #include "object.h"
-#include "window.h"
+
+
 
 
 
@@ -15,19 +16,11 @@ glm::vec3 z = glm::vec3(0, 0, 1);
 
 
 
-Object::Object()
-{
-	setPosition(glm::vec3(0));
-	setOrientation(glm::vec3(0));
-	setScale(1);
-
-	setColor(1, 1, 1);
-
-
-	model();
-}
-
-Object::Object(glm::vec3 position, glm::vec3 orientation, glm::vec3 scale, glm::vec3 color)
+Object::Object(
+	const glm::vec3& position, 
+	const glm::vec3& orientation, 
+	const glm::vec3& scale, 
+	const glm::vec3& color)
 {
 	setPosition(position);
 	setOrientation(orientation);
@@ -36,21 +29,21 @@ Object::Object(glm::vec3 position, glm::vec3 orientation, glm::vec3 scale, glm::
 	setColor(color);
 
 
-	model;
+	model();
 }
 
 
 
 
 
-void Object::addPosition(glm::vec3 position)
+void Object::addPosition(const glm::vec3& position)
 {
 	mTranslation = glm::translate(mTranslation, position);
 
 	model();
 }
 
-void Object::setPosition(glm::vec3 position)
+void Object::setPosition(const glm::vec3& position)
 {
 	mTranslation = glm::translate(glm::mat4(1.0f), position);
 
@@ -65,7 +58,7 @@ void Object::setPosition(glm::vec3 position)
 
 
 
-void Object::addOrientation(glm::vec3 rotation)
+void Object::addOrientation(const glm::vec3& rotation)
 {
 	mRotation = glm::rotate(mRotation, rotation.x, x);
 	mRotation = glm::rotate(mRotation, rotation.y, y);
@@ -74,7 +67,7 @@ void Object::addOrientation(glm::vec3 rotation)
 	model();
 }
 
-void Object::setOrientation(glm::vec3 rotation)
+void Object::setOrientation(const glm::vec3& rotation)
 {
 	mRotation = glm::rotate(glm::mat4(1), rotation.x, x);
 	mRotation = glm::rotate(mRotation, rotation.y, y);
@@ -90,14 +83,14 @@ void Object::setOrientation(glm::vec3 rotation)
 
 
 
-void Object::addScale(glm::vec3 scale)
+void Object::addScale(const glm::vec3& scale)
 {
 	mScale = glm::scale(mScale, scale);
 
 	model();
 }
 
-void Object::setScale(glm::vec3 scale)
+void Object::setScale(const glm::vec3& scale)
 {
 	mScale = glm::scale(glm::mat4(1), scale);
 
@@ -122,7 +115,7 @@ void Object::setScale(float scale)
 
 
 
-void Object::setColor(glm::vec3 color)
+void Object::setColor(const glm::vec3& color)
 {
 	this->color = color;
 }
@@ -156,8 +149,8 @@ void Object::useDepth()
 
 void Object::use()
 {
-	glUniformMatrix4fv(modelHandle, 1, false, glm::value_ptr(modelMatrix));
-	glUniformMatrix4fv(rotationHandle, 1, false, glm::value_ptr(rotationMatrix));
+	//glUniformMatrix4fv(modelHandle, 1, false, glm::value_ptr(modelMatrix));
+	//glUniformMatrix4fv(rotationHandle, 1, false, glm::value_ptr(rotationMatrix));
 
-	glUniform1f(colorHandle, color);
+	//glUniform1f(colorHandle, color);
 }

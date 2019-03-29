@@ -124,35 +124,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="ObjectHandlerElement.cpp" />
     <ClCompile Include="FileData.cpp" />
     <ClCompile Include="dirLight.cpp" />
     <ClCompile Include="GameRenderer.cpp" />
-    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectHandler.cpp" />
     <ClCompile Include="ProgramRenderer.cpp" />
-    <ClCompile Include="ObjectHandlerVertex.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="ObjectHandlerElement.h" />
     <ClInclude Include="FileData.h" />
     <ClInclude Include="dirLight.h" />
     <ClInclude Include="GameRenderer.h" />
-    <ClInclude Include="framebuffer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="ObjectUniforms.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ProgramRenderer.h" />
-    <ClInclude Include="ObjectHandlerVertex.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="shaders\fragment.glsl" />
     <None Include="shaders\fragmentLight.glsl" />
     <None Include="shaders\fragment_fbo.glsl" />

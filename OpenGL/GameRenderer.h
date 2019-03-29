@@ -3,20 +3,17 @@
 
 #include "ProgramRenderer.h"
 
-#include "window.h"
-
-
 
 class GameRenderer
 {
 public:
-	GameRenderer();
+	GameRenderer(int windowW, int windowH);
 	~GameRenderer();
 
-	ProgramRenderer* addProgramRenderer(const char* vPathRender, const char* fPathRender);
+	ProgramRenderer* addProgramRenderer(const char* pathVertex, const char* pathFragment);
 
 
-	void draw();
+	void render();
 
 private:
 
@@ -31,6 +28,13 @@ private:
 
 	void initRendering();
 
+
+
+
+
+
+	int windowW;
+	int windowH;
 
 
 

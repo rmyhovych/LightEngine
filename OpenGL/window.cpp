@@ -13,6 +13,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 
 Window::Window(int width, int height) :
+	width(width),
+	height(height),
+
 	keyInput(new bool[6]),
 	rightClickPressed(false),
 	inputForce_(0.005)
@@ -56,14 +59,6 @@ Window::Window(int width, int height) :
 	{
 		keyInput[i] = false;
 	}
-
-
-
-
-
-
-	Window::width = width;
-	Window::height = height;
 }
 
 

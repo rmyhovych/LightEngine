@@ -17,13 +17,10 @@ class Window
 public:
 	GLFWwindow* windowHandle;
 
-	static int width;
-	static int height;
-
 	bool* keyInput;
 
 
-	Window(int width = 1200, int height = 800);
+	Window(int width, int height);
 	~Window();
 
 	bool* getInput();
@@ -33,9 +30,12 @@ public:
 
 private:
 
+	int width;
+	int height;
+
+
 	bool rightClickPressed;
 
 	glm::vec2 cursorPosition_;
 	float inputForce_;
-
 };

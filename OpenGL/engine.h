@@ -9,29 +9,19 @@ class Engine
 {
 public:
 
-	Engine();
+	Engine(int windowW = 1200, int windowH = 800);
 
 
 	void initShapes();
 
-	GLFWwindow* getWindow();
-
 	void step();
-
-
-	void createSphere(float radius, glm::vec3 position, float color);
-
-	void createPrism(glm::vec3 scale, glm::vec3 position, float angle, float color);
-
 
 private:
 
-	GameRenderer gameRenderer;
-
 	Window window;
 
-	double time = 0;
+	GameRenderer gameRenderer;
 
-	
+	double time = 0;
 };
 
