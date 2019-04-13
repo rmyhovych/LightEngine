@@ -74,6 +74,24 @@ ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
 	glBindVertexArray(0);
 }
 
+ObjectHandlerVertex::ObjectHandlerVertex(const float data[], int size)
+{
+	nVertices = size / 6;
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+
+	Shader::addVertexBuffer(data, size);
+
+
+	Shader::linkLayout(0, 3, 6, 0);
+	Shader::linkLayout(1, 3, 6, 3);
+
+
+	glBindVertexArray(0);
+}
+
 
 ObjectHandlerVertex::~ObjectHandlerVertex()
 {
@@ -87,6 +105,14 @@ void ObjectHandlerVertex::renderDepth()
 	{
 		
 	}
+}
+
+void ObjectHandlerVertex::render()
+{
+}
+
+void ObjectHandlerVertex::initRendering()
+{
 }
 
 
@@ -133,5 +159,17 @@ ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* e
 
 
 ObjectHandlerElement::~ObjectHandlerElement()
+{
+}
+
+void ObjectHandlerElement::renderDepth()
+{
+}
+
+void ObjectHandlerElement::render()
+{
+}
+
+void ObjectHandlerElement::initRendering()
 {
 }

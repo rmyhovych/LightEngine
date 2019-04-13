@@ -30,6 +30,11 @@ ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const char* arrayPath)
 	return oHandler;
 }
 
+ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const float data[], int size)
+{
+	return nullptr;
+}
+
 
 
 
@@ -40,4 +45,8 @@ ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, c
 	objectHandlerArray.push_back(oHandler);
 
 	return oHandler;
+}
+
+void ProgramRenderer::createUniforms()
+{
 }

@@ -26,10 +26,8 @@ class Shader
 
 public:
 
-	//	USE DIRECTLY IN CODE
-	static GLuint genVertexArray();
-
 	static void addVertexBuffer(FileData& vertexBuffer);
+	static void addVertexBuffer(const float data[], int size);
 
 	static void addElementBuffer(FileData& elementBuffer);
 

@@ -14,6 +14,8 @@ public:
 
 
 	ObjectHandlerVertex* addObjectHandler(const char* arrayPath);
+	ObjectHandlerVertex* addObjectHandler(const float data[], int size);
+
 	ObjectHandlerElement* addObjectHandler(const char* arrayPath, const char* elementPath);
 
 

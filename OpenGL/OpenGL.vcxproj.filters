@@ -103,6 +103,5 @@
     <None Include="shaders\fragment_fbo_pixel.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

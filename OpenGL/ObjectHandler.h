@@ -49,6 +49,8 @@ class ObjectHandlerVertex :
 {
 public:
 	ObjectHandlerVertex(const char* vertexPath);
+	ObjectHandlerVertex(const float data[], int size);
+
 	~ObjectHandlerVertex();
 
 

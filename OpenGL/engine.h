@@ -14,7 +14,7 @@ public:
 
 	void initShapes();
 
-	void step();
+	void play();
 
 private:
 

@@ -4,9 +4,6 @@
 
 #include "Engine.h"
 
-int width = 1200;
-int height = 800;
-
 
 int main()
 {
@@ -19,8 +16,9 @@ int main()
 
 
 	Engine engine;
+	engine.play();
 
-
+	/*
 	glfwSetTime(0);
 
 	int k = 0;
@@ -52,4 +50,5 @@ int main()
 	}
 
 	return 0;
+	*/
 }

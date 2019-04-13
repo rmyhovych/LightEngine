@@ -144,7 +144,7 @@ void GameRenderer::initRendering()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glViewport(0, 0, Window::width, Window::height);
+	glViewport(0, 0, windowW, windowH);
 
 	glColorMask(true, true, true, true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

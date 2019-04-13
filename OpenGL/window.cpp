@@ -1,24 +1,9 @@
 #include "window.h"
 
-#include "camera.h"
-
-double scroll = 0;
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	scroll = yoffset;
-}
-
-
-
 
 Window::Window(int width, int height) :
 	width(width),
-	height(height),
-
-	keyInput(new bool[6]),
-	rightClickPressed(false),
-	inputForce_(0.005)
+	height(height)
 {
 	//	-- START GLFW --
 	glfwInit();
@@ -39,10 +24,10 @@ Window::Window(int width, int height) :
 
 
 	//	Window creation + OpenGL Context
-	windowHandle = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
+	handle = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
 
-	glfwMakeContextCurrent(windowHandle);
-	glfwSetScrollCallback(windowHandle, scroll_callback);
+	glfwMakeContextCurrent(handle);
+
 
 
 	//	Setup GLEW
@@ -55,10 +40,6 @@ Window::Window(int width, int height) :
 	glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
 	
-	for (int i = 0; i < 6; i++)
-	{
-		keyInput[i] = false;
-	}
 }
 
 
@@ -69,103 +50,13 @@ Window::~Window()
 	glfwTerminate();
 }
 
-
-
-bool* Window::getInput()
+bool Window::isClosing()
 {
-	return keyInput;
+	return glfwWindowShouldClose(handle);
 }
 
-
-
-void Window::input()
+void Window::swapBuffers()
 {
-	if (glfwGetKey(windowHandle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(windowHandle, GL_TRUE);
-	}
-
-
-	if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		keyInput[0] = true;
-	}
-	else if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_RELEASE)
-	{
-		keyInput[0] = false;
-	}
-
-	if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		keyInput[1] = true;
-	}
-	else if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_RELEASE)
-	{
-		keyInput[1] = false;
-	}
-
-	if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		keyInput[2] = true;
-	}
-	else if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_RELEASE)
-	{
-		keyInput[2] = false;
-	}
-
-	if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		keyInput[3] = true;
-	}
-	else if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_RELEASE)
-	{
-		keyInput[3] = false;
-	}
-}
-
-
-
-void Window::mouseInput(Camera& camera)
-{
-	double x;
-	double y;
-
-	if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && !rightClickPressed)
-	{
-		rightClickPressed = true;
-		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-		glfwGetCursorPos(windowHandle, &x, &y);
-		glfwSetCursorPos(windowHandle, x, y);
-
-		cursorPosition_.x = x;
-		cursorPosition_.y = y;
-	}
-	else if (glfwGetMouseButton(windowHandle, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
-	{
-		rightClickPressed = false;
-		glfwSetInputMode(windowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	}
-
-	if (rightClickPressed)
-	{
-		glfwGetCursorPos(windowHandle, &x, &y);
-
-		camera.rotateCamera(inputForce_*(x - cursorPosition_.x), inputForce_*(y - cursorPosition_.y));
-		glfwSetCursorPos(windowHandle, (double)cursorPosition_.x, (double)cursorPosition_.y);
-	}
-
-	if (scroll != 0)
-	{
-
-		if (scroll == 1)
-		{
-			camera.zoom /= 1.1;
-		}
-		else
-		{
-			camera.zoom *= 1.1;
-		}
-
-		scroll = 0;
-	}
+	glfwSwapBuffers(handle);
+	glfwPollEvents();
 }

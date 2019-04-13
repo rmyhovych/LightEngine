@@ -9,6 +9,7 @@ public:
 	FileData(const char* path);
 	FileData(FileData& oldBuffer);
 
+
 	~FileData();
 
 

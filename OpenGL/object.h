@@ -68,9 +68,9 @@ private:
 	void model();
 
 
-	static const glm::vec3 x;
-	static const glm::vec3 y;
-	static const glm::vec3 z;
+	static glm::vec3 right;
+	static glm::vec3 top;
+	static glm::vec3 back;
 
 
 	glm::mat4 mScale;
@@ -85,14 +85,3 @@ private:
 
 
 
-
-
-
-
-
-
-struct LightHandle
-{
-	GLuint posHandle;
-	GLuint intensityHandle;
-};

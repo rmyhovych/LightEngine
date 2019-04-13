@@ -4,9 +4,9 @@
 
 
 
-glm::vec3 x = glm::vec3(1, 0, 0);
-glm::vec3 y = glm::vec3(0, 1, 0);
-glm::vec3 z = glm::vec3(0, 0, 1);
+glm::vec3 Object::right(1, 0, 0);
+glm::vec3 Object::top(0, 1, 0);
+glm::vec3 Object::back(0, 0, 1);
 
 
 
@@ -60,18 +60,18 @@ void Object::setPosition(const glm::vec3& position)
 
 void Object::addOrientation(const glm::vec3& rotation)
 {
-	mRotation = glm::rotate(mRotation, rotation.x, x);
-	mRotation = glm::rotate(mRotation, rotation.y, y);
-	mRotation = glm::rotate(mRotation, rotation.z, z);
+	mRotation = glm::rotate(mRotation, rotation.x, right);
+	mRotation = glm::rotate(mRotation, rotation.y, top);
+	mRotation = glm::rotate(mRotation, rotation.z, back);
 
 	model();
 }
 
 void Object::setOrientation(const glm::vec3& rotation)
 {
-	mRotation = glm::rotate(glm::mat4(1), rotation.x, x);
-	mRotation = glm::rotate(mRotation, rotation.y, y);
-	mRotation = glm::rotate(mRotation, rotation.z, z);
+	mRotation = glm::rotate(glm::mat4(1), rotation.x, right);
+	mRotation = glm::rotate(mRotation, rotation.y, top);
+	mRotation = glm::rotate(mRotation, rotation.z, back);
 
 	model();
 }

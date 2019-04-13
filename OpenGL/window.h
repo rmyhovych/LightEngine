@@ -15,27 +15,19 @@ class Camera;
 class Window
 {
 public:
-	GLFWwindow* windowHandle;
-
-	bool* keyInput;
-
 
 	Window(int width, int height);
 	~Window();
 
-	bool* getInput();
+	bool isClosing();
 
-	void input();
-	void mouseInput(Camera& camera);
+	void swapBuffers();
 
 private:
 
+	GLFWwindow* handle;
+
+
 	int width;
 	int height;
-
-
-	bool rightClickPressed;
-
-	glm::vec2 cursorPosition_;
-	float inputForce_;
 };

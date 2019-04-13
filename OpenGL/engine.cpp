@@ -16,16 +16,20 @@ void Engine::initShapes()
 {
 	ProgramRenderer* mainProgram = gameRenderer.addProgramRenderer("shaders/vertex.glsl", "shaders/fragment.glsl");
 
-	ObjectHandlerVertex* prismHandler = mainProgram->addObjectHandler("data/prismBuffer");
+	ObjectHandlerVertex* objectHandler = mainProgram->addObjectHandler("data/prismBuffer");
 
-	Object* cube = prismHandler->addObject();
+	Object* cube = objectHandler->addObject();
 }
 
 
 
 
-void Engine::step()
+void Engine::play()
 {
-	
+	while (!window.isClosing())
+	{
+
+		window.swapBuffers();
+	}
 }
 

@@ -147,7 +147,6 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="shaders\fragment.glsl" />
     <None Include="shaders\fragmentLight.glsl" />
     <None Include="shaders\fragment_fbo.glsl" />

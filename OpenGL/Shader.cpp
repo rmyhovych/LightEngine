@@ -17,6 +17,17 @@ void Shader::addVertexBuffer(FileData& vertexBuffer)
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size, vertexBuffer.data, GL_STATIC_DRAW);
 }
 
+void Shader::addVertexBuffer(const float data[], int size)
+{
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), (uint8_t*) data, GL_STATIC_DRAW);
+
+}
+
 
 
 void Shader::addElementBuffer(FileData& elementBuffer)
