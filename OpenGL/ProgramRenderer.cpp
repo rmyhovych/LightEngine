@@ -30,13 +30,6 @@ ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const char* arrayPath)
 	return oHandler;
 }
 
-ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const float data[], int size)
-{
-	return nullptr;
-}
-
-
-
 
 ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
 {
@@ -47,6 +40,39 @@ ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, c
 	return oHandler;
 }
 
+
+
+
+void ProgramRenderer::render(glm::vec3& dirLight, glm::mat4& vp)
+{
+	program.use();
+
+	glUniform3f(globalUniforms.vDirLight, dirLight.x, dirLight.y, dirLight.z);
+	glUniformMatrix4fv(globalUniforms.mVP, 1, false, glm::value_ptr(vp));
+
+	for (int i = 0; i < objectHandlerArray.size(); i++)
+	{
+		objectHandlerArray[i]->render(objectUniforms);
+	}
+}
+
+
+
+
+
 void ProgramRenderer::createUniforms()
 {
+	program.use();
+
+	globalUniforms = {
+		program.getUniformLocation("vDirLight"),
+		program.getUniformLocation("mVP")
+	};
+
+
+	objectUniforms = {
+		program.getUniformLocation("mRotation"),
+		program.getUniformLocation("mModel"),
+		program.getUniformLocation("vColor")
+	};
 }

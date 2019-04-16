@@ -14,13 +14,11 @@ public:
 
 
 	ObjectHandlerVertex* addObjectHandler(const char* arrayPath);
-	ObjectHandlerVertex* addObjectHandler(const float data[], int size);
-
 	ObjectHandlerElement* addObjectHandler(const char* arrayPath, const char* elementPath);
 
 
 
-	void draw();
+	void render(glm::vec3& dirLight, glm::mat4& vp);
 
 private:
 
@@ -29,6 +27,9 @@ private:
 
 
 	Shader program;
+
+	GlobalUniforms globalUniforms;
+	ObjectUniforms objectUniforms;
 
 
 	std::vector<ObjectHandler*> objectHandlerArray;

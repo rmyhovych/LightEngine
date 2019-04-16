@@ -3,12 +3,6 @@
 #include <vector>
 
 #include "Object.h"
-#include "ObjectUniforms.h"
-
-
-#include "Shader.h"
-
-
 
 
 class ObjectHandler
@@ -25,17 +19,14 @@ public:
 		const glm::vec3& color = glm::vec3(1));
 
 
-	virtual void renderDepth() = 0;
-
-	virtual void render() = 0;
+	virtual void render(ObjectUniforms& uniforms) = 0;
 
 protected:
-
-	virtual void initRendering() = 0;
 
 	std::vector<Object*> objectArray;
 
 
+	GLuint vao;
 };
 
 
@@ -49,23 +40,14 @@ class ObjectHandlerVertex :
 {
 public:
 	ObjectHandlerVertex(const char* vertexPath);
-	ObjectHandlerVertex(const float data[], int size);
-
 	~ObjectHandlerVertex();
 
 
-	virtual void renderDepth();
-
-	virtual void render();
+	virtual void render(ObjectUniforms& uniforms);
 
 
 private:
 
-	virtual void initRendering();
-
-
-
-	GLuint vao;
 
 	unsigned nVertices;
 
@@ -86,17 +68,10 @@ public:
 	~ObjectHandlerElement();
 
 
-	virtual void renderDepth();
-
-	virtual void render();
+	virtual void render(ObjectUniforms& uniforms);
 
 
 private:
-
-	virtual void initRendering();
-
-	GLuint vao;
-	GLuint ebo;
 
 	unsigned nElements;
 

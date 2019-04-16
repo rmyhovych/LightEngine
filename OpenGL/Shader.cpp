@@ -17,18 +17,6 @@ void Shader::addVertexBuffer(FileData& vertexBuffer)
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size, vertexBuffer.data, GL_STATIC_DRAW);
 }
 
-void Shader::addVertexBuffer(const float data[], int size)
-{
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), (uint8_t*) data, GL_STATIC_DRAW);
-
-}
-
-
 
 void Shader::addElementBuffer(FileData& elementBuffer)
 {
@@ -38,7 +26,6 @@ void Shader::addElementBuffer(FileData& elementBuffer)
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer.size, elementBuffer.data, GL_STATIC_DRAW);
-
 }
 
 
@@ -74,25 +61,6 @@ GLuint Shader::createProgram(FileData& vertexShaderCode, FileData& fragmentShade
 
 	return program;
 }
-
-
-
-
-
-
-
-
-void Shader::drawArrays(int size)
-{
-	glDrawArrays(GL_TRIANGLES, 0, size);
-}
-
-void Shader::renderElements(int size)
-{
-	glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
-}
-
-
 
 
 

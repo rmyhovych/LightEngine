@@ -132,7 +132,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectHandler.cpp" />
     <ClCompile Include="ProgramRenderer.cpp" />
-    <ClCompile Include="window.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -141,20 +141,14 @@
     <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
-    <ClInclude Include="ObjectUniforms.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ProgramRenderer.h" />
-    <ClInclude Include="window.h" />
+    <ClInclude Include="UniformHandling.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment.glsl" />
-    <None Include="shaders\fragmentLight.glsl" />
-    <None Include="shaders\fragment_fbo.glsl" />
-    <None Include="shaders\fragment_fbo_pixel.glsl" />
-    <None Include="shaders\fragment_shadow.glsl" />
     <None Include="shaders\vertex.glsl" />
-    <None Include="shaders\vertex_fbo.glsl" />
-    <None Include="shaders\vertex_shadow.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -147,10 +147,10 @@ void Object::useDepth()
 	
 }
 
-void Object::use()
+void Object::use(ObjectUniforms& uniforms)
 {
-	//glUniformMatrix4fv(modelHandle, 1, false, glm::value_ptr(modelMatrix));
-	//glUniformMatrix4fv(rotationHandle, 1, false, glm::value_ptr(rotationMatrix));
+	glUniformMatrix4fv(uniforms.mModel, 1, false, glm::value_ptr(mModel));
+	glUniformMatrix4fv(uniforms.mRotation, 1, false, glm::value_ptr(mRotation));
 
-	//glUniform1f(colorHandle, color);
+	glUniform3f(uniforms.vColor, color.r, color.g, color.b);
 }

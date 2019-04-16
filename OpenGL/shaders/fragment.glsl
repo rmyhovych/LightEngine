@@ -1,11 +1,12 @@
 #version 300 es
-#define MAX_LIGHTING 4
 precision mediump float;
+
+#define MAX_LIGHTING 4
 
 
 in vec3 vRotNormal;
 in vec3 vFragPos;
-in vec4 vFragPosLight;
+//in vec4 vFragPosLight;
 
 in vec3 color;
 
@@ -14,14 +15,13 @@ in vec3 color;
 out vec4 FragColor;
 
 
+//	Global Data
 
-layout (std140)	uniform CommonData
-{
-	vec3 vDirLight;
+uniform vec3 vDirLight;
 
-	mat4 mVP;
-	mat4 mLightSpace;
-};
+uniform mat4 mVP;
+//mat4 mLightSpace;
+
 
 
 

@@ -7,7 +7,8 @@
 ////	INTERFACE		////
 ////////////////////////////
 
-ObjectHandler::ObjectHandler()
+ObjectHandler::ObjectHandler() :
+	vao(0)
 {
 }
 
@@ -19,6 +20,8 @@ ObjectHandler::~ObjectHandler()
 		delete objectArray[i];
 		objectArray[i] = nullptr;
 	}
+
+	glDeleteVertexArrays(1, &vao);
 }
 
 Object* ObjectHandler::addObject(
@@ -36,16 +39,6 @@ Object* ObjectHandler::addObject(
 
 
 
-void ObjectHandler::render()
-{
-}
-
-
-
-
-
-
-
 
 
 ////////////////////////
@@ -53,7 +46,6 @@ void ObjectHandler::render()
 ////////////////////////
 
 ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
-	vao(0),
 
 	nVertices(0)
 {
@@ -74,45 +66,21 @@ ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
 	glBindVertexArray(0);
 }
 
-ObjectHandlerVertex::ObjectHandlerVertex(const float data[], int size)
-{
-	nVertices = size / 6;
-
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-
-	Shader::addVertexBuffer(data, size);
-
-
-	Shader::linkLayout(0, 3, 6, 0);
-	Shader::linkLayout(1, 3, 6, 3);
-
-
-	glBindVertexArray(0);
-}
-
-
 ObjectHandlerVertex::~ObjectHandlerVertex()
 {
 }
 
 
-// program is set
-void ObjectHandlerVertex::renderDepth()
+
+void ObjectHandlerVertex::render(ObjectUniforms& uniforms)
 {
+	glBindVertexArray(vao);
+
 	for (int i = 0; i < objectArray.size(); i++)
 	{
-		
+		objectArray[i]->use(uniforms);
+		glDrawArrays(GL_TRIANGLES, 0, nVertices);
 	}
-}
-
-void ObjectHandlerVertex::render()
-{
-}
-
-void ObjectHandlerVertex::initRendering()
-{
 }
 
 
@@ -127,8 +95,6 @@ void ObjectHandlerVertex::initRendering()
 ////////////////////////
 
 ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* elementPath) :
-	vao(0),
-	ebo(0),
 
 	nElements(0)
 {
@@ -138,11 +104,7 @@ ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* e
 
 
 	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &ebo);
-
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-
 
 	Shader::addVertexBuffer(vertexBuffer);
 	Shader::addElementBuffer(elementBuffer);
@@ -153,7 +115,6 @@ ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* e
 
 
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
@@ -162,14 +123,14 @@ ObjectHandlerElement::~ObjectHandlerElement()
 {
 }
 
-void ObjectHandlerElement::renderDepth()
-{
-}
 
-void ObjectHandlerElement::render()
+void ObjectHandlerElement::render(ObjectUniforms& uniforms)
 {
-}
+	glBindVertexArray(vao);
 
-void ObjectHandlerElement::initRendering()
-{
+	for (int i = 0; i < objectArray.size(); i++)
+	{
+		objectArray[i]->use(uniforms);
+		glDrawElements(GL_TRIANGLES, nElements, GL_UNSIGNED_INT, 0);
+	}
 }
