@@ -1,16 +1,16 @@
 #include "camera.h"
 
-Camera::Camera(int width, int height, float zoom, const glm::vec3& focus, const glm::vec3& direction) :
-	
+Camera::Camera(int width, int height, float zoom, float angleH, float angleV, const glm::vec3& focus) :
+	zoom(zoom),
+
 	focus(focus),
-	direction(direction),
 	up(glm::vec3(0, 1, 0)),
 
-	angleH(0),
-	angleV(PI/2)
+	angleH(angleH),
+	angleV(angleV)
 {
 	projection = glm::perspective(PI / 3, ((float)width / (float)height), 0.1f, 1000.0f);
-	view = glm::lookAt(focus - zoom * direction, focus, up);
+	update();
 }
 
 
@@ -63,6 +63,6 @@ void Camera::update()
 
 
 	view = glm::lookAt(position, focus, up);
-	vp = view * projection;
+	vp = projection * view;
 }
 

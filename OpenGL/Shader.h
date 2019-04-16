@@ -27,7 +27,7 @@ class Shader
 public:
 
 	static void addVertexBuffer(FileData& vertexBuffer);
-	static void addElementBuffer(FileData& elementBuffer);
+	static GLuint addElementBuffer(FileData& elementBuffer);
 
 	static void linkLayout(int index, int size, int attributeSize, int offset);
 

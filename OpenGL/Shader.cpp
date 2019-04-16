@@ -18,7 +18,7 @@ void Shader::addVertexBuffer(FileData& vertexBuffer)
 }
 
 
-void Shader::addElementBuffer(FileData& elementBuffer)
+GLuint Shader::addElementBuffer(FileData& elementBuffer)
 {
 	GLuint ebo;
 	glGenBuffers(1, &ebo);
@@ -26,6 +26,8 @@ void Shader::addElementBuffer(FileData& elementBuffer)
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer.size, elementBuffer.data, GL_STATIC_DRAW);
+
+	return ebo;
 }
 
 
@@ -56,6 +58,16 @@ GLuint Shader::createProgram(FileData& vertexShaderCode, FileData& fragmentShade
 
 	glLinkProgram(program);
 
+
+	//	Linking error
+	int success;
+	char infoLog[512];
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		std::cout << "LINKING_FAILED\n" << infoLog << std::endl;
+	}
+
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
@@ -74,6 +86,17 @@ GLuint Shader::compileShader(GLuint type, FileData& shaderCode)
 
 	glShaderSource(shader, 1, (GLchar**)&shaderCode.data, (GLint*)&shaderCode.size);
 	glCompileShader(shader);
+
+
+	//	Compile error
+	int success;
+	char infoLog[512];
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(shader, 512, NULL, infoLog);
+		std::cout << type + "COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
 
 	return shader;
 }

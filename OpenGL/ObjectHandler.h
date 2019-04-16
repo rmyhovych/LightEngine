@@ -73,6 +73,7 @@ public:
 
 private:
 
+	GLuint ebo;
 	unsigned nElements;
 
 };

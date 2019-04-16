@@ -21,9 +21,9 @@ public:
 	~Window();
 
 
-	Camera* createCamera(float zoom = 20,
-		const glm::vec3& focus = glm::vec3(0, 0, 0),
-		const glm::vec3& direction = glm::vec3(0, 0, 1));
+	Camera* createCamera(float zoom = 20, 
+		float angleH = 0, float angleV = PI / 2,
+		const glm::vec3& focus = glm::vec3(0, 0, 0));
 
 
 	bool isClosing();

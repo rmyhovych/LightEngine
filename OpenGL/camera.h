@@ -17,9 +17,9 @@
 class Camera
 {
 public:
-	Camera(int width, int height, float zoom = 20,
-		const glm::vec3& focus = glm::vec3(0, 0, 0), 
-		const glm::vec3& direction = glm::vec3(0, 0, 1));
+	Camera(int width, int height, float zoom = 20, 
+		float angleH = 0, float angleV = PI / 2,
+		const glm::vec3& focus = glm::vec3(0, 0, 0));
 	
 	
 	glm::mat4& getVP();

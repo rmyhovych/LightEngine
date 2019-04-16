@@ -4,16 +4,11 @@
 
 #include "Engine.h"
 
+#include "sphereGen/generator.h"
 
 int main()
 {
-
-	//	Create window
-	double time;
-
-
-	
-
+	generateSphere("data/");
 
 	Engine engine;
 	engine.play();

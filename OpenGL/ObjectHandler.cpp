@@ -62,7 +62,7 @@ ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
 	Shader::linkLayout(0, 3, 6, 0);
 	Shader::linkLayout(1, 3, 6, 3);
 
-
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
@@ -107,14 +107,15 @@ ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* e
 	glBindVertexArray(vao);
 
 	Shader::addVertexBuffer(vertexBuffer);
-	Shader::addElementBuffer(elementBuffer);
+	ebo = Shader::addElementBuffer(elementBuffer);
 
 
 	Shader::linkLayout(0, 3, 3, 0);
 	Shader::linkLayout(1, 3, 3, 0);
 
 
-
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
@@ -127,6 +128,7 @@ ObjectHandlerElement::~ObjectHandlerElement()
 void ObjectHandlerElement::render(ObjectUniforms& uniforms)
 {
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
 	for (int i = 0; i < objectArray.size(); i++)
 	{

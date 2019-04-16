@@ -1,6 +1,8 @@
 #include "window.h"
 
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 Window::Window(int width, int height) :
 	width(width),
 	height(height),
@@ -29,6 +31,7 @@ Window::Window(int width, int height) :
 	handle = glfwCreateWindow(width, height, "OpenGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(handle);
+	glfwSetFramebufferSizeCallback(handle, framebuffer_size_callback);
 
 
 
@@ -37,9 +40,9 @@ Window::Window(int width, int height) :
 	glewInit();
 
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
-	//glCullFace(GL_FRONT);
+	glCullFace(GL_FRONT);
 	//glFrontFace(GL_CCW);
 	
 }
@@ -58,7 +61,7 @@ Window::~Window()
 	}
 }
 
-Camera* Window::createCamera(float zoom, const glm::vec3& focus, const glm::vec3& direction)
+Camera* Window::createCamera(float zoom, float angleH, float angleV, const glm::vec3& focus)
 {
 	if (camera != nullptr)
 	{
@@ -66,7 +69,7 @@ Camera* Window::createCamera(float zoom, const glm::vec3& focus, const glm::vec3
 		camera = nullptr;
 	}
 
-	camera = new Camera(width, height, zoom, focus, direction);
+	camera = new Camera(width, height, zoom, angleH, angleV, focus);
 
 	return camera;
 }
@@ -80,4 +83,10 @@ void Window::swapBuffers()
 {
 	glfwSwapBuffers(handle);
 	glfwPollEvents();
+}
+
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }

@@ -14,11 +14,14 @@ Engine::Engine(int windowW, int windowH) :
 
 void Engine::initShapes()
 {
-	program = gameRenderer.addProgramRenderer("shaders/vertex.glsl", "shaders/fragment.glsl");
+	ProgramRenderer* program = gameRenderer.addProgramRenderer("shaders/vertex.glsl", "shaders/fragment.glsl");
 
-	ObjectHandlerVertex* objectHandler = program->addObjectHandler("data/prismBuffer");
+	ObjectHandlerVertex* objectHandler0 = program->addObjectHandler("data/prismBuffer");
+	ObjectHandlerElement* objectHandler1 = program->addObjectHandler("data/sphereBuffer", "data/sphereElements");
 
-	cube = objectHandler->addObject();
+	objectHandler0->addObject();
+
+	objectHandler1->addObject(glm::vec3(3, 1, 2.5));
 }
 
 
@@ -26,15 +29,19 @@ void Engine::initShapes()
 
 void Engine::play()
 {
-	Camera* camera = window.createCamera(2);
+	Camera* camera = window.createCamera(10, 0, 1.3);
 
 	glm::vec3 dirLight = glm::vec3(0.5, 0.8, 0.2);
 
 	while (!window.isClosing())
 	{
-		glClearColor(0.1, 0.5, 0.1, 0);
+		fps.inc();
 
-		program->render(dirLight, camera->getVP());
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		camera->rotate(0.001, 0);
+		gameRenderer.render(dirLight, camera->getVP());
 		window.swapBuffers();
 	}
 }
