@@ -10,7 +10,8 @@
 #include "glm/gtc/type_ptr.hpp"
 
 
-class Camera;
+#include "Camera.h"
+
 
 class Window
 {
@@ -18,6 +19,12 @@ public:
 
 	Window(int width, int height);
 	~Window();
+
+
+	Camera* createCamera(float zoom = 20,
+		const glm::vec3& focus = glm::vec3(0, 0, 0),
+		const glm::vec3& direction = glm::vec3(0, 0, 1));
+
 
 	bool isClosing();
 
@@ -27,7 +34,8 @@ private:
 
 	GLFWwindow* handle;
 
-
 	int width;
 	int height;
+
+	Camera* camera;
 };

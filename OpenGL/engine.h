@@ -18,6 +18,9 @@ public:
 
 private:
 
+	ProgramRenderer* program;
+	Object* cube;
+
 	Window window;
 
 	GameRenderer gameRenderer;

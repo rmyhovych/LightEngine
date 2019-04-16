@@ -17,54 +17,34 @@
 class Camera
 {
 public:
-	Camera(double* time, int width, int height, bool* input, 
-		float zoom = 50, glm::vec3 focus = glm::vec3(0, 0, 0), glm::vec3 direction = glm::vec3(0, 0, 1));
+	Camera(int width, int height, float zoom = 20,
+		const glm::vec3& focus = glm::vec3(0, 0, 0), 
+		const glm::vec3& direction = glm::vec3(0, 0, 1));
 	
-	glm::f32* getProjection();
-	glm::mat4& getView();
-	glm::vec3& getFocus();
-	glm::vec3& getPosition();
-
 	
-	void rotateCamera(float x, float y);
+	glm::mat4& getVP();
+	
+	void rotate(float x, float y);
+	void move(float x, float y, float z);
 
 
+private:
 	void update();
 
+private:
 
 	float zoom;
 
 	glm::vec3 focus;
-
-private:
-	void moveCamera();
-
-private:
-	double* time;
-
 	glm::vec3 direction;
 	glm::vec3 position;
 	glm::vec3 up;
 
-	glm::f32* projectionPtr;
-
 	glm::mat4 projection;
 	glm::mat4 view;
+	glm::mat4 vp;
+
 
 	float angleH;
 	float angleV;
-
-	const float fov;
-
-	bool* input;
-
-	int width;
-	int height;
-
-
-	float speeds[3];
-
-	const float acceleration;
-	const float friction;
 };
-

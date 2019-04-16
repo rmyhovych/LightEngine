@@ -3,7 +3,9 @@
 
 Window::Window(int width, int height) :
 	width(width),
-	height(height)
+	height(height),
+
+	camera(nullptr)
 {
 	//	-- START GLFW --
 	glfwInit();
@@ -35,10 +37,10 @@ Window::Window(int width, int height) :
 	glewInit();
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
-	glCullFace(GL_FRONT);
-	glFrontFace(GL_CCW);
+	//glCullFace(GL_FRONT);
+	//glFrontFace(GL_CCW);
 	
 }
 
@@ -48,6 +50,25 @@ Window::~Window()
 {
 	//	-- END GLFW --
 	glfwTerminate();
+
+	if (camera != nullptr)
+	{
+		delete camera;
+		camera = nullptr;
+	}
+}
+
+Camera* Window::createCamera(float zoom, const glm::vec3& focus, const glm::vec3& direction)
+{
+	if (camera != nullptr)
+	{
+		delete camera;
+		camera = nullptr;
+	}
+
+	camera = new Camera(width, height, zoom, focus, direction);
+
+	return camera;
 }
 
 bool Window::isClosing()

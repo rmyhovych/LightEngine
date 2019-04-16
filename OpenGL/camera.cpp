@@ -1,55 +1,25 @@
 #include "camera.h"
 
-Camera::Camera(double* time, int width, int height, bool* input, float zoom, glm::vec3 focus, glm::vec3 direction) :
-	time(time),
-
-
-	input(input),
-	zoom(zoom),
+Camera::Camera(int width, int height, float zoom, const glm::vec3& focus, const glm::vec3& direction) :
+	
 	focus(focus),
 	direction(direction),
 	up(glm::vec3(0, 1, 0)),
 
 	angleH(0),
-	angleV(PI/2),
-
-	fov(PI/3),
-
-	width(width),
-	height(height),
-
-	acceleration(0.3),
-	friction(0.96)
+	angleV(PI/2)
 {
-	projection = glm::perspective(fov, ((float)width / (float)height), 0.1f, 1000.0f);
-	projectionPtr = glm::value_ptr(projection);
-
+	projection = glm::perspective(PI / 3, ((float)width / (float)height), 0.1f, 1000.0f);
 	view = glm::lookAt(focus - zoom * direction, focus, up);
 }
 
 
-
-glm::mat4& Camera::getView()
+glm::mat4& Camera::getVP()
 {
-	return view;
+	return vp;
 }
 
-glm::vec3& Camera::getFocus()
-{
-	return focus;
-}
-
-glm::vec3& Camera::getPosition()
-{
-	return position;
-}
-
-glm::f32* Camera::getProjection()
-{
-	return projectionPtr;
-}
-
-void Camera::rotateCamera(float x, float y)
+void Camera::rotate(float x, float y)
 {
 	angleH -= x;
 	angleV += y;
@@ -71,51 +41,20 @@ void Camera::rotateCamera(float x, float y)
 	{
 		angleV = 0.01;
 	}
+
+	update();
 }
 
-void Camera::moveCamera()
+void Camera::move(float x, float y, float z)
 {
-	glm::vec3 right = glm::normalize(glm::cross(direction, up));
-	glm::vec3 forward = direction;
+	focus += glm::vec3(x, y, z);
 
-	if (input[0])
-	{
-		speeds[0] += acceleration;
-	}
-	if (input[1])
-	{
-		speeds[0] -= acceleration;
-	}
-	if (input[2])
-	{
-		speeds[1] += acceleration;
-	}
-	if (input[3])
-	{
-		speeds[1] -= acceleration;
-	}
-	if (input[4])
-	{
-		speeds[2] += acceleration;
-	}
-	if (input[5])
-	{
-		speeds[2] -= acceleration;
-	}
-
-	focus += (float)(*time) * (speeds[0] * forward + speeds[1] * right + speeds[2] * up);
-
-	for (int i = 0; i < 3; i++)
-	{
-		speeds[i] *= friction;
-	}
+	update();
 }
 
 
 void Camera::update()
 {
-	moveCamera();
-
 	direction.x = sin(angleH) * sin(angleV);
 	direction.z = cos(angleH) * sin(angleV);
 	direction.y = cos(angleV);
@@ -124,5 +63,6 @@ void Camera::update()
 
 
 	view = glm::lookAt(position, focus, up);
+	vp = view * projection;
 }
 
