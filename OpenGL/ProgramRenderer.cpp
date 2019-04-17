@@ -43,12 +43,12 @@ ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, c
 
 
 
-void ProgramRenderer::render(glm::vec3& dirLight, glm::mat4& vp)
+void ProgramRenderer::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	program.use();
 
 	glUniform3f(globalUniforms.vDirLight, dirLight.x, dirLight.y, dirLight.z);
-	glUniformMatrix4fv(globalUniforms.mVP, 1, false, glm::value_ptr(vp));
+	glUniformMatrix4fv(globalUniforms.mVP, 1, false, glm::value_ptr(pv));
 
 	for (int i = 0; i < objectHandlerArray.size(); i++)
 	{

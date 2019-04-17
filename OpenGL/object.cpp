@@ -20,11 +20,17 @@ Object::Object(
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 
 	const glm::vec3& scale, 
-	const glm::vec3& color)
+	const glm::vec3& color) :
+	
+	mScale(0),
+	mRotation(0),
+	mTranslation(0),
+	
+	mModel(0)
 {
-	setPosition(position);
-	setOrientation(orientation);
 	setScale(scale);
+	setOrientation(orientation);
+	setPosition(position);
 
 	setColor(color);
 

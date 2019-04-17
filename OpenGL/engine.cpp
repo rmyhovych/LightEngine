@@ -42,7 +42,7 @@ void Engine::play()
 
 		//camera->rotate(0.001, 0);
 		cube->addOrientation(glm::vec3(-0.001, -0.001, 0));
-		gameRenderer.render(dirLight, camera->getVP());
+		gameRenderer.render(dirLight, camera->getPV());
 		window.swapBuffers();
 	}
 }

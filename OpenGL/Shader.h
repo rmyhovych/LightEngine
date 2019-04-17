@@ -6,9 +6,12 @@
 #include <iostream>
 #include <vector>
 
+#ifdef ANDROID_ES
+#include <GLES3/gl3.h>
+#else
 #define GLEW_STATIC	
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#endif
 
 #include "FileData.h"
 

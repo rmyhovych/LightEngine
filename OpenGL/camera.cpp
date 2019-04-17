@@ -14,9 +14,9 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 }
 
 
-glm::mat4& Camera::getVP()
+glm::mat4& Camera::getPV()
 {
-	return vp;
+	return pv;
 }
 
 void Camera::rotate(float x, float y)
@@ -63,6 +63,6 @@ void Camera::update()
 
 
 	view = glm::lookAt(position, focus, up);
-	vp = projection * view;
+	pv = projection * view;
 }
 

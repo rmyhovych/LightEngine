@@ -1,5 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
-
 #include <iomanip>
 
 #include "Engine.h"

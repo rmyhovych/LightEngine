@@ -45,11 +45,11 @@ ProgramRenderer* GameRenderer::addProgramRenderer(const char* pathVertex, const 
 
 
 
-void GameRenderer::render(glm::vec3& dirLight, glm::mat4& vp)
+void GameRenderer::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	for (int i = 0; i < programRendererArray.size(); i++)
 	{
-		programRendererArray[i]->render(dirLight, vp);
+		programRendererArray[i]->render(dirLight, pv);
 	}
 }
 

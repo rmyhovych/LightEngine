@@ -18,7 +18,7 @@ public:
 
 
 
-	void render(glm::vec3& dirLight, glm::mat4& vp);
+	void render(glm::vec3& dirLight, glm::mat4& pv);
 
 private:
 

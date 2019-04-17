@@ -18,7 +18,7 @@ public:
 		const glm::vec3& focus = glm::vec3(0, 0, 0));
 	
 	
-	glm::mat4& getVP();
+	glm::mat4& getPV();
 	
 	void rotate(float x, float y);
 	void move(float x, float y, float z);
@@ -38,7 +38,7 @@ private:
 
 	glm::mat4 projection;
 	glm::mat4 view;
-	glm::mat4 vp;
+	glm::mat4 pv;
 
 
 	float angleH;

@@ -13,14 +13,6 @@ class Object
 {
 public:
 
-	glm::mat4 mRotation;
-	glm::mat4 mModel;
-
-
-	glm::vec3 color;
-
-
-
 	Object(
 		const glm::vec3& position = glm::vec3(0), 
 		const glm::vec3& orientation = glm::vec3(0),
@@ -71,7 +63,13 @@ private:
 
 
 	glm::mat4 mScale;
+	glm::mat4 mRotation;
 	glm::mat4 mTranslation;
+
+	glm::mat4 mModel;
+
+
+	glm::vec3 color;
 
 
 };
