@@ -46,6 +46,8 @@ private:
 
 	fpsCounter fps;
 
+	Object* cube;
+
 	Window window;
 
 	GameRenderer gameRenderer;

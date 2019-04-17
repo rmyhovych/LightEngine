@@ -8,9 +8,9 @@
 
 int main()
 {
-	generateSphere("data/");
+	//generateSphere("data/");
 
-	Engine engine;
+	Engine engine(450, 800);
 	engine.play();
 
 	/*
