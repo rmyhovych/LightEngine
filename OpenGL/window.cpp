@@ -34,6 +34,11 @@ Window::Window(int width, int height) :
 	glfwSetFramebufferSizeCallback(handle, framebuffer_size_callback);
 
 
+	//	Setup GLEW	
+	glewExperimental = GL_TRUE;
+	glewInit();
+
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
