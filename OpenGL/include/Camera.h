@@ -17,6 +17,8 @@ public:
 		float angleH = 0, float angleV = PI / 2,
 		const glm::vec3& focus = glm::vec3(0, 0, 0));
 	
+
+	void resize(int width, int height);
 	
 	glm::mat4& getPV();
 	

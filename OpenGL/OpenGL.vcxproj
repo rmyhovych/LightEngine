@@ -123,29 +123,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="FileData.cpp" />
-    <ClCompile Include="dirLight.cpp" />
-    <ClCompile Include="GameRenderer.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="include\Camera.cpp" />
+    <ClCompile Include="include\FileData.cpp" />
+    <ClCompile Include="include\GameRenderer.cpp" />
+    <ClCompile Include="include\Object.cpp" />
+    <ClCompile Include="include\ObjectHandler.cpp" />
+    <ClCompile Include="include\ProgramRenderer.cpp" />
+    <ClCompile Include="include\Shader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectHandler.cpp" />
-    <ClCompile Include="ProgramRenderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="FileData.h" />
-    <ClInclude Include="dirLight.h" />
-    <ClInclude Include="GameRenderer.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectHandler.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ProgramRenderer.h" />
-    <ClInclude Include="UniformHandling.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\FileData.h" />
+    <ClInclude Include="include\GameRenderer.h" />
+    <ClInclude Include="include\Object.h" />
+    <ClInclude Include="include\ObjectHandler.h" />
+    <ClInclude Include="include\ProgramRenderer.h" />
+    <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\UniformHandling.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

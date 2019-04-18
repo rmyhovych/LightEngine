@@ -1,9 +1,5 @@
 #include "GameRenderer.h"
 
-#include "window.h"
-
-
-
 
 int GameRenderer::depthMapSize = 1024;
 
@@ -90,7 +86,7 @@ void GameRenderer::createDepthMap()
 
 
 	//      no draw buffers
-	glDrawBuffer(GL_NONE);
+	//glDrawBuffer(GL_NONE);
 
 
 	//      bind data to fbo

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameRenderer.h"
+#include "include/GameRenderer.h"
 
-#include "window.h"
+#include "Window.h"
 #include <chrono>
 
 struct fpsCounter

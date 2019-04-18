@@ -1,4 +1,6 @@
-#include "camera.h"
+#include "Camera.h"
+
+static const float fovy = PI / 3;
 
 Camera::Camera(int width, int height, float zoom, float angleH, float angleV, const glm::vec3& focus) :
 	zoom(zoom),
@@ -9,10 +11,15 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 	angleH(angleH),
 	angleV(angleV)
 {
-	projection = glm::perspective(PI / 3, ((float)width / (float)height), 0.1f, 1000.0f);
+	projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 1000.0f);
 	update();
 }
 
+
+void Camera::resize(int width, int height)
+{
+	projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 1000.0f);
+}
 
 glm::mat4& Camera::getPV()
 {

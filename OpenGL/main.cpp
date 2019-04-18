@@ -2,8 +2,6 @@
 
 #include "Engine.h"
 
-#include "sphereGen/generator.h"
-
 int main()
 {
 	//generateSphere("data/");
