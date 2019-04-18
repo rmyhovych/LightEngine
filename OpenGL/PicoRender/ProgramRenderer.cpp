@@ -67,6 +67,7 @@ ObjectHandlerElement* ProgramRenderer::addObjectHandler(FileData& arrayData, Fil
 
 
 
+
 void ProgramRenderer::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	program.use();

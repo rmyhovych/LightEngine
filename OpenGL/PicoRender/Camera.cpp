@@ -19,6 +19,7 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 void Camera::resize(int width, int height)
 {
 	projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 1000.0f);
+	update();
 }
 
 glm::mat4& Camera::getPV()

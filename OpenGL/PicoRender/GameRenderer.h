@@ -13,6 +13,7 @@ public:
 	ProgramRenderer* addProgramRenderer(const char* pathVertex, const char* pathFragment);
 	ProgramRenderer* addProgramRenderer(FileData& vertexData, FileData& fragmentData);
 
+
 	void render(glm::vec3& dirLight, glm::mat4& pv);
 
 private:

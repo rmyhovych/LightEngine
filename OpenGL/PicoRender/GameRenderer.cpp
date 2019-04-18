@@ -48,8 +48,6 @@ ProgramRenderer* GameRenderer::addProgramRenderer(FileData& vertexData, FileData
 
 
 
-
-
 void GameRenderer::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	for (int i = 0; i < programRendererArray.size(); i++)

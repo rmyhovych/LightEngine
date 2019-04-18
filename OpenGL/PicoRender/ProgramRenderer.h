@@ -21,7 +21,6 @@ public:
 	ObjectHandlerElement* addObjectHandler(FileData& arrayData, FileData& elementData);
 
 
-
 	void render(glm::vec3& dirLight, glm::mat4& pv);
 
 private:
