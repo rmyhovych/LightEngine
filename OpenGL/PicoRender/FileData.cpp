@@ -22,6 +22,17 @@ FileData::FileData(const char* path)
 	file.close();
 }
 
+FileData::FileData(const uint8_t* data, unsigned size) :
+	size(size)
+{
+	this->data = new uint8_t[size];
+
+	for (int i = 0; i < size; i++)
+	{
+		this->data[i] = data[i];
+	}
+}
+
 FileData::FileData(FileData& oldBuffer)
 {
 	data = new uint8_t[oldBuffer.size];

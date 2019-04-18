@@ -40,6 +40,7 @@ class ObjectHandlerVertex :
 {
 public:
 	ObjectHandlerVertex(const char* vertexPath);
+	ObjectHandlerVertex(FileData& vertexData);
 	~ObjectHandlerVertex();
 
 
@@ -65,6 +66,7 @@ class ObjectHandlerElement :
 {
 public:
 	ObjectHandlerElement(const char* vertexPath, const char* elementPath);
+	ObjectHandlerElement(FileData& vertexData, FileData& elementData);
 	~ObjectHandlerElement();
 
 

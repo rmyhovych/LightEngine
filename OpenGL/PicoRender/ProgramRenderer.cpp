@@ -8,6 +8,12 @@ ProgramRenderer::ProgramRenderer(const char* pathVertex, const char* pathFragmen
 	createUniforms();
 }
 
+ProgramRenderer::ProgramRenderer(FileData& vertexData, FileData& fragmentData) :
+	program(vertexData, fragmentData)
+{
+	createUniforms();
+}
+
 ProgramRenderer::~ProgramRenderer()
 {
 	for (int i = 0; i < objectHandlerArray.size(); i++)
@@ -30,10 +36,28 @@ ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const char* arrayPath)
 	return oHandler;
 }
 
+ObjectHandlerVertex* ProgramRenderer::addObjectHandler(FileData& arrayData)
+{
+	ObjectHandlerVertex* oHandler = new ObjectHandlerVertex(arrayData);
+
+	objectHandlerArray.push_back(oHandler);
+
+	return oHandler;
+}
+
 
 ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
 {
 	ObjectHandlerElement* oHandler = new ObjectHandlerElement(arrayPath, elementPath);
+
+	objectHandlerArray.push_back(oHandler);
+
+	return oHandler;
+}
+
+ObjectHandlerElement* ProgramRenderer::addObjectHandler(FileData& arrayData, FileData& elementData)
+{
+	ObjectHandlerElement* oHandler = new ObjectHandlerElement(arrayData, elementData);
 
 	objectHandlerArray.push_back(oHandler);
 

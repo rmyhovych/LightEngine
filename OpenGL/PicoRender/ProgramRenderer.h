@@ -9,12 +9,16 @@ class ProgramRenderer
 {
 public:
 	ProgramRenderer(const char* pathVertex, const char* pathFragment);
+	ProgramRenderer(FileData& vertexData, FileData& fragmentData);
 
 	~ProgramRenderer();
 
 
 	ObjectHandlerVertex* addObjectHandler(const char* arrayPath);
+	ObjectHandlerVertex* addObjectHandler(FileData& arrayData);
+
 	ObjectHandlerElement* addObjectHandler(const char* arrayPath, const char* elementPath);
+	ObjectHandlerElement* addObjectHandler(FileData& arrayData, FileData& elementData);
 
 
 

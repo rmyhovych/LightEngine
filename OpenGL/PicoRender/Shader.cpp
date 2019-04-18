@@ -118,6 +118,11 @@ Shader::Shader(const char* vertexCodePath, const char* fragmentCodePath)
 	id = createProgram(vertexShaderCode, fragmentShaderCode);
 }
 
+Shader::Shader(FileData& vertexData, FileData& fragmentData)
+{
+	id = createProgram(vertexData, fragmentData);
+}
+
 
 
 int Shader::getUniformLocation(const char* name)

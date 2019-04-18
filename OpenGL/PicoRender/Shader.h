@@ -53,6 +53,7 @@ private:
 public:
 
 	Shader(const char* vertexCodePath, const char* fragmentCodePath);
+	Shader(FileData& vertexData, FileData& fragmentData);
 
 
 	int getUniformLocation(const char* name);

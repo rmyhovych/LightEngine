@@ -7,6 +7,8 @@ class FileData
 {
 public:
 	FileData(const char* path);
+	FileData(const uint8_t* data, unsigned size);
+
 	FileData(FileData& oldBuffer);
 
 

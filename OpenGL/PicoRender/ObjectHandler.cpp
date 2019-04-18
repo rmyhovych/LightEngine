@@ -66,6 +66,25 @@ ObjectHandlerVertex::ObjectHandlerVertex(const char* vertexPath) :
 	glBindVertexArray(0);
 }
 
+
+ObjectHandlerVertex::ObjectHandlerVertex(FileData& vertexData) :
+	nVertices(vertexData.size / (sizeof(float) * 6))
+{
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+
+	Shader::addVertexBuffer(vertexData);
+
+
+	Shader::linkLayout(0, 3, 6, 0);
+	Shader::linkLayout(1, 3, 6, 3);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+
 ObjectHandlerVertex::~ObjectHandlerVertex()
 {
 }
@@ -108,6 +127,26 @@ ObjectHandlerElement::ObjectHandlerElement(const char* vertexPath, const char* e
 
 	Shader::addVertexBuffer(vertexBuffer);
 	ebo = Shader::addElementBuffer(elementBuffer);
+
+
+	Shader::linkLayout(0, 3, 3, 0);
+	Shader::linkLayout(1, 3, 3, 0);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+ObjectHandlerElement::ObjectHandlerElement(FileData& vertexData, FileData& elementData) :
+	nElements(elementData.size / sizeof(int)),
+	ebo(0)
+{
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	Shader::addVertexBuffer(vertexData);
+	ebo = Shader::addElementBuffer(elementData);
 
 
 	Shader::linkLayout(0, 3, 3, 0);

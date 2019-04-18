@@ -35,6 +35,15 @@ ProgramRenderer* GameRenderer::addProgramRenderer(const char* pathVertex, const 
 	return objectHandler;
 }
 
+ProgramRenderer* GameRenderer::addProgramRenderer(FileData& vertexData, FileData& fragmentData)
+{
+	ProgramRenderer* objectHandler = new ProgramRenderer(vertexData, fragmentData);
+
+	programRendererArray.push_back(objectHandler);
+
+	return objectHandler;
+}
+
 
 
 
