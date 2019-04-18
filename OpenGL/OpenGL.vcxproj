@@ -124,26 +124,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="include\Camera.cpp" />
-    <ClCompile Include="include\FileData.cpp" />
-    <ClCompile Include="include\GameRenderer.cpp" />
-    <ClCompile Include="include\Object.cpp" />
-    <ClCompile Include="include\ObjectHandler.cpp" />
-    <ClCompile Include="include\ProgramRenderer.cpp" />
-    <ClCompile Include="include\Shader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PicoRender\Camera.cpp" />
+    <ClCompile Include="PicoRender\FileData.cpp" />
+    <ClCompile Include="PicoRender\GameRenderer.cpp" />
+    <ClCompile Include="PicoRender\Object.cpp" />
+    <ClCompile Include="PicoRender\ObjectHandler.cpp" />
+    <ClCompile Include="PicoRender\ProgramRenderer.cpp" />
+    <ClCompile Include="PicoRender\Shader.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="include\Camera.h" />
-    <ClInclude Include="include\FileData.h" />
-    <ClInclude Include="include\GameRenderer.h" />
-    <ClInclude Include="include\Object.h" />
-    <ClInclude Include="include\ObjectHandler.h" />
-    <ClInclude Include="include\ProgramRenderer.h" />
-    <ClInclude Include="include\Shader.h" />
-    <ClInclude Include="include\UniformHandling.h" />
+    <ClInclude Include="PicoRender\Camera.h" />
+    <ClInclude Include="PicoRender\FileData.h" />
+    <ClInclude Include="PicoRender\GameRenderer.h" />
+    <ClInclude Include="PicoRender\Object.h" />
+    <ClInclude Include="PicoRender\ObjectHandler.h" />
+    <ClInclude Include="PicoRender\ProgramRenderer.h" />
+    <ClInclude Include="PicoRender\Shader.h" />
+    <ClInclude Include="PicoRender\UniformHandling.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -5,19 +5,19 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Engine">
-      <UniqueIdentifier>{bb15e920-a8ed-4d64-ac10-e9b6d132d73b}</UniqueIdentifier>
+    <Filter Include="Source Files\PicoRender">
+      <UniqueIdentifier>{df8cdeff-43b7-4a9f-a155-182fbffaa866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine">
-      <UniqueIdentifier>{b9643ebb-34b3-40de-9409-18b5a2167086}</UniqueIdentifier>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Headers\PicoRender">
+      <UniqueIdentifier>{c2c29b77-cb48-492e-a368-11b36ae12b89}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,58 +30,58 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\Shader.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\Shader.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\Camera.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\Camera.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\FileData.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\FileData.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\GameRenderer.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\GameRenderer.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\Object.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\Object.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\ObjectHandler.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\ObjectHandler.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
-    <ClCompile Include="include\ProgramRenderer.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="PicoRender\ProgramRenderer.cpp">
+      <Filter>Source Files\PicoRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="include\Camera.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\Shader.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileData.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\UniformHandling.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameRenderer.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\Camera.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\Object.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\FileData.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\ObjectHandler.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\GameRenderer.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\ProgramRenderer.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\Object.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\Shader.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\ObjectHandler.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
-    <ClInclude Include="include\UniformHandling.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="PicoRender\ProgramRenderer.h">
+      <Filter>Headers\PicoRender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

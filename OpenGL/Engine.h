@@ -1,6 +1,6 @@
 #pragma once
 
-#include "include/GameRenderer.h"
+#include "PicoRender/GameRenderer.h"
 
 #include "Window.h"
 #include <chrono>

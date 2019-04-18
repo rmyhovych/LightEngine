@@ -5,12 +5,12 @@
 #include <GLFW/glfw3.h>
 
 
-#include "include/glm/glm.hpp"
-#include "include/glm/gtc/matrix_transform.hpp"
-#include "include/glm/gtc/type_ptr.hpp"
+#include "PicoRender/glm/glm.hpp"
+#include "PicoRender/glm/gtc/matrix_transform.hpp"
+#include "PicoRender/glm/gtc/type_ptr.hpp"
 
 
-#include "include/Camera.h"
+#include "PicoRender/Camera.h"
 
 
 
