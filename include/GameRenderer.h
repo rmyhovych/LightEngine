@@ -41,7 +41,7 @@ private:
 
 	std::vector<ProgramRenderer*> programRendererArray;
 
-	Shader programDepth;
+	//Shader programDepth;
 
 	GLuint depthFbo;
 	GLuint depthMap;

@@ -6,11 +6,10 @@ int GameRenderer::depthMapSize = 1024;
 
 GameRenderer::GameRenderer(int windowW, int windowH) :
 	windowW(windowW),
-	windowH(windowH),
-
-	programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
+	windowH(windowH)
+	//programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
-	createDepthMap();
+	//createDepthMap();
 
 	createUniforms();
 }
@@ -133,7 +132,7 @@ void GameRenderer::initRenderingDepth()
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 
-	programDepth.use();
+	//programDepth.use();
 
 
 
