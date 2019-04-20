@@ -49,6 +49,5 @@ private:
 
 	static int depthMapSize;
 
-
 };
 
