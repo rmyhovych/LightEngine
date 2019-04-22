@@ -1,6 +1,6 @@
 #include "Object.h"
 
-#include <btBulletDynamicsCommon.h>
+//#include <btBulletDynamicsCommon.h>
 
 
 class PhysicalObject
