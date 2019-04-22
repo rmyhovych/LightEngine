@@ -42,6 +42,11 @@ Object::Object(
 
 
 
+glm::vec3 Object::getPosition()
+{
+	return (mTranslation * glm::vec4(0, 0, 0, 1));
+}
+
 void Object::addPosition(const glm::vec3& position)
 {
 	mTranslation = glm::translate(mTranslation, position);
@@ -63,6 +68,11 @@ void Object::setPosition(const glm::vec3& position)
 
 
 
+
+glm::quat Object::getOrientation()
+{
+	return glm::quat_cast(mRotation);
+}
 
 void Object::addOrientation(const glm::vec3& rotation)
 {
@@ -88,6 +98,11 @@ void Object::setOrientation(const glm::vec3& rotation)
 
 
 
+
+glm::vec3 Object::getScale()
+{
+	return (mScale * glm::vec4(1));
+}
 
 void Object::addScale(const glm::vec3& scale)
 {

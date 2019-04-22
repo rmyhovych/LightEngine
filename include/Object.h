@@ -6,6 +6,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "gtc/quaternion.hpp"
 
 
 class Object
@@ -20,12 +21,15 @@ public:
 
 
 
+	glm::vec3 getPosition();
 
 	void addPosition(const glm::vec3& position);
 
 	void setPosition(const glm::vec3& position);
 
 
+	
+	glm::quat getOrientation();
 
 	void addOrientation(const glm::vec3& rotation);
 
@@ -33,6 +37,8 @@ public:
 
 
 
+
+	glm::vec3 getScale();
 
 	void addScale(const glm::vec3& v);
 

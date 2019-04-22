@@ -25,6 +25,7 @@ public:
 	void rotate(float x, float y);
 	void move(float x, float y, float z);
 
+	void setFocus(const glm::vec3& f);
 
 private:
 	void update();
