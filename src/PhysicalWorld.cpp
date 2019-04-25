@@ -64,18 +64,18 @@ PhysicalWorld::~PhysicalWorld()
 
 
 
-void PhysicalWorld::addSphere(Object* object)
+void PhysicalWorld::linkSphere(Object* object, const PhysicalObject::Properties& properties)
 {
-	PhysicalObject* pO = new PhysicalObjectSphere(object);
+	PhysicalObject* pO = new PhysicalObjectSphere(object, properties);
 
 	objects.push_back(pO);
 
 	dynamicsWorld->addRigidBody(pO->getBody());
 }
 
-void PhysicalWorld::addPrism(Object* object)
+void PhysicalWorld::linkPrism(Object* object, const PhysicalObject::Properties& properties)
 {
-	PhysicalObject* pO = new PhysicalObjectPrism(object);
+	PhysicalObject* pO = new PhysicalObjectPrism(object, properties);
 
 	objects.push_back(pO);
 

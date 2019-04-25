@@ -10,8 +10,8 @@ public:
 	PhysicalWorld(const btVector3& gravity = btVector3(0, -10, 0));
 	~PhysicalWorld();
 
-	void addSphere(Object* object);
-	void addPrism(Object* object);
+	void linkSphere(Object* object, const PhysicalObject::Properties& properties);
+	void linkPrism(Object* object, const PhysicalObject::Properties& properties);
 
 
 	void step(double fps);

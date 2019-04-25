@@ -5,11 +5,21 @@
 #include <btBulletDynamicsCommon.h>
 
 
+
+
+
 class PhysicalObject
 {
 public:
-	PhysicalObject(Object* parent);
-	~PhysicalObject();
+
+	struct Properties
+	{
+		btScalar m_mass;
+	};
+
+
+	PhysicalObject(Object* parent, const Properties& properties);
+	virtual ~PhysicalObject();
 
 	btRigidBody* getBody();
 
@@ -20,8 +30,10 @@ protected:
 	Object* parent;
 
 
-	btCollisionShape* shape;
-	btRigidBody* body;
+	btCollisionShape* m_shape;
+	btRigidBody* m_body;
+
+	btTransform* m_transform;
 };
 
 
@@ -31,25 +43,19 @@ class PhysicalObjectSphere :
 	public PhysicalObject
 {
 public:
-	PhysicalObjectSphere(Object* parent);
-	~PhysicalObjectSphere();
+	PhysicalObjectSphere(Object* parent, const Properties& properties);
+	virtual ~PhysicalObjectSphere();
 
 	virtual void act();
-
-private:
-
 };
 
 class PhysicalObjectPrism :
 	public PhysicalObject
 {
 public:
-	PhysicalObjectPrism(Object* parent);
-	~PhysicalObjectPrism();
+	PhysicalObjectPrism(Object* parent, const Properties& properties);
+	virtual ~PhysicalObjectPrism();
 
 	virtual void act();
-
-private:
-
 };
 

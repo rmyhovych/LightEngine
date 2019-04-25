@@ -33,7 +33,7 @@ FileData::FileData(const uint8_t* data, unsigned size) :
 	}
 }
 
-FileData::FileData(FileData& oldBuffer)
+FileData::FileData(const FileData& oldBuffer)
 {
 	data = new uint8_t[oldBuffer.size];
 	size = oldBuffer.size;

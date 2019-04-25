@@ -35,6 +35,7 @@ public:
 
 	void setOrientation(const glm::vec3& rotation);
 
+	void setOrientation(const glm::mat4& orientation);
 
 
 

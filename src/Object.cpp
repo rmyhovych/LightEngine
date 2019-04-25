@@ -92,6 +92,11 @@ void Object::setOrientation(const glm::vec3& rotation)
 	model();
 }
 
+void Object::setOrientation(const glm::mat4& orientation)
+{
+	mRotation = orientation;
+}
+
 
 
 
