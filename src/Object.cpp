@@ -175,8 +175,8 @@ void Object::useDepth()
 
 void Object::use(ObjectUniforms& uniforms)
 {
-	glUniformMatrix4fv(uniforms.mModel, 1, false, glm::value_ptr(mModel));
-	glUniformMatrix4fv(uniforms.mRotation, 1, false, glm::value_ptr(mRotation));
+	glUniformMatrix4fv(uniforms.mModel, 1, false, (GLfloat*)&mModel);
+	glUniformMatrix4fv(uniforms.mRotation, 1, false, (GLfloat*)&mRotation);
 
-	glUniform3f(uniforms.vColor, color.r, color.g, color.b);
+	glUniform3fv(uniforms.vColor, 1, (GLfloat*)&color);
 }

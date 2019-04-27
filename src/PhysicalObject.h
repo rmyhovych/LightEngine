@@ -23,7 +23,7 @@ public:
 
 	btRigidBody* getBody();
 
-	virtual void act();
+	void act();
 
 protected:
 
@@ -46,7 +46,6 @@ public:
 	PhysicalObjectSphere(Object* parent, const Properties& properties);
 	virtual ~PhysicalObjectSphere();
 
-	virtual void act();
 };
 
 class PhysicalObjectPrism :
@@ -55,7 +54,5 @@ class PhysicalObjectPrism :
 public:
 	PhysicalObjectPrism(Object* parent, const Properties& properties);
 	virtual ~PhysicalObjectPrism();
-
-	virtual void act();
 };
 

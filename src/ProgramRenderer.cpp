@@ -72,8 +72,8 @@ void ProgramRenderer::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	program.use();
 
-	glUniform3f(globalUniforms.vDirLight, dirLight.x, dirLight.y, dirLight.z);
-	glUniformMatrix4fv(globalUniforms.mVP, 1, false, glm::value_ptr(pv));
+	glUniform3fv(globalUniforms.vDirLight, 1, (GLfloat*)&dirLight);
+	glUniformMatrix4fv(globalUniforms.mVP, 1, false, (GLfloat*)&pv);
 
 	for (int i = 0; i < objectHandlerArray.size(); i++)
 	{

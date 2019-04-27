@@ -23,6 +23,10 @@ void PhysicalObject::act()
 	btVector3& pos = m_transform->getOrigin();
 
 	parent->setPosition(glm::vec3(pos.getX(), pos.getY(), pos.getZ()));
+
+	btQuaternion orientation = m_transform->getRotation();
+	parent->setOrientation(glm::mat4_cast(glm::quat(orientation.getW(), orientation.getX(),
+		orientation.getY(), orientation.getZ())));
 }
 
 
@@ -70,12 +74,6 @@ PhysicalObjectSphere::~PhysicalObjectSphere()
 
 
 
-void PhysicalObjectSphere::act()
-{
-	PhysicalObject::act();
-}
-
-
 
 
 
@@ -114,14 +112,4 @@ PhysicalObjectPrism::PhysicalObjectPrism(Object* parent, const Properties& prope
 
 PhysicalObjectPrism::~PhysicalObjectPrism()
 {
-}
-
-void PhysicalObjectPrism::act()
-{
-	PhysicalObject::act();
-
-	btQuaternion orientation = m_transform->getRotation();
-
-	parent->setOrientation(glm::mat4_cast(glm::quat(orientation.getW(), orientation.getX(),
-		orientation.getY(), orientation.getZ())));
 }
