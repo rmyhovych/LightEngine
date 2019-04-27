@@ -14,11 +14,11 @@ public:
 	~ProgramRenderer();
 
 
-	ObjectHandlerVertex* addObjectHandler(const char* arrayPath);
-	ObjectHandlerVertex* addObjectHandler(FileData& arrayData);
+	ObjectHandler* addObjectHandler(const char* arrayPath);
+	ObjectHandler* addObjectHandler(FileData& arrayData);
 
-	ObjectHandlerElement* addObjectHandler(const char* arrayPath, const char* elementPath);
-	ObjectHandlerElement* addObjectHandler(FileData& arrayData, FileData& elementData);
+	ObjectHandler* addObjectHandler(const char* arrayPath, const char* elementPath);
+	ObjectHandler* addObjectHandler(FileData& arrayData, FileData& elementData);
 
 
 	void render(glm::vec3& dirLight, glm::mat4& pv);

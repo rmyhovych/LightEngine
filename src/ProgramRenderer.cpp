@@ -27,18 +27,18 @@ ProgramRenderer::~ProgramRenderer()
 
 
 
-ObjectHandlerVertex* ProgramRenderer::addObjectHandler(const char* arrayPath)
+ObjectHandler* ProgramRenderer::addObjectHandler(const char* arrayPath)
 {
-	ObjectHandlerVertex* oHandler = new ObjectHandlerVertex(arrayPath);
+	ObjectHandler* oHandler = new ObjectHandlerVertex(arrayPath);
 
 	objectHandlerArray.push_back(oHandler);
 
 	return oHandler;
 }
 
-ObjectHandlerVertex* ProgramRenderer::addObjectHandler(FileData& arrayData)
+ObjectHandler* ProgramRenderer::addObjectHandler(FileData& arrayData)
 {
-	ObjectHandlerVertex* oHandler = new ObjectHandlerVertex(arrayData);
+	ObjectHandler* oHandler = new ObjectHandlerVertex(arrayData);
 
 	objectHandlerArray.push_back(oHandler);
 
@@ -46,18 +46,18 @@ ObjectHandlerVertex* ProgramRenderer::addObjectHandler(FileData& arrayData)
 }
 
 
-ObjectHandlerElement* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
+ObjectHandler* ProgramRenderer::addObjectHandler(const char* arrayPath, const char* elementPath)
 {
-	ObjectHandlerElement* oHandler = new ObjectHandlerElement(arrayPath, elementPath);
+	ObjectHandler* oHandler = new ObjectHandlerElement(arrayPath, elementPath);
 
 	objectHandlerArray.push_back(oHandler);
 
 	return oHandler;
 }
 
-ObjectHandlerElement* ProgramRenderer::addObjectHandler(FileData& arrayData, FileData& elementData)
+ObjectHandler* ProgramRenderer::addObjectHandler(FileData& arrayData, FileData& elementData)
 {
-	ObjectHandlerElement* oHandler = new ObjectHandlerElement(arrayData, elementData);
+	ObjectHandler* oHandler = new ObjectHandlerElement(arrayData, elementData);
 
 	objectHandlerArray.push_back(oHandler);
 
