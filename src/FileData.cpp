@@ -26,7 +26,7 @@ FileData::FileData(FileData&& oldBuffer)
 
 FileData::~FileData()
 {
-	if (m_data = nullptr)
+	if (m_data == nullptr)
 	{
 		delete[] m_data;
 		m_data = nullptr;

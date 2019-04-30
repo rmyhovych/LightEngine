@@ -18,6 +18,14 @@ public:
 		btScalar m_mass = 1.0;
 		btScalar m_restitution = 0.0;
 		btScalar m_friction = 0.4;
+
+		Properties(btCollisionShape* shape, btScalar mass, btScalar restitution, btScalar friction) :
+			m_shape(shape),
+			m_mass(mass),
+			m_restitution(restitution),
+			m_friction(friction)
+		{
+		}
 	};
 
 

@@ -37,7 +37,7 @@ PhysicalObject* SphereManager::createObject(
 
 	btSphereShape* sphereShape = new btSphereShape(scale.x);
 
-	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, { sphereShape, mass, restitution, friction });
+	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, PhysicalObject::Properties(sphereShape, mass, restitution, friction));
 
 	obj->setPosition({position.x, position.y, position.z});
 	obj->setRotation({orientation.x, orientation.y, orientation.z});

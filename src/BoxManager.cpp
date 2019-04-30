@@ -36,7 +36,7 @@ PhysicalObject* BoxManager::createObject(
 
 	btBoxShape* boxShape = new btBoxShape({scale.x, scale.y, scale.z});
 
-	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, { boxShape, mass, restitution, friction });
+	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, PhysicalObject::Properties(boxShape, mass, restitution, friction));
 
 	obj->setPosition({ position.x, position.y, position.z });
 	obj->setRotation({ orientation.x, orientation.y, orientation.z });
