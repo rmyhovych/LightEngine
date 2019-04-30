@@ -6,20 +6,20 @@ typedef unsigned char uint8_t;
 class FileData
 {
 public:
-	FileData(const char* path);
-	FileData(const uint8_t* data, unsigned size);
-
-	FileData(const FileData& oldBuffer);
-
+	FileData(const uint8_t* data = nullptr, unsigned size = 0);
+	FileData(FileData&& oldBuffer);
 
 	~FileData();
 
+	FileData& operator=(FileData&& oldBuffer);
 
-	FileData& operator=(FileData& otherBuffer);
 
+	uint8_t* getData();
+	unsigned size();
 
-	uint8_t* data;
-	unsigned size;
+private:
 
+	uint8_t* m_data;
+	unsigned m_size;
 };
 

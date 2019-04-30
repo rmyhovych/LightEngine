@@ -10,16 +10,14 @@ in vec3 vFragPos;
 
 in vec3 color;
 
-//Hello There
-
 out vec4 FragColor;
 
 
-//	Global Data
-
-uniform vec3 vDirLight;
-
-uniform mat4 mVP;
+layout(std140) uniform GlobalData 
+{
+	uniform vec3 vDirLight;
+	uniform mat4 mVP;
+};
 //mat4 mLightSpace;
 
 

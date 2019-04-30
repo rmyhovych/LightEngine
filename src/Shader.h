@@ -13,8 +13,7 @@
 #include <GL/glew.h>
 #endif
 
-#include "FileData.h"
-
+#include "FileReaderHandler.h"
 
 
 class Shader
@@ -52,11 +51,12 @@ private:
 
 public:
 
-	Shader(const char* vertexCodePath, const char* fragmentCodePath);
-	Shader(FileData& vertexData, FileData& fragmentData);
+	Shader(const std::string& vertexCodePath, const std::string& fragmentCodePath);
 
 
 	int getUniformLocation(const char* name);
+
+	void bindUbo(const char* name, GLuint binding);
 
 	void use();
 

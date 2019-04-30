@@ -7,16 +7,21 @@
 class PhysicalWorld
 {
 public:
-	PhysicalWorld(const btVector3& gravity = btVector3(0, -10, 0));
+	
+	static PhysicalWorld* getInstance();
+	
 	~PhysicalWorld();
 
-	void linkSphere(Object* object, const PhysicalObject::Properties& properties);
-	void linkPrism(Object* object, const PhysicalObject::Properties& properties);
+	PhysicalObject* createObject(GraphicalObject* parent, const PhysicalObject::Properties& properties);
 
 
 	void step(double fps);
 
 private:
+
+	PhysicalWorld(const btVector3& gravity = btVector3(0, -10, 0));
+	PhysicalWorld(const PhysicalWorld const&) = delete;
+	PhysicalWorld& operator=(const PhysicalWorld const&) = delete;
 
 	btDefaultCollisionConfiguration* collisionConfiguration;
 	btCollisionDispatcher* dispatcher;
@@ -25,6 +30,8 @@ private:
 
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
-	std::vector<PhysicalObject*> objects;
+	std::vector<PhysicalObject*> sObjects;
+	std::vector<PhysicalObject*> dObjects;
 };
 
+ 

@@ -14,7 +14,7 @@ void Shader::addVertexBuffer(FileData& vertexBuffer)
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size, vertexBuffer.data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size(), vertexBuffer.getData(), GL_STATIC_DRAW);
 }
 
 
@@ -25,7 +25,7 @@ GLuint Shader::addElementBuffer(FileData& elementBuffer)
 
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer.size, elementBuffer.data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer.size(), elementBuffer.getData(), GL_STATIC_DRAW);
 
 	return ebo;
 }
@@ -84,7 +84,10 @@ GLuint Shader::compileShader(GLuint type, FileData& shaderCode)
 {
 	GLuint shader = glCreateShader(type);
 
-	glShaderSource(shader, 1, (GLchar**)&shaderCode.data, (GLint*)&shaderCode.size);
+	uint8_t* d = shaderCode.getData();
+	GLint s = shaderCode.size();
+
+	glShaderSource(shader, 1, (GLchar**)&d, &s);
 	glCompileShader(shader);
 
 
@@ -110,24 +113,26 @@ GLuint Shader::compileShader(GLuint type, FileData& shaderCode)
 //=============================================================================================
 
 
-Shader::Shader(const char* vertexCodePath, const char* fragmentCodePath)
+Shader::Shader(const std::string& vertexCodePath, const std::string& fragmentCodePath)
 {
-	FileData vertexShaderCode(vertexCodePath);
-	FileData fragmentShaderCode(fragmentCodePath);
+	FileReaderAbs* fr = FileReaderHandler::getFileReader();
+
+	FileData vertexShaderCode = fr->read(vertexCodePath);
+	FileData fragmentShaderCode = fr->read(fragmentCodePath);
 
 	id = createProgram(vertexShaderCode, fragmentShaderCode);
 }
-
-Shader::Shader(FileData& vertexData, FileData& fragmentData)
-{
-	id = createProgram(vertexData, fragmentData);
-}
-
 
 
 int Shader::getUniformLocation(const char* name)
 {
 	return glGetUniformLocation(id, name);
+}
+
+void Shader::bindUbo(const char* name, GLuint binding)
+{
+	GLuint index = glGetUniformBlockIndex(id, name);
+	glUniformBlockBinding(id, index, binding);
 }
 
 

@@ -24,13 +24,13 @@ ObjectHandler::~ObjectHandler()
 	glDeleteVertexArrays(1, &vao);
 }
 
-Object* ObjectHandler::addObject(
+GraphicalObject* ObjectHandler::addObject(
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 
 	const glm::vec3& scale, 
 	const glm::vec3& color)
 {
-	Object* objectPtr = new Object(position, orientation, scale, color);
+	GraphicalObject* objectPtr = new GraphicalObject(position, orientation, scale, color);
 
 	objectArray.push_back(objectPtr);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Object.h"
+#include "GraphicalObject.h"
 
 #include <btBulletDynamicsCommon.h>
 
@@ -14,45 +14,34 @@ public:
 
 	struct Properties
 	{
-		btScalar m_mass;
+		btCollisionShape* m_shape;
+		btScalar m_mass = 1.0;
+		btScalar m_restitution = 0.0;
+		btScalar m_friction = 0.4;
 	};
 
 
-	PhysicalObject(Object* parent, const Properties& properties);
-	virtual ~PhysicalObject();
+	PhysicalObject(GraphicalObject* parent, const Properties& properties);
+	~PhysicalObject();
 
 	btRigidBody* getBody();
+
+
+	void impulse(const btVector3& force);
+	void push(const btVector3& force);
+
+	void setPosition(const btVector3& position);
+	void setRotation(const btVector3& rotation);
+
+	btVector3& getPosition();
 
 	void act();
 
 protected:
 
-	Object* parent;
+	GraphicalObject* parent;
 
-
-	btCollisionShape* m_shape;
 	btRigidBody* m_body;
 
 	btTransform* m_transform;
 };
-
-
-
-
-class PhysicalObjectSphere :
-	public PhysicalObject
-{
-public:
-	PhysicalObjectSphere(Object* parent, const Properties& properties);
-	virtual ~PhysicalObjectSphere();
-
-};
-
-class PhysicalObjectPrism :
-	public PhysicalObject
-{
-public:
-	PhysicalObjectPrism(Object* parent, const Properties& properties);
-	virtual ~PhysicalObjectPrism();
-};
-

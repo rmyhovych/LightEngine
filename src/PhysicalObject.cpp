@@ -1,14 +1,33 @@
 #include "PhysicalObject.h"
+#include "PhysicalWorld.h"
 
-PhysicalObject::PhysicalObject(Object* parent, const Properties& properties) :
+
+
+PhysicalObject::PhysicalObject(GraphicalObject* parent, const Properties& properties) :
 	parent(parent)
 {
+	btTransform startTransform;
+	startTransform.setIdentity();
+
+	btVector3 localInertia(0, 0, 0);
+
+	properties.m_shape->calculateLocalInertia(properties.m_mass, localInertia);
+
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, properties.m_shape, localInertia);
+
+	m_body = new btRigidBody(rbInfo);
+	m_body->setRestitution(properties.m_restitution);
+	m_body->setFriction(properties.m_friction);
+
+	m_transform = &m_body->getWorldTransform();
 }
+
+
 
 PhysicalObject::~PhysicalObject()
 {
-	delete m_shape;
-	m_shape = nullptr;
 }
 
 btRigidBody* PhysicalObject::getBody()
@@ -18,98 +37,47 @@ btRigidBody* PhysicalObject::getBody()
 
 
 
+void PhysicalObject::impulse(const btVector3& force)
+{
+	m_body->applyCentralImpulse(force);
+}
+
+void PhysicalObject::push(const btVector3& force)
+{
+	m_body->applyCentralForce(force);
+}
+
+
+
+void PhysicalObject::setPosition(const btVector3& position)
+{
+	m_transform->setOrigin(position);
+
+	act();
+}
+
+void PhysicalObject::setRotation(const btVector3& rotation)
+{
+	btQuaternion rotQ;
+
+	rotQ.setEuler(rotation.getY(), rotation.getX(), rotation.getZ());
+	m_transform->setRotation(rotQ);
+
+	act();
+}
+
+
+
+btVector3& PhysicalObject::getPosition()
+{
+	return m_transform->getOrigin();
+}
+
+
+
 void PhysicalObject::act()
 {
-	btVector3& pos = m_transform->getOrigin();
+	m_transform->getOpenGLMatrix(parent->getMovementPtr());
 
-	parent->setPosition(glm::vec3(pos.getX(), pos.getY(), pos.getZ()));
-
-	btQuaternion orientation = m_transform->getRotation();
-	parent->setOrientation(glm::mat4_cast(glm::quat(orientation.getW(), orientation.getX(),
-		orientation.getY(), orientation.getZ())));
-}
-
-
-
-
-
-
-PhysicalObjectSphere::PhysicalObjectSphere(Object* parent, const Properties& properties) :
-	PhysicalObject(parent, properties)
-{
-	glm::vec3 scale = parent->getScale();
-	glm::vec3 position = parent->getPosition();
-
-	btScalar radius = scale.x;
-	btVector3 btPosition(position.x, position.y, position.z);
-
-
-	m_shape = new btSphereShape(radius);
-
-	btTransform startTransform;
-	startTransform.setIdentity();
-
-	btVector3 localInertia(0, 0, 0);
-
-	m_shape->calculateLocalInertia(properties.m_mass, localInertia);
-
-	startTransform.setOrigin(btPosition);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, m_shape, localInertia);
-
-	m_body = new btRigidBody(rbInfo);
-	m_body->setRestitution(0.7);
-
-	m_transform = &m_body->getWorldTransform();
-}
-
-
-
-
-PhysicalObjectSphere::~PhysicalObjectSphere()
-{
-}
-
-
-
-
-
-
-
-
-PhysicalObjectPrism::PhysicalObjectPrism(Object* parent, const Properties& properties) :
-	PhysicalObject(parent, properties)
-{
-	glm::vec3 scale = parent->getScale();
-	glm::vec3 position = parent->getPosition();
-	glm::quat orientation = parent->getOrientation();
-	
-	btVector3 btScale(scale.x, scale.y, scale.z);
-	btVector3 btPosition(position.x, position.y, position.z);
-	btQuaternion btOrientation(orientation.w, orientation.x, orientation.y, orientation.z);
-
-	m_shape = new btBoxShape(btScale);
-
-	btTransform startTransform;
-	startTransform.setIdentity();
-
-	btVector3 localInertia(0, 0, 0);
-
-	m_shape->calculateLocalInertia(properties.m_mass, localInertia);
-
-	startTransform.setOrigin(btPosition);
-	startTransform.setRotation(btOrientation);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, m_shape, localInertia);
-
-	m_body = new btRigidBody(rbInfo);
-	m_body->setRestitution(0.5);
-
-	m_transform = &m_body->getWorldTransform();
-}
-
-PhysicalObjectPrism::~PhysicalObjectPrism()
-{
+	parent->model();
 }

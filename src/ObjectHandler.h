@@ -12,7 +12,7 @@ public:
 
 	~ObjectHandler();
 
-	Object* addObject(
+	GraphicalObject* addObject(
 		const glm::vec3& position = glm::vec3(0),
 		const glm::vec3& orientation = glm::vec3(0),
 		const glm::vec3& scale = glm::vec3(1),
@@ -23,7 +23,7 @@ public:
 
 protected:
 
-	std::vector<Object*> objectArray;
+	std::vector<GraphicalObject*> objectArray;
 
 
 	GLuint vao;

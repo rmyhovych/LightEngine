@@ -13,18 +13,18 @@ out vec3 vFragPos;
 out vec3 color;
 
 
-//	Global Data
-
-uniform vec3 vDirLight;
-
-uniform mat4 mVP;
+layout(std140) uniform GlobalData 
+{
+	uniform vec3 vDirLight;
+	uniform mat4 mVP;
+};
 //mat4 mLightSpace;
 
 
 
 //	Object Data
 
-uniform mat4 mRotation;
+uniform mat3 mRotation;
 uniform mat4 mModel;		
 uniform vec3 vColor;
 
@@ -33,7 +33,7 @@ void main()
 {
 	color = vColor;
 
-	vRotNormal = mat3(mRotation) * vNormal;
+	vRotNormal = normalize(mRotation * vNormal);
 	vFragPos = vec3(mModel * vec4(vPosition, 1.0));
 
 	/* DEPTH MAPPING

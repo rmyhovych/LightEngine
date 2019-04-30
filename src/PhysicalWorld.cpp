@@ -1,23 +1,11 @@
 #include "PhysicalWorld.h"
 
-PhysicalWorld::PhysicalWorld(const btVector3& gravity) :
-	dynamicsWorld(nullptr)
+
+PhysicalWorld* PhysicalWorld::getInstance()
 {
-	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-	collisionConfiguration = new btDefaultCollisionConfiguration();
+	static PhysicalWorld physicalWorld({ 0, -10, 0 });
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-	dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-	overlappingPairCache = new btDbvtBroadphase();
-
-	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-	solver = new btSequentialImpulseConstraintSolver();
-
-	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-
-	dynamicsWorld->setGravity(gravity);
+	return &physicalWorld;
 }
 
 PhysicalWorld::~PhysicalWorld()
@@ -29,17 +17,26 @@ PhysicalWorld::~PhysicalWorld()
 		btRigidBody* body = btRigidBody::upcast(obj);
 		if (body && body->getMotionState())
 		{
+			btCollisionShape* shape = body->getCollisionShape();
+
+			delete shape;
+
 			delete body->getMotionState();
 		}
 		dynamicsWorld->removeCollisionObject(obj);
 		delete obj;
 	}
 
-
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = dObjects.size() - 1; i >= 0; i--)
 	{
-		delete objects[i];
-		objects[i] = nullptr;
+		delete dObjects[i];
+		dObjects[i] = nullptr;
+	}
+
+	for (int i = sObjects.size() - 1; i >= 0; i--)
+	{
+		delete sObjects[i];
+		sObjects[i] = nullptr;
 	}
 
 	//delete dynamics world
@@ -64,33 +61,38 @@ PhysicalWorld::~PhysicalWorld()
 
 
 
-void PhysicalWorld::linkSphere(Object* object, const PhysicalObject::Properties& properties)
+PhysicalObject* PhysicalWorld::createObject(GraphicalObject* parent, const PhysicalObject::Properties& properties)
 {
-	PhysicalObject* pO = new PhysicalObjectSphere(object, properties);
+	PhysicalObject* o = new PhysicalObject(parent, properties);
 
-	objects.push_back(pO);
+	properties.m_mass == 0 ? sObjects.push_back(o) : dObjects.push_back(o);
 
-	dynamicsWorld->addRigidBody(pO->getBody());
+	dynamicsWorld->addRigidBody(o->getBody());
+
+	return o;
 }
-
-void PhysicalWorld::linkPrism(Object* object, const PhysicalObject::Properties& properties)
-{
-	PhysicalObject* pO = new PhysicalObjectPrism(object, properties);
-
-	objects.push_back(pO);
-
-	dynamicsWorld->addRigidBody(pO->getBody());
-}
-
-
 
 
 void PhysicalWorld::step(double fps)
 {
 	dynamicsWorld->stepSimulation(1.0 / fps, 10);
 
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = dObjects.size() - 1; i >= 0; i--)
 	{
-		objects[i]->act();
+		dObjects[i]->act();
 	}
+}
+
+
+
+PhysicalWorld::PhysicalWorld(const btVector3& gravity) :
+	dynamicsWorld(nullptr)
+{
+	collisionConfiguration = new btDefaultCollisionConfiguration();
+	dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	overlappingPairCache = new btDbvtBroadphase();
+	solver = new btSequentialImpulseConstraintSolver();
+	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+
+	dynamicsWorld->setGravity(gravity);
 }
