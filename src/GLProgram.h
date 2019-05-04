@@ -26,6 +26,7 @@ public:
 
 
 	void render(glm::vec3& dirLight, glm::mat4& pv);
+	void renderDepth(GLint modelIndex);
 
 private:
 	

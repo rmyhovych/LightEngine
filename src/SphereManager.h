@@ -12,6 +12,8 @@ public:
 
 	virtual void render(ObjectUniforms& uniforms);
 
+	virtual void renderDepth(GLint modelIndex);
+
 	virtual PhysicalObject* createObject(
 		btScalar mass = 1.0, 
 		btScalar restitution = 0.5, 

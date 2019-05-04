@@ -11,7 +11,7 @@ public:
 	virtual ~PhantomManagerV();
 
 	virtual void render(ObjectUniforms& uniforms);
-
+	virtual void renderDepth(GLint modelIndex);
 
 	GraphicalObject* createObject(
 		const glm::vec3& position = glm::vec3(0),

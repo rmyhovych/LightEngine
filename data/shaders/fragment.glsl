@@ -6,7 +6,7 @@ precision highp float;
 
 in vec3 vRotNormal;
 in vec3 vFragPos;
-//in vec4 vFragPosLight;
+in vec4 vFragPosLight;
 
 in vec3 color;
 
@@ -17,15 +17,15 @@ layout(std140) uniform GlobalData
 {
 	uniform vec3 vDirLight;
 	uniform mat4 mVP;
+	uniform mat4 mLightSpace;
 };
-//mat4 mLightSpace;
 
 
 
 
 
 //  Depth Map
-//uniform sampler2DShadow depthMap;
+uniform sampler2DShadow depthMap;
 
 
 
@@ -34,12 +34,12 @@ layout(std140) uniform GlobalData
 
 
 
-/*	=== SHADOW MAPPING ===
+//	=== SHADOW MAPPING ===
 
 float lookup(float x, float y)
 {
 
-    float pixelSize = 0.001f;
+    float pixelSize = 0.0005f;
 
     vec4 pixel = vec4(x * pixelSize * vFragPosLight.w,
                        y * pixelSize * vFragPosLight.w,
@@ -51,7 +51,7 @@ float lookup(float x, float y)
 
 float shadow()
 {
-
+	
     float sum = 0.0;
 
     float shadowDistortion = 1.0;
@@ -63,11 +63,14 @@ float shadow()
             sum += lookup(x, y);
         }
     }
-
+	
 
     return sum * 0.11;
+	
+
+	return textureProj(depthMap, vFragPosLight);
 }
-*/
+
 
 
 
@@ -80,7 +83,7 @@ void main()
 
     //  directionnal light
     float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
-	float result = (1.0f - ambient) * diffuse + ambient;// * shadow();
+	float result = (1.0f - ambient) * diffuse * shadow() + ambient;
 
-	FragColor = vec4(result * color, 1.0);
+	FragColor = vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
 }

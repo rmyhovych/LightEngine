@@ -60,6 +60,11 @@ void Camera::move(float x, float y, float z)
 	update();
 }
 
+glm::vec3& Camera::getFocus()
+{
+	return focus;
+}
+
 void Camera::setFocus(const glm::vec3& f)
 {
 	focus = f;

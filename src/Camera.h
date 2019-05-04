@@ -13,8 +13,8 @@
 class Camera
 {
 public:
-	Camera(int width, int height, float zoom = 20, 
-		float angleH = 0, float angleV = PI / 2,
+	Camera(int width, int height, float zoom = 5, 
+		float angleH = PI / 2, float angleV = PI / 2,
 		const glm::vec3& focus = glm::vec3(0, 0, 0));
 	
 
@@ -25,6 +25,8 @@ public:
 	void rotate(float x, float y);
 	void move(float x, float y, float z);
 
+
+	glm::vec3& getFocus();
 	void setFocus(const glm::vec3& f);
 
 private:

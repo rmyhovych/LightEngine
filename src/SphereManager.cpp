@@ -24,6 +24,18 @@ void SphereManager::render(ObjectUniforms& uniforms)
 	}
 }
 
+void SphereManager::renderDepth(GLint modelIndex)
+{
+	glBindVertexArray(m_vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+
+	for (int i = m_objects.size() - 1; i >= 0; i--)
+	{
+		m_objects[i]->useDepth(modelIndex);
+		glDrawElements(GL_TRIANGLES, m_glDataSize, GL_UNSIGNED_INT, 0);
+	}
+}
+
 PhysicalObject* SphereManager::createObject(
 	btScalar mass, 
 	btScalar restitution, 

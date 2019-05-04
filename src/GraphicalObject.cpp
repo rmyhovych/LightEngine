@@ -92,3 +92,8 @@ void GraphicalObject::use(ObjectUniforms& uniforms)
 	
 	glUniform3fv(uniforms.vColor, 1, glm::value_ptr(color));
 }
+
+void GraphicalObject::useDepth(GLint modelIndex)
+{
+	glUniformMatrix4fv(modelIndex, 1, false, glm::value_ptr(mModel));
+}

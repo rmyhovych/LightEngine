@@ -8,6 +8,7 @@ public:
 	virtual ~ObjectManagerAbs() = 0;
 
 	virtual void render(ObjectUniforms& uniforms) = 0;
+	virtual void renderDepth(GLint modelIndex) = 0;
 
 protected:
 

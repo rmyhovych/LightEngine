@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 
-static int depthMapSize = 1024;
+static int depthMapSize = 2048;
 
 
 GameManager::GameManager(int width, int height) :
@@ -10,10 +10,12 @@ GameManager::GameManager(int width, int height) :
 
 	m_globalUboBinding(1),
 
+	m_camera(m_width, m_height, 8),
+	m_dirLight(PI / 3, 5 * PI / 6),
+
 	m_programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
 	createDepthMap();
-
 	createUniforms();
 }
 
@@ -28,6 +30,28 @@ GameManager::~GameManager()
 
 
 
+void GameManager::resize(int width, int height)
+{
+	m_width = width;
+	m_height = height;
+
+
+	glDeleteTextures(1, &m_depthMap);
+	glDeleteFramebuffers(1, &m_depthFbo);
+	createDepthMap();
+
+
+	m_camera.resize(width, height);
+}
+
+
+
+Camera* GameManager::getCamera()
+{
+	return &m_camera;
+}
+
+
 GLProgram* GameManager::addProgram(const char* pathVertex, const char* pathFragment)
 {
 	GLProgram* program = new GLProgram(pathVertex, pathFragment);
@@ -40,15 +64,24 @@ GLProgram* GameManager::addProgram(const char* pathVertex, const char* pathFragm
 }
 
 
-void GameManager::render(glm::vec3& dirLight, glm::mat4& pv)
+void GameManager::render(glm::mat4& pv)
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, m_globalUbo);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, 12, (void*)&dirLight);
-	glBufferSubData(GL_UNIFORM_BUFFER, 16, 64, (void*)&pv);
+	m_dirLight.setFocus(m_camera.getFocus());
+
+
+
+	initRenderingDepth();
 
 	for (int i = m_programs.size() - 1; i >= 0; i--)
 	{
-		m_programs[i]->render(dirLight, pv);
+		m_programs[i]->renderDepth(m_modelIndex);
+	}
+
+	initRendering(pv);
+
+	for (int i = m_programs.size() - 1; i >= 0; i--)
+	{
+		m_programs[i]->render(m_dirLight.getDirection(), pv);
 	}
 }
 
@@ -89,13 +122,12 @@ void GameManager::createDepthMap()
 
 
 	//      no draw buffers
-	//glDrawBuffer(GL_NONE);
+	GLenum draws[1] = {GL_NONE};
+	glDrawBuffers(1, draws);
 
 
 	//      bind data to fbo
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,	GL_TEXTURE_2D, m_depthMap, 0);
-
-
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -103,7 +135,7 @@ void GameManager::createDepthMap()
 
 
 	glEnable(GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(1.5f, 150.0f);
+	glPolygonOffset(1.2f, 100);
 }
 
 
@@ -113,10 +145,14 @@ void GameManager::createUniforms()
 	glGenBuffers(1, &m_globalUbo);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, m_globalUbo);
-	glBufferData(GL_UNIFORM_BUFFER, 5 * 4 * sizeof(float), NULL, GL_STATIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 9 * 4 * sizeof(float), NULL, GL_STATIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-	glBindBufferRange(GL_UNIFORM_BUFFER, m_globalUboBinding, m_globalUbo, 0, 5 * 4 * sizeof(float));
+	glBindBufferRange(GL_UNIFORM_BUFFER, m_globalUboBinding, m_globalUbo, 0, 9 * 4 * sizeof(float));
+
+
+	m_lightSpaceIndex = m_programDepth.getUniformLocation("mLightSpace");
+	m_modelIndex = m_programDepth.getUniformLocation("mModel");
 }
 
 
@@ -135,17 +171,14 @@ void GameManager::initRenderingDepth()
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 
-	//programDepth.use();
+	m_programDepth.use();
 
-
-
-	// TODO : set uniforms
-
+	glUniformMatrix4fv(m_lightSpaceIndex, 1, GL_FALSE, glm::value_ptr(m_dirLight.getLightSpace()));
 }
 
 
 
-void GameManager::initRendering()
+void GameManager::initRendering(glm::mat4& pv)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -157,5 +190,8 @@ void GameManager::initRendering()
 	glBindTexture(GL_TEXTURE_2D, m_depthMap);
 
 
-	// TODO : set ubo
+	glBindBuffer(GL_UNIFORM_BUFFER, m_globalUbo);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, 12, (void*)&m_dirLight.getDirection());
+	glBufferSubData(GL_UNIFORM_BUFFER, 16, 64, (void*)&pv);
+	glBufferSubData(GL_UNIFORM_BUFFER, 80, 64, (void*)&m_dirLight.getLightSpace());
 }

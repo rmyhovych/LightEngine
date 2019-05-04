@@ -23,6 +23,17 @@ void BoxManager::render(ObjectUniforms& uniforms)
 	}
 }
 
+void BoxManager::renderDepth(GLint modelIndex)
+{
+	glBindVertexArray(m_vao);
+
+	for (int i = m_objects.size() - 1; i >= 0; i--)
+	{
+		m_objects[i]->useDepth(modelIndex);
+		glDrawArrays(GL_TRIANGLES, 0, m_glDataSize);
+	}
+}
+
 PhysicalObject* BoxManager::createObject(
 	btScalar mass, 
 	btScalar restitution, 

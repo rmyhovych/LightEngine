@@ -85,6 +85,14 @@ void GLProgram::render(glm::vec3& dirLight, glm::mat4& pv)
 	}
 }
 
+void GLProgram::renderDepth(GLint modelIndex)
+{
+	for (int i = m_objectManagers.size() - 1; i >= 0; i--)
+	{
+		m_objectManagers[i]->renderDepth(modelIndex);
+	}
+}
+
 
 
 

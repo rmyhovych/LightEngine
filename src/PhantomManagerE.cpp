@@ -24,6 +24,10 @@ void PhantomManagerE::render(ObjectUniforms& uniforms)
 	}
 }
 
+void PhantomManagerE::renderDepth(GLint modelIndex)
+{
+}
+
 GraphicalObject* PhantomManagerE::createObject(
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 

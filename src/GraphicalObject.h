@@ -34,6 +34,7 @@ public:
 	void useDepth();
 
 	void use(ObjectUniforms& uniforms);
+	void useDepth(GLint modelIndex);
 
 
 	void model();

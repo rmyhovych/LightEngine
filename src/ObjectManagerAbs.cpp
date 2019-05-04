@@ -24,8 +24,6 @@ ObjectManagerAbs::~ObjectManagerAbs()
 
 
 
-
-
 GraphicalObject* ObjectManagerAbs::createGraphicalObject(
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 
