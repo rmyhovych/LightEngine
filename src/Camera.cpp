@@ -3,51 +3,51 @@
 static const float fovy = PI / 3;
 
 Camera::Camera(int width, int height, float zoom, float angleH, float angleV, const glm::vec3& focus) :
-	zoom(zoom),
+	m_zoom(zoom),
 
-	focus(focus),
-	up(glm::vec3(0, 1, 0)),
+	m_focus(focus),
+	m_up(glm::vec3(0, 1, 0)),
 
-	angleH(angleH),
-	angleV(angleV)
+	m_angleH(angleH),
+	m_angleV(angleV)
 {
-	projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
+	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
 	update();
 }
 
 
 void Camera::resize(int width, int height)
 {
-	projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
+	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
 	update();
 }
 
 glm::mat4& Camera::getPV()
 {
-	return pv;
+	return m_pv;
 }
 
 void Camera::rotate(float x, float y)
 {
-	angleH -= x;
-	angleV += y;
+	m_angleH -= x;
+	m_angleV += y;
 
-	if (angleH < 0)
+	if (m_angleH < 0)
 	{
-		angleH += 2 * PI;
+		m_angleH += 2 * PI;
 	}
-	else if (angleH > 2 * PI)
+	else if (m_angleH > 2 * PI)
 	{
-		angleH -= 2 * PI;
+		m_angleH -= 2 * PI;
 	}
 
-	if (angleV > PI - 0.01)
+	if (m_angleV > PI - 0.01)
 	{
-		angleV = PI - 0.01;
+		m_angleV = PI - 0.01;
 	}
-	else if (angleV < 0.01)
+	else if (m_angleV < 0.01)
 	{
-		angleV = 0.01;
+		m_angleV = 0.01;
 	}
 
 	update();
@@ -55,33 +55,39 @@ void Camera::rotate(float x, float y)
 
 void Camera::move(float x, float y, float z)
 {
-	focus += glm::vec3(x, y, z);
+	m_focus += glm::vec3(x, y, z);
 
+	update();
+}
+
+void Camera::zoom(float delta)
+{
+	m_zoom += delta * m_zoom;
 	update();
 }
 
 glm::vec3& Camera::getFocus()
 {
-	return focus;
+	return m_focus;
 }
 
 void Camera::setFocus(const glm::vec3& f)
 {
-	focus = f;
+	m_focus += 0.8f * (f - m_focus);
 	update();
 }
 
 
 void Camera::update()
 {
-	direction.x = sin(angleH) * sin(angleV);
-	direction.z = cos(angleH) * sin(angleV);
-	direction.y = cos(angleV);
+	m_direction.x = sin(m_angleH) * sin(m_angleV);
+	m_direction.z = cos(m_angleH) * sin(m_angleV);
+	m_direction.y = cos(m_angleV);
 
-	position = focus - zoom * direction;
+	m_position = m_focus - m_zoom * m_direction;
 
 
-	view = glm::lookAt(position, focus, up);
-	pv = projection * view;
+	m_view = glm::lookAt(m_position, m_focus, m_up);
+	m_pv = m_projection * m_view;
 }
 

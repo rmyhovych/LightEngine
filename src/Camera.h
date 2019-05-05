@@ -24,7 +24,7 @@ public:
 	
 	void rotate(float x, float y);
 	void move(float x, float y, float z);
-
+	void zoom(float delta);
 
 	glm::vec3& getFocus();
 	void setFocus(const glm::vec3& f);
@@ -34,18 +34,18 @@ private:
 
 private:
 
-	float zoom;
+	float m_zoom;
 
-	glm::vec3 focus;
-	glm::vec3 direction;
-	glm::vec3 position;
-	glm::vec3 up;
+	glm::vec3 m_focus;
+	glm::vec3 m_direction;
+	glm::vec3 m_position;
+	glm::vec3 m_up;
 
-	glm::mat4 projection;
-	glm::mat4 view;
-	glm::mat4 pv;
+	glm::mat4 m_projection;
+	glm::mat4 m_view;
+	glm::mat4 m_pv;
 
 
-	float angleH;
-	float angleV;
+	float m_angleH;
+	float m_angleV;
 };

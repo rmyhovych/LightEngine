@@ -85,5 +85,5 @@ void main()
     float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
 	float result = (1.0f - ambient) * diffuse * shadow() + ambient;
 
-	FragColor = vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
+	FragColor = vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
 }
