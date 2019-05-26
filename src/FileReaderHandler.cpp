@@ -20,12 +20,12 @@ FileReaderHandler::~FileReaderHandler()
 }
 
 
-void FileReaderHandler::setFileReader(FileReaderAbs* fileReader)
+void FileReaderHandler::setFileReader(IFileReader* fileReader)
 {
 	handler.m_fileReader = fileReader;
 }
 
-FileReaderAbs* FileReaderHandler::getFileReader()
+IFileReader* FileReaderHandler::getFileReader()
 {
 	return handler.m_fileReader;
 }

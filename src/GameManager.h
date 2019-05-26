@@ -23,6 +23,9 @@ public:
 
 	void render(glm::mat4& pv);
 
+
+	void clear();
+
 private:
 
 

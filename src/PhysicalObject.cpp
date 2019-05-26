@@ -13,7 +13,6 @@ PhysicalObject::PhysicalObject(GraphicalObject* parent, const Properties& proper
 
 	properties.m_shape->calculateLocalInertia(properties.m_mass, localInertia);
 
-
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, properties.m_shape, localInertia);
 

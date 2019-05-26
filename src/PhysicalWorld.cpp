@@ -3,41 +3,14 @@
 
 PhysicalWorld* PhysicalWorld::getInstance()
 {
-	static PhysicalWorld physicalWorld({ 0, 0, 0 });
+	static PhysicalWorld physicalWorld({ 0, -10, 0 });
 
 	return &physicalWorld;
 }
 
 PhysicalWorld::~PhysicalWorld()
 {
-	//remove the rigidbodies from the dynamics world and delete them
-	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
-	{
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState())
-		{
-			btCollisionShape* shape = body->getCollisionShape();
-
-			delete shape;
-
-			delete body->getMotionState();
-		}
-		dynamicsWorld->removeCollisionObject(obj);
-		delete obj;
-	}
-
-	for (int i = dObjects.size() - 1; i >= 0; i--)
-	{
-		delete dObjects[i];
-		dObjects[i] = nullptr;
-	}
-
-	for (int i = sObjects.size() - 1; i >= 0; i--)
-	{
-		delete sObjects[i];
-		sObjects[i] = nullptr;
-	}
+	clear();
 
 	//delete dynamics world
 	delete dynamicsWorld;
@@ -80,6 +53,38 @@ void PhysicalWorld::step(double fps)
 	for (int i = dObjects.size() - 1; i >= 0; i--)
 	{
 		dObjects[i]->act();
+	}
+}
+
+void PhysicalWorld::clear()
+{
+	//remove the rigidbodies from the dynamics world and delete them
+	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
+	{
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		if (body && body->getMotionState())
+		{
+			btCollisionShape* shape = body->getCollisionShape();
+
+			delete shape;
+
+			delete body->getMotionState();
+		}
+		dynamicsWorld->removeCollisionObject(obj);
+		delete obj;
+	}
+
+	for (int i = dObjects.size() - 1; i >= 0; i--)
+	{
+		delete dObjects[i];
+		dObjects[i] = nullptr;
+	}
+
+	for (int i = sObjects.size() - 1; i >= 0; i--)
+	{
+		delete sObjects[i];
+		sObjects[i] = nullptr;
 	}
 }
 

@@ -39,7 +39,7 @@ uniform sampler2DShadow depthMap;
 float lookup(float x, float y)
 {
 
-    float pixelSize = 0.0005f;
+    float pixelSize = 0.0008f;
 
     vec4 pixel = vec4(x * pixelSize * vFragPosLight.w,
                        y * pixelSize * vFragPosLight.w,
@@ -85,5 +85,5 @@ void main()
     float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
 	float result = (1.0f - ambient) * diffuse * shadow() + ambient;
 
-	FragColor = vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
+	FragColor = /*vec4(textureProj(depthMap, vFragPosLight));*/vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
 }

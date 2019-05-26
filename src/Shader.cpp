@@ -115,7 +115,7 @@ GLuint Shader::compileShader(GLuint type, FileData& shaderCode)
 
 Shader::Shader(const std::string& vertexCodePath, const std::string& fragmentCodePath)
 {
-	FileReaderAbs* fr = FileReaderHandler::getFileReader();
+	IFileReader* fr = FileReaderHandler::getFileReader();
 
 	FileData vertexShaderCode = fr->read(vertexCodePath);
 	FileData fragmentShaderCode = fr->read(fragmentCodePath);

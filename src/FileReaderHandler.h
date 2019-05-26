@@ -1,5 +1,5 @@
 #pragma once
-#include "FileReaderAbs.h"
+#include "IFileReader.h"
 
 
 class FileReaderHandler
@@ -7,8 +7,8 @@ class FileReaderHandler
 public:
 	~FileReaderHandler();
 
-	static void setFileReader(FileReaderAbs* fileReader);
-	static FileReaderAbs* getFileReader();
+	static void setFileReader(IFileReader* fileReader);
+	static IFileReader* getFileReader();
 
 private:
 
@@ -17,6 +17,6 @@ private:
 	FileReaderHandler& operator=(const FileReaderHandler const&) = delete;
 
 	static FileReaderHandler handler;
-	FileReaderAbs* m_fileReader;
+	IFileReader* m_fileReader;
 };
 

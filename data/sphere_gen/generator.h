@@ -1,12 +1,9 @@
 #include <iomanip>
 #include <string>
 
-void generateSphere(std::string path)
+void generateSphere(int meridianSize = 50, int parallelSize = 50)
 {
-	const int meridianSize = 50;
-	const int parallelSize = 50;
-	
-
+	std::string path = "C:/Users/rmyho/Desktop/PicoEngine/data/binary/";
 
 
 	//	vec3 vertex buffer

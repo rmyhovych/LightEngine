@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 
-static int depthMapSize = 1024;
+static int depthMapSize = 2048;
 
 
 GameManager::GameManager(int width, int height) :
@@ -11,7 +11,7 @@ GameManager::GameManager(int width, int height) :
 	m_globalUboBinding(1),
 
 	m_camera(m_width, m_height, 15),
-	m_dirLight(PI / 3, 5 * PI / 6),
+	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 10),
 
 	m_programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
@@ -86,6 +86,20 @@ void GameManager::render(glm::mat4& pv)
 }
 
 
+
+
+void GameManager::clear()
+{
+	for (int i = m_programs.size() - 1; i >= 0; i--)
+	{
+		delete m_programs[i];
+		m_programs[i] = nullptr;
+	}
+}
+
+
+
+
 void GameManager::createDepthMap()
 {
 	//  DEPTH MAP TEXTURE
@@ -97,13 +111,14 @@ void GameManager::createDepthMap()
 	//      use depthMap
 	glBindTexture(GL_TEXTURE_2D, m_depthMap);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	//float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	//glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_, borderColor);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0,	GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
 
@@ -130,12 +145,6 @@ void GameManager::createDepthMap()
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,	GL_TEXTURE_2D, m_depthMap, 0);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-
-
-	glEnable(GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(1.2f, 100);
 }
 
 

@@ -45,7 +45,7 @@ GraphicalObject* ObjectManagerAbs::createGraphicalObject(
 
 void ObjectManagerAbs::initVertexData(const std::string& vertexPath)
 {
-	FileReaderAbs* fr = FileReaderHandler::getFileReader();
+	IFileReader* fr = FileReaderHandler::getFileReader();
 	FileData vertexData = fr->read(vertexPath);
 
 	m_glDataSize = vertexData.size() / (sizeof(float) * 6); // 6 -> vertex size
@@ -65,7 +65,7 @@ void ObjectManagerAbs::initVertexData(const std::string& vertexPath)
 
 void ObjectManagerAbs::initElementData(const std::string& vertexPath, const std::string& elementPath)
 {
-	FileReaderAbs* fr = FileReaderHandler::getFileReader();
+	IFileReader* fr = FileReaderHandler::getFileReader();
 	FileData vertexData = fr->read(vertexPath);
 	FileData elementData = fr->read(elementPath);
 

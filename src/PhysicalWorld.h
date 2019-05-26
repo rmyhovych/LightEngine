@@ -17,6 +17,8 @@ public:
 
 	void step(double fps);
 
+	void clear();
+
 private:
 
 	PhysicalWorld(const btVector3& gravity = btVector3(0, -10, 0));

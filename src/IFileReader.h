@@ -3,11 +3,11 @@
 #include "FileData.h"
 #include <string>
 
-class FileReaderAbs
+class IFileReader
 {
 public:
-	FileReaderAbs();
-	virtual ~FileReaderAbs();
+	IFileReader();
+	virtual ~IFileReader();
 
 	virtual FileData read(const std::string& filename) = 0;
 };
