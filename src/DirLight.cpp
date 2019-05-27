@@ -10,7 +10,7 @@ DirLight::DirLight(float angleH, float angleV, const glm::vec3& focus, float sha
 	m_focus(focus),
 	m_shadowSize(shadowSize)
 {
-	m_projection = glm::ortho(-shadowSize, shadowSize, -shadowSize, shadowSize, 0.0f, 2 * shadowSize);
+	m_projection = glm::ortho(-shadowSize, shadowSize, -shadowSize, shadowSize, -shadowSize, 2 * shadowSize);
 
 
 	update();

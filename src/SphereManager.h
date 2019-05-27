@@ -1,10 +1,10 @@
 #pragma once
 
-#include "PhysicalManager.h"
+#include "ObjectManager.h"
 
 
 class SphereManager :
-	public PhysicalManager
+	public ObjectManager
 {
 public:
 	SphereManager();
@@ -14,7 +14,7 @@ public:
 
 	virtual void renderDepth(GLint modelIndex);
 
-	virtual PhysicalObject* createObject(
+	virtual Object* createObject(
 		btScalar mass = 1.0, 
 		btScalar restitution = 0.5, 
 		btScalar friction = 0.5,

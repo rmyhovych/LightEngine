@@ -36,7 +36,7 @@ void SphereManager::renderDepth(GLint modelIndex)
 	}
 }
 
-PhysicalObject* SphereManager::createObject(
+Object* SphereManager::createObject(
 	btScalar mass, 
 	btScalar restitution, 
 	btScalar friction,
@@ -49,7 +49,7 @@ PhysicalObject* SphereManager::createObject(
 
 	btSphereShape* sphereShape = new btSphereShape(scale.x);
 
-	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, PhysicalObject::Properties(sphereShape, mass, restitution, friction));
+	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(sphereShape, mass, restitution, friction));
 
 	obj->setPosition({position.x, position.y, position.z});
 	obj->setRotation({orientation.x, orientation.y, orientation.z});

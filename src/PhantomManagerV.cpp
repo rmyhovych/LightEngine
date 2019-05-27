@@ -1,4 +1,5 @@
 #include "PhantomManagerV.h"
+#include "PhysicalWorld.h"
 
 
 PhantomManagerV::PhantomManagerV(const std::string& vertexPath)
@@ -25,11 +26,23 @@ void PhantomManagerV::renderDepth(GLint modelIndex)
 {
 }
 
-GraphicalObject* PhantomManagerV::createObject(
+Object* PhantomManagerV::createObject(
+	btScalar mass,
+	btScalar restitution,
+	btScalar friction,
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 
 	const glm::vec3& scale, 
 	const glm::vec3& color)
 {
-	return createGraphicalObject(position, orientation, scale, color);
+	GraphicalObject* parent = createGraphicalObject(position, orientation, scale, color);
+
+	btEmptyShape* emptyShape = new btEmptyShape();
+
+	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(emptyShape, 0, 0, 0));
+
+	obj->setPosition({ position.x, position.y, position.z });
+	obj->setRotation({ orientation.x, orientation.y, orientation.z });
+
+	return obj;
 }

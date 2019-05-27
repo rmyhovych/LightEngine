@@ -23,18 +23,18 @@ GLProgram::~GLProgram()
 
 
 
-ObjectManagerAbs* GLProgram::addPhantomManager(const std::string& vertexPath)
+ObjectManager* GLProgram::addPhantomManager(const std::string& vertexPath)
 {
-	ObjectManagerAbs* om = new PhantomManagerV(vertexPath);
+	ObjectManager* om = new PhantomManagerV(vertexPath);
 
 	m_objectManagers.push_back(om);
 
 	return om;
 }
 
-ObjectManagerAbs* GLProgram::addPhantomManager(const std::string& vertexPath, const std::string& elementPath)
+ObjectManager* GLProgram::addPhantomManager(const std::string& vertexPath, const std::string& elementPath)
 {
-	ObjectManagerAbs* om = new PhantomManagerE(vertexPath, elementPath);
+	ObjectManager* om = new PhantomManagerE(vertexPath, elementPath);
 
 	m_objectManagers.push_back(om);
 
@@ -44,18 +44,18 @@ ObjectManagerAbs* GLProgram::addPhantomManager(const std::string& vertexPath, co
 
 
 
-PhysicalManager* GLProgram::addBoxManager()
+ObjectManager* GLProgram::addBoxManager()
 {
-	PhysicalManager* bm = new BoxManager();
+	ObjectManager* bm = new BoxManager();
 
 	m_objectManagers.push_back(bm);
 
 	return bm;
 }
 
-PhysicalManager* GLProgram::addSphereManager()
+ObjectManager* GLProgram::addSphereManager()
 {
-	PhysicalManager* sm = new SphereManager();
+	ObjectManager* sm = new SphereManager();
 
 	m_objectManagers.push_back(sm);
 

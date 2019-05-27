@@ -15,11 +15,11 @@ public:
 	~GLProgram();
 
 
-	ObjectManagerAbs* addPhantomManager(const std::string& vertexPath);
-	ObjectManagerAbs* addPhantomManager(const std::string& vertexPath, const std::string& elementPath);
+	ObjectManager* addPhantomManager(const std::string& vertexPath);
+	ObjectManager* addPhantomManager(const std::string& vertexPath, const std::string& elementPath);
 
-	PhysicalManager* addBoxManager();
-	PhysicalManager* addSphereManager();
+	ObjectManager* addBoxManager();
+	ObjectManager* addSphereManager();
 
 
 	void bindUbo(const char* name, GLuint binding);
@@ -41,6 +41,6 @@ private:
 	ObjectUniforms m_objectUniforms;
 
 
-	std::vector<ObjectManagerAbs*> m_objectManagers;
+	std::vector<ObjectManager*> m_objectManagers;
 };
 

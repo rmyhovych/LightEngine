@@ -2,7 +2,7 @@
 
 #include <btBulletDynamicsCommon.h>
 
-#include "PhysicalObject.h"
+#include "Object.h"
 
 class PhysicalWorld
 {
@@ -12,7 +12,7 @@ public:
 	
 	~PhysicalWorld();
 
-	PhysicalObject* createObject(GraphicalObject* parent, const PhysicalObject::Properties& properties);
+	Object* createObject(GraphicalObject* parent, const Object::Properties& properties);
 
 
 	void step(double fps);
@@ -32,8 +32,8 @@ private:
 
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
-	std::vector<PhysicalObject*> sObjects;
-	std::vector<PhysicalObject*> dObjects;
+	std::vector<Object*> sObjects;
+	std::vector<Object*> dObjects;
 };
 
  

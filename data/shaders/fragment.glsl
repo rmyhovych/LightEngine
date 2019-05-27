@@ -36,7 +36,7 @@ uniform sampler2DShadow depthMap;
 
 //	=== SHADOW MAPPING ===
 
-float lookup(float x, float y)
+float lookup(float x, float y, float bias)
 {
 
     float pixelSize = 0.0008f;
@@ -49,9 +49,9 @@ float lookup(float x, float y)
 }
 
 
-float shadow()
+float shadow(float bias)
 {
-	
+	/*
     float sum = 0.0;
 
     float shadowDistortion = 1.0;
@@ -60,15 +60,22 @@ float shadow()
     {
         for (float y = -shadowDistortion; y <= shadowDistortion; y += shadowDistortion)
         {
-            sum += lookup(x, y);
+            sum += lookup(x, y, bias);
         }
     }
 	
 
     return sum * 0.11;
-	
+	*/
 
-	return textureProj(depthMap, vFragPosLight);
+	float visibility = 1.0;
+	
+	if (textureProj(depthMap, vFragPosLight) < vFragPosLight.z - bias)
+	{
+		visibility = 0.0;
+	}
+
+	return visibility;
 }
 
 
@@ -81,9 +88,11 @@ void main()
 	vec3 lightDir;
 	float fraction;
 
+	float bias = 0.005;
+
     //  directionnal light
     float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
-	float result = (1.0f - ambient) * diffuse * shadow() + ambient;
+	float result = (1.0f - ambient) * diffuse * shadow(bias) + ambient;
 
 	FragColor = /*vec4(textureProj(depthMap, vFragPosLight));*/vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
 }

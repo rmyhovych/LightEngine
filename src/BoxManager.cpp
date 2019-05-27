@@ -34,7 +34,7 @@ void BoxManager::renderDepth(GLint modelIndex)
 	}
 }
 
-PhysicalObject* BoxManager::createObject(
+Object* BoxManager::createObject(
 	btScalar mass, 
 	btScalar restitution, 
 	btScalar friction,
@@ -47,7 +47,7 @@ PhysicalObject* BoxManager::createObject(
 
 	btBoxShape* boxShape = new btBoxShape({scale.x, scale.y, scale.z});
 
-	PhysicalObject* obj = PhysicalWorld::getInstance()->createObject(parent, PhysicalObject::Properties(boxShape, mass, restitution, friction));
+	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(boxShape, mass, restitution, friction));
 
 	obj->setPosition({ position.x, position.y, position.z });
 	obj->setRotation({ orientation.x, orientation.y, orientation.z });

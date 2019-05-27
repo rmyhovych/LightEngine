@@ -8,7 +8,7 @@
 
 
 
-class PhysicalObject
+class Object
 {
 public:
 
@@ -29,8 +29,8 @@ public:
 	};
 
 
-	PhysicalObject(GraphicalObject* parent, const Properties& properties);
-	~PhysicalObject();
+	Object(GraphicalObject* parent, const Properties& properties);
+	~Object();
 
 	btRigidBody* getBody();
 

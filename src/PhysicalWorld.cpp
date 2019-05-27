@@ -34,9 +34,9 @@ PhysicalWorld::~PhysicalWorld()
 
 
 
-PhysicalObject* PhysicalWorld::createObject(GraphicalObject* parent, const PhysicalObject::Properties& properties)
+Object* PhysicalWorld::createObject(GraphicalObject* parent, const Object::Properties& properties)
 {
-	PhysicalObject* o = new PhysicalObject(parent, properties);
+	Object* o = new Object(parent, properties);
 
 	properties.m_mass == 0 ? sObjects.push_back(o) : dObjects.push_back(o);
 

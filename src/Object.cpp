@@ -1,9 +1,9 @@
-#include "PhysicalObject.h"
+#include "Object.h"
 #include "PhysicalWorld.h"
 
 
 
-PhysicalObject::PhysicalObject(GraphicalObject* parent, const Properties& properties) :
+Object::Object(GraphicalObject* parent, const Properties& properties) :
 	parent(parent)
 {
 	btTransform startTransform;
@@ -25,37 +25,37 @@ PhysicalObject::PhysicalObject(GraphicalObject* parent, const Properties& proper
 
 
 
-PhysicalObject::~PhysicalObject()
+Object::~Object()
 {
 }
 
-btRigidBody* PhysicalObject::getBody()
+btRigidBody* Object::getBody()
 {
 	return m_body;
 }
 
 
 
-void PhysicalObject::impulse(const btVector3& force)
+void Object::impulse(const btVector3& force)
 {
 	m_body->applyCentralImpulse(force);
 }
 
-void PhysicalObject::push(const btVector3& force)
+void Object::push(const btVector3& force)
 {
 	m_body->applyCentralForce(force);
 }
 
 
 
-void PhysicalObject::setPosition(const btVector3& position)
+void Object::setPosition(const btVector3& position)
 {
 	m_transform->setOrigin(position);
 
 	act();
 }
 
-void PhysicalObject::setRotation(const btVector3& rotation)
+void Object::setRotation(const btVector3& rotation)
 {
 	btQuaternion rotQ;
 
@@ -67,14 +67,14 @@ void PhysicalObject::setRotation(const btVector3& rotation)
 
 
 
-btVector3& PhysicalObject::getPosition()
+btVector3& Object::getPosition()
 {
 	return m_transform->getOrigin();
 }
 
 
 
-void PhysicalObject::act()
+void Object::act()
 {
 	m_transform->getOpenGLMatrix(parent->getMovementPtr());
 

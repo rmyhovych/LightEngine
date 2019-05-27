@@ -1,10 +1,10 @@
 #pragma once
-#include "ObjectManagerAbs.h"
+#include "ObjectManager.h"
 
 
 
 class PhantomManagerV :
-	public ObjectManagerAbs
+	public ObjectManager
 {
 public:
 	PhantomManagerV(const std::string& vertexPath);
@@ -13,7 +13,11 @@ public:
 	virtual void render(ObjectUniforms& uniforms);
 	virtual void renderDepth(GLint modelIndex);
 
-	GraphicalObject* createObject(
+
+	virtual Object* createObject(
+		btScalar mass = 1.0,
+		btScalar restitution = 0.5,
+		btScalar friction = 0.5,
 		const glm::vec3& position = glm::vec3(0),
 		const glm::vec3& orientation = glm::vec3(0),
 		const glm::vec3& scale = glm::vec3(1),

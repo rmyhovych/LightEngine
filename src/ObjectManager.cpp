@@ -1,8 +1,8 @@
-#include "ObjectManagerAbs.h"
+#include "ObjectManager.h"
 #include "FileReaderHandler.h"
 
 
-ObjectManagerAbs::ObjectManagerAbs() :
+ObjectManager::ObjectManager() :
 	m_objects(0),
 
 	m_vao(0),
@@ -13,7 +13,7 @@ ObjectManagerAbs::ObjectManagerAbs() :
 }
 
 
-ObjectManagerAbs::~ObjectManagerAbs()
+ObjectManager::~ObjectManager()
 {
 	for (int i = m_objects.size() - 1; i >= 0; i--)
 	{
@@ -24,7 +24,7 @@ ObjectManagerAbs::~ObjectManagerAbs()
 
 
 
-GraphicalObject* ObjectManagerAbs::createGraphicalObject(
+GraphicalObject* ObjectManager::createGraphicalObject(
 	const glm::vec3& position, 
 	const glm::vec3& orientation, 
 	const glm::vec3& scale, 
@@ -43,7 +43,7 @@ GraphicalObject* ObjectManagerAbs::createGraphicalObject(
 
 
 
-void ObjectManagerAbs::initVertexData(const std::string& vertexPath)
+void ObjectManager::initVertexData(const std::string& vertexPath)
 {
 	IFileReader* fr = FileReaderHandler::getFileReader();
 	FileData vertexData = fr->read(vertexPath);
@@ -63,7 +63,7 @@ void ObjectManagerAbs::initVertexData(const std::string& vertexPath)
 	glBindVertexArray(0);
 }
 
-void ObjectManagerAbs::initElementData(const std::string& vertexPath, const std::string& elementPath)
+void ObjectManager::initElementData(const std::string& vertexPath, const std::string& elementPath)
 {
 	IFileReader* fr = FileReaderHandler::getFileReader();
 	FileData vertexData = fr->read(vertexPath);
