@@ -13,6 +13,7 @@ public:
 	~PhysicalWorld();
 
 	Object* createObject(GraphicalObject* parent, const Object::Properties& properties);
+	Object* createObject(GraphicalObject* parent, btEmptyShape* shape);
 
 
 	void step(double fps);

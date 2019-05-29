@@ -6,19 +6,37 @@
 Object::Object(GraphicalObject* parent, const Properties& properties) :
 	parent(parent)
 {
-	btTransform startTransform;
-	startTransform.setIdentity();
+	btTransform transform;
+	transform.setIdentity();
 
 	btVector3 localInertia(0, 0, 0);
 
+
 	properties.m_shape->calculateLocalInertia(properties.m_mass, localInertia);
 
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, properties.m_shape, localInertia);
 
 	m_body = new btRigidBody(rbInfo);
 	m_body->setRestitution(properties.m_restitution);
 	m_body->setFriction(properties.m_friction);
+
+	m_transform = &m_body->getWorldTransform();
+}
+
+Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
+	parent(parent)
+{
+	btTransform transform;
+	transform.setIdentity();
+
+	btVector3 localInertia(0, 0, 0);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(0, myMotionState, shape, localInertia);
+
+	m_body = new btRigidBody(rbInfo);
 
 	m_transform = &m_body->getWorldTransform();
 }

@@ -1,8 +1,6 @@
 #version 300 es
 precision highp float;
 
-#define MAX_LIGHTING 4
-
 layout (location = 0) in vec3 vPosition;
 layout (location = 1) in vec3 vNormal;
 
@@ -37,12 +35,14 @@ void main()
 	vFragPos = vec3(mModel * vec4(vPosition, 1.0));
 
 	
-	vFragPosLight = mLightSpace * mModel * vec4(vPosition, 1.0);
+	vec4 mM = mModel * vec4(vPosition, 1.0);
+
+	vFragPosLight = mLightSpace * mM;
 
 	//  [-1, 1] -> [0, 1]
     vFragPosLight = (vFragPosLight * 0.5) + 0.5;
 	
 
-	gl_Position = mVP * mModel * vec4(vPosition, 1.0);
+	gl_Position = mVP * mM;
 
 }

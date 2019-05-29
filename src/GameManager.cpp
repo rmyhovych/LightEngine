@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 
-static int depthMapSize = 2048;
+static int depthMapSize = 4096;
 
 
 GameManager::GameManager(int width, int height) :
@@ -11,7 +11,7 @@ GameManager::GameManager(int width, int height) :
 	m_globalUboBinding(1),
 
 	m_camera(m_width, m_height, 15),
-	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 10),
+	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 30),
 
 	m_programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
@@ -117,10 +117,7 @@ void GameManager::createDepthMap()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0,	GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -143,6 +140,7 @@ void GameManager::createDepthMap()
 
 	//      bind data to fbo
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthMap, 0);
+
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

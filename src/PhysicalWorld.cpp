@@ -45,6 +45,17 @@ Object* PhysicalWorld::createObject(GraphicalObject* parent, const Object::Prope
 	return o;
 }
 
+Object* PhysicalWorld::createObject(GraphicalObject * parent, btEmptyShape* shape)
+{
+	Object* o = new Object(parent, shape);
+
+	sObjects.push_back(o);
+
+	dynamicsWorld->addRigidBody(o->getBody());
+
+	return o;
+}
+
 
 void PhysicalWorld::step(double fps)
 {

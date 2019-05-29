@@ -1,9 +1,6 @@
 #version 300 es
 precision highp float;
 
-#define MAX_LIGHTING 4
-
-
 in vec3 vRotNormal;
 in vec3 vFragPos;
 in vec4 vFragPosLight;
@@ -13,7 +10,7 @@ in vec3 color;
 out vec4 FragColor;
 
 
-layout(std140) uniform GlobalData 
+layout(std140) uniform GlobalData
 {
 	uniform vec3 vDirLight;
 	uniform mat4 mVP;
@@ -25,7 +22,7 @@ layout(std140) uniform GlobalData
 
 
 //  Depth Map
-uniform sampler2DShadow depthMap;
+uniform sampler2D depthMap;
 
 
 
@@ -34,47 +31,27 @@ uniform sampler2DShadow depthMap;
 
 
 
-//	=== SHADOW MAPPING ===
+const vec2 poissonDisk[4] = vec2[](
+    vec2( -0.94201624, -0.39906216),
+    vec2( 0.94558609, -0.76890725),
+    vec2( -0.094184101, -0.92938870),
+    vec2( 0.34495938, 0.29387760)
+);
 
-float lookup(float x, float y, float bias)
-{
-
-    float pixelSize = 0.0008f;
-
-    vec4 pixel = vec4(x * pixelSize * vFragPosLight.w,
-                       y * pixelSize * vFragPosLight.w,
-                       0.0, 0.0);
-
-    return textureProj(depthMap, vFragPosLight + pixel);
-}
 
 
 float shadow(float bias)
 {
-	/*
-    float sum = 0.0;
-
-    float shadowDistortion = 1.0;
-
-    for (float x = -shadowDistortion; x <= shadowDistortion; x += shadowDistortion)
+    float visibility = 1.0;
+	
+    for (int i = 0; i < 4; i++)
     {
-        for (float y = -shadowDistortion; y <= shadowDistortion; y += shadowDistortion)
+        if (texture(depthMap, vFragPosLight.xy + poissonDisk[i] / 3000.0).x < (vFragPosLight.z - bias))
         {
-            sum += lookup(x, y, bias);
+            visibility -= 0.22;
         }
     }
 	
-
-    return sum * 0.11;
-	*/
-
-	float visibility = 1.0;
-	
-	if (textureProj(depthMap, vFragPosLight) < vFragPosLight.z - bias)
-	{
-		visibility = 0.0;
-	}
-
 	return visibility;
 }
 
@@ -88,11 +65,13 @@ void main()
 	vec3 lightDir;
 	float fraction;
 
-	float bias = 0.005;
+	float dirLightAngle = dot(vRotNormal, -vDirLight);
+
+	float bias = 0.0004 * tan(acos(dirLightAngle));
 
     //  directionnal light
-    float diffuse = 0.6f * max(dot(vRotNormal, -vDirLight), 0.0f);
+    float diffuse = 0.6f * max(dirLightAngle, 0.0f);
 	float result = (1.0f - ambient) * diffuse * shadow(bias) + ambient;
 
-	FragColor = /*vec4(textureProj(depthMap, vFragPosLight));*/vec4(result * color, 1.0);//vec4(textureProj(depthMap, vFragPosLight));//vec4(result * color, 1.0);
+	FragColor = vec4(result * color, 1.0);
 }

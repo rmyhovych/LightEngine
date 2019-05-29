@@ -30,6 +30,7 @@ public:
 
 
 	Object(GraphicalObject* parent, const Properties& properties);
+	Object(GraphicalObject* parent, btEmptyShape* shape);
 	~Object();
 
 	btRigidBody* getBody();
