@@ -1,5 +1,4 @@
 #include "PhantomManagerE.h"
-#include "PhysicalWorld.h"
 
 
 PhantomManagerE::PhantomManagerE(const std::string& vertexPath, const std::string& elementPath)
@@ -48,10 +47,10 @@ Object* PhantomManagerE::createObject(
 
 	btEmptyShape* emptyShape = new btEmptyShape();
 
-	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(emptyShape, 0, 0, 0));
+	Object* obj = new Object(parent, emptyShape);
 
-	obj->setPosition({ position.x, position.y, position.z });
-	obj->setRotation({ orientation.x, orientation.y, orientation.z });
+	obj->setPosition(btVector3(position.x, position.y, position.z));
+	obj->setRotation(btVector3(orientation.x, orientation.y, orientation.z));
 
 	return obj;
 }

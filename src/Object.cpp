@@ -23,6 +23,11 @@ Object::Object(GraphicalObject* parent, const Properties& properties) :
 	m_body->setFriction(properties.m_friction);
 
 	m_transform = &m_body->getWorldTransform();
+
+
+	PhysicalWorld* pw = PhysicalWorld::getInstance();
+
+	properties.m_mass == 0 ? pw->addObjectStatic(this) : pw->addObjectDynamic(this);
 }
 
 Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
@@ -37,9 +42,21 @@ Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(0, myMotionState, shape, localInertia);
 
 	m_body = new btRigidBody(rbInfo);
-
 	m_transform = &m_body->getWorldTransform();
+
+	PhysicalWorld::getInstance()->addObjectStatic(this);
 }
+
+void Object::copyTransform(Object* secondObj)
+{
+	btScalar* matrix = new btScalar[16];
+	
+	secondObj->m_transform->getOpenGLMatrix(matrix);
+	this->m_transform->setFromOpenGLMatrix(matrix);
+
+	delete[] matrix;
+}
+
 
 
 
@@ -78,9 +95,20 @@ void Object::setRotation(const btVector3& rotation)
 	btQuaternion rotQ;
 
 	rotQ.setEuler(rotation.getY(), rotation.getX(), rotation.getZ());
-	m_transform->setRotation(rotQ);
+	
+	setRotation(rotQ);
+}
+
+void Object::setRotation(const btQuaternion& quaternion)
+{
+	m_transform->setRotation(quaternion);
 
 	act();
+}
+
+void Object::translate(const btVector3& translation)
+{
+	m_body->translate(translation);
 }
 
 

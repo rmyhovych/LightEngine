@@ -34,26 +34,16 @@ PhysicalWorld::~PhysicalWorld()
 
 
 
-Object* PhysicalWorld::createObject(GraphicalObject* parent, const Object::Properties& properties)
+void PhysicalWorld::addObjectStatic(Object* object)
 {
-	Object* o = new Object(parent, properties);
-
-	properties.m_mass == 0 ? sObjects.push_back(o) : dObjects.push_back(o);
-
-	dynamicsWorld->addRigidBody(o->getBody());
-
-	return o;
+	sObjects.push_back(object);
+	dynamicsWorld->addRigidBody(object->getBody());
 }
 
-Object* PhysicalWorld::createObject(GraphicalObject * parent, btEmptyShape* shape)
+void PhysicalWorld::addObjectDynamic(Object* object)
 {
-	Object* o = new Object(parent, shape);
-
-	sObjects.push_back(o);
-
-	dynamicsWorld->addRigidBody(o->getBody());
-
-	return o;
+	dObjects.push_back(object);
+	dynamicsWorld->addRigidBody(object->getBody());
 }
 
 

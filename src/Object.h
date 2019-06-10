@@ -31,6 +31,9 @@ public:
 
 	Object(GraphicalObject* parent, const Properties& properties);
 	Object(GraphicalObject* parent, btEmptyShape* shape);
+
+	void copyTransform(Object* secondObj);
+
 	~Object();
 
 	btRigidBody* getBody();
@@ -40,7 +43,11 @@ public:
 	void push(const btVector3& force);
 
 	void setPosition(const btVector3& position);
+
 	void setRotation(const btVector3& rotation);
+	void setRotation(const btQuaternion & quaternion);
+
+	void translate(const btVector3& translation);
 
 	btVector3& getPosition();
 

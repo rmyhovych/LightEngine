@@ -1,6 +1,4 @@
 #include "BoxManager.h"
-#include "PhysicalWorld.h"
-
 
 BoxManager::BoxManager()
 {
@@ -47,10 +45,10 @@ Object* BoxManager::createObject(
 
 	btBoxShape* boxShape = new btBoxShape({scale.x, scale.y, scale.z});
 
-	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(boxShape, mass, restitution, friction));
+	Object* obj = new Object(parent, Object::Properties(boxShape, mass, restitution, friction));
 
-	obj->setPosition({ position.x, position.y, position.z });
-	obj->setRotation({ orientation.x, orientation.y, orientation.z });
+	obj->setPosition(btVector3(position.x, position.y, position.z));
+	obj->setRotation(btVector3(orientation.x, orientation.y, orientation.z));
 
 	return obj;
 }

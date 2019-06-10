@@ -1,5 +1,4 @@
 #include "SphereManager.h"
-#include "PhysicalWorld.h"
 
 
 SphereManager::SphereManager()
@@ -49,10 +48,10 @@ Object* SphereManager::createObject(
 
 	btSphereShape* sphereShape = new btSphereShape(scale.x);
 
-	Object* obj = PhysicalWorld::getInstance()->createObject(parent, Object::Properties(sphereShape, mass, restitution, friction));
+	Object* obj = new Object(parent, Object::Properties(sphereShape, mass, restitution, friction));
 
-	obj->setPosition({position.x, position.y, position.z});
-	obj->setRotation({orientation.x, orientation.y, orientation.z});
+	obj->setPosition(btVector3(position.x, position.y, position.z));
+	obj->setRotation(btVector3(orientation.x, orientation.y, orientation.z));
 
 	return obj;
 }

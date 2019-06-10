@@ -15,6 +15,9 @@ public:
 	Object* createObject(GraphicalObject* parent, const Object::Properties& properties);
 	Object* createObject(GraphicalObject* parent, btEmptyShape* shape);
 
+	void addObjectStatic(Object* object);
+	void addObjectDynamic(Object* object);
+
 
 	void step(double fps);
 
