@@ -3,7 +3,6 @@
 #include "TunnelManager.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtx/rotate_vector.hpp>
 #include <random>
 #include <time.h>
 
@@ -109,7 +108,7 @@ void TunnelManager::generateRotation()
 	btScalar newAngle = m_sideAngle * randomInt(m_nSides / 2);
 	btVector3 rotDirection = top.rotate(m_front, newAngle);
 
-	m_side = m_side.rotate(m_front, newAngle);
+	m_side = (btScalar(m_scale.x) / rotDirection.norm()) * rotDirection;
 	
 	btVector3 rotAxis = rotDirection.cross(m_front);
 	btScalar rotAngle = randomFloat() / 10.0;
@@ -122,7 +121,6 @@ void TunnelManager::generateRotation()
 		sameOrientation = !sameOrientation;
 	}
 
-	rotAxis.normalize();
 	m_currentRotation.setRotation(rotAxis, rotAngle);
 }
 
