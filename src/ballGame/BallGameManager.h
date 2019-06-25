@@ -19,12 +19,7 @@ public:
 
 
 private:
-	
-	struct Tunnel
-	{
-		Object* object;
-		btVector3 position;
-	};
+
 
 	void setCameraProperties(Camera* camera);
 
@@ -44,7 +39,7 @@ private:
 	
 	Object* m_ball;
 
-	std::vector<Tunnel*> m_tunnels;
+	std::vector<Object*> m_tunnels;
 	const int m_nTunnels;
 
 	int m_lastTunnelIndex;

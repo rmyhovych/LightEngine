@@ -43,15 +43,12 @@ BallGameManager::BallGameManager(GLProgram* program, int nTunnels, const glm::ve
 {
 	srand(time(NULL));
 
-	m_ball->getBody()->setDamping(0.999, 0.0);
+	m_ball->getBody()->setDamping(0.5, 0.0);
 
 	m_objectManager = program->addTunnelManager(nSides, scale.z, scale.x);
 
 
-	Tunnel* tunnel = new Tunnel;
-
-	tunnel->object = m_objectManager->createObject(0, 0, 0, {0, 0, 0}, { 1, 1, 1 }, scale);
-	tunnel->position = btVector3(0, 0, 0);
+	Object* tunnel = m_objectManager->createObject(0, 0, 0, {0, 0, 0}, { 1, 1, 1 }, scale);
 
 	m_tunnels.push_back(tunnel);
 
@@ -66,11 +63,7 @@ BallGameManager::BallGameManager(GLProgram* program, int nTunnels, const glm::ve
 
 BallGameManager::~BallGameManager()
 {
-	for (int i = m_tunnels.size() - 1; i >= 0; i--)
-	{
-		delete m_tunnels[i];
-		m_tunnels[i] = nullptr;
-	}
+
 }
 
 
@@ -80,7 +73,7 @@ void BallGameManager::step(Camera* camera)
 
 	choseFocus(ballPosition);
 
-	btVector3 gravity = m_tunnels[m_focusTunnel]->position - ballPosition;
+	btVector3 gravity = m_tunnels[m_focusTunnel]->getPosition() - ballPosition;
 	gravity.normalize();
 
 	gravity *= btScalar(30);
@@ -102,7 +95,7 @@ void BallGameManager::moveLeft()
 
 void BallGameManager::setCameraProperties(Camera* camera)
 {
-	btVector3 parallel = m_tunnels[m_focusTunnel]->position - m_tunnels[m_focusTunnel - 1 < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->position;
+	btVector3 parallel = m_tunnels[m_focusTunnel]->getPosition() - m_tunnels[m_focusTunnel - 1 < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->getPosition();
 
 	btVector3 up = m_ball->getGravity().cross(parallel).cross(parallel);
 	btVector3 ballPos = m_ball->getPosition();
@@ -121,8 +114,8 @@ void BallGameManager::choseFocus(const btVector3& ballPos)
 {
 	int i = (0 - 1) % 10;
 
-	const btVector3& lastTunnelPos = m_tunnels[(m_focusTunnel - 1) < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->position;
-	const btVector3& focusTunnelPos = m_tunnels[m_focusTunnel]->position;
+	const btVector3& lastTunnelPos = m_tunnels[(m_focusTunnel - 1) < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->getPosition();
+	const btVector3& focusTunnelPos = m_tunnels[m_focusTunnel]->getPosition();
 
 	if ((ballPos - lastTunnelPos).length() > (ballPos - focusTunnelPos).length())
 	{
@@ -137,11 +130,9 @@ void BallGameManager::choseFocus(const btVector3& ballPos)
 
 void BallGameManager::createNewTunnel()
 {
-	Tunnel* newTunnel = new Tunnel;
+	Object* tunnel = m_objectManager->createObject(0, 0, 0, { 0, 0, 0 }, { 1, 1, 1 }, m_scale);
 
-	newTunnel->object = m_objectManager->createObject(0, 0, 0, { 0, 0, 0 }, { 1, 1, 1 }, m_scale);
-
-	m_tunnels.push_back(newTunnel);
+	m_tunnels.push_back(tunnel);
 
 	setTunnel(m_tunnels.size() - 1);
 }
@@ -165,8 +156,8 @@ void BallGameManager::setTunnel(int tunnelIndex)
 		generateRotation();
 	}
 
-	Tunnel* newTunnel = m_tunnels[tunnelIndex];
-	Tunnel* oldTunnel = m_tunnels[(tunnelIndex - 1) < 0 ? m_nTunnels - 1 : tunnelIndex - 1];
+	Object* newTunnel = m_tunnels[tunnelIndex];
+	Object* oldTunnel = m_tunnels[(tunnelIndex - 1) < 0 ? m_nTunnels - 1 : tunnelIndex - 1];
 
 
 	const btVector3 rotAxis = m_currentRotation.getAxis();
@@ -175,16 +166,16 @@ void BallGameManager::setTunnel(int tunnelIndex)
 	btVector3 newFront = m_front.rotate(rotAxis, rotAngle);
 	btVector3 newSide = m_side.rotate(rotAxis, rotAngle);
 
-	newTunnel->position = oldTunnel->position + m_front + newFront + newSide - m_side;
+	btVector3 newPosition = oldTunnel->getPosition() + m_front + newFront + newSide - m_side;
 
 	m_orientation = m_currentRotation * m_orientation; // was doing the opposite, fuck this shit 
 
 	m_front = newFront;
 	m_side = newSide;
 
+	newTunnel->setRotation(m_orientation);
 
-	newTunnel->object->setPosition(newTunnel->position);
-	newTunnel->object->setRotation(m_orientation);
+	newTunnel->setPosition(newPosition);
 }
 
 
@@ -208,7 +199,7 @@ void BallGameManager::generateRotation()
 
 btVector3 BallGameManager::getRightVector()
 {
-	btVector3 parallel = m_tunnels[m_focusTunnel]->position - m_tunnels[m_focusTunnel - 1 < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->position;
+	btVector3 parallel = m_tunnels[m_focusTunnel]->getPosition() - m_tunnels[m_focusTunnel - 1 < 0 ? m_nTunnels - 1 : m_focusTunnel - 1]->getPosition();
 
 	return m_ball->getGravity().cross(parallel).normalized();
 }
