@@ -11,14 +11,14 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 	m_angleH(angleH),
 	m_angleV(angleV)
 {
-	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
+	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 5000.0f);
 	update();
 }
 
 
 void Camera::resize(int width, int height)
 {
-	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 500.0f);
+	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 5000.0f);
 	update();
 }
 
@@ -71,23 +71,31 @@ glm::vec3& Camera::getFocus()
 	return m_focus;
 }
 
-void Camera::setFocus(const glm::vec3& f)
+void Camera::setFocus(const glm::vec3& focus, const glm::vec3& up)
 {
-	m_focus += 0.8f * (f - m_focus);
+	m_focus += 0.1f * (focus - m_focus);
+	m_up += 0.1f * (up - m_up);
+
 	update();
 }
 
 
 void Camera::update()
 {
-	m_direction.x = sin(m_angleH) * sin(m_angleV);
-	m_direction.z = cos(m_angleH) * sin(m_angleV);
-	m_direction.y = cos(m_angleV);
-
 	m_position = m_focus - m_zoom * m_direction;
-
 
 	m_view = glm::lookAt(m_position, m_focus, m_up);
 	m_pv = m_projection * m_view;
+}
+
+void Camera::setZoom(float newZoom)
+{
+	m_zoom = newZoom;
+	update();
+}
+
+void Camera::setDirection(const glm::vec3& direction)
+{
+	m_direction += 0.02f * (direction - m_direction);
 }
 

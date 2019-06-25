@@ -25,9 +25,13 @@ public:
 	void rotate(float x, float y);
 	void move(float x, float y, float z);
 	void zoom(float delta);
+	void setZoom(float newZoom);
+
+	void setDirection(const glm::vec3& direction);
 
 	glm::vec3& getFocus();
-	void setFocus(const glm::vec3& f);
+
+	void setFocus(const glm::vec3& focus, const glm::vec3& up = { 0, 1, 0 });
 
 private:
 	void update();

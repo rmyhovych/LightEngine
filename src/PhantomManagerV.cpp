@@ -36,19 +36,17 @@ Object* PhantomManagerV::createObject(
 	btScalar mass,
 	btScalar restitution,
 	btScalar friction,
-	const glm::vec3& position, 
-	const glm::vec3& orientation, 
-	const glm::vec3& scale, 
-	const glm::vec3& color)
+	const glm::vec3& position,
+	const glm::vec3& color,
+	const glm::vec3& scale)
 {
-	GraphicalObject* parent = createGraphicalObject(position, orientation, scale, color);
+	GraphicalObject* parent = createGraphicalObject(color, scale);
 
 	btEmptyShape* emptyShape = new btEmptyShape();
 
 	Object* obj = new Object(parent, emptyShape);
 
 	obj->setPosition(btVector3(position.x, position.y, position.z));
-	obj->setRotation(btVector3(orientation.x, orientation.y, orientation.z));
 
 	return obj;
 }

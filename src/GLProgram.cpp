@@ -62,6 +62,15 @@ ObjectManager* GLProgram::addSphereManager()
 	return sm;
 }
 
+ObjectManager* GLProgram::addTunnelManager(int nSides, btScalar length, btScalar width)
+{
+	ObjectManager* tm = new TunnelManager(nSides, length, width);
+
+	m_objectManagers.push_back(tm);
+
+	return tm;
+}
+
 
 
 void GLProgram::bindUbo(const char* name, GLuint binding)

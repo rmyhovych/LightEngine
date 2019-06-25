@@ -3,7 +3,7 @@
 
 PhysicalWorld* PhysicalWorld::getInstance()
 {
-	static PhysicalWorld physicalWorld({ 0, -10, 0 });
+	static PhysicalWorld physicalWorld({ 0, 0, 0 });
 
 	return &physicalWorld;
 }

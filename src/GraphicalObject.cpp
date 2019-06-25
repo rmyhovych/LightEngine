@@ -14,8 +14,9 @@ GraphicalObject::GraphicalObject(const glm::vec3& color, const glm::vec3& scale)
 	
 	mModel(0)
 {
-	setScale(scale);
-	setColor(color);
+	mScale = glm::scale(glm::mat4(1), scale);
+
+	this->color = color;
 
 	model();
 }
@@ -25,45 +26,11 @@ float* GraphicalObject::getMovementPtr()
 	return glm::value_ptr(mMovement);
 }
 
-void GraphicalObject::setMovement(const glm::vec3& position, const glm::vec3& rotation)
-{
-	mMovement = glm::mat4(1);
-
-	mMovement = glm::rotate(mMovement, rotation.x, { 1, 0, 0 });
-	mMovement = glm::rotate(mMovement, rotation.y, { 0, 1, 0 });
-	mMovement = glm::rotate(mMovement, rotation.z, { 0, 0, 1 });
-
-	mMovement = glm::translate(mMovement, position);
-
-	model();
-}
-
 
 glm::vec3 GraphicalObject::getScale()
 {
 	return (mScale * glm::vec4(1));
 }
-
-void GraphicalObject::setScale(const glm::vec3& scale)
-{
-	mScale = glm::scale(glm::mat4(1), scale);
-
-	model();
-}
-
-
-
-
-
-
-
-void GraphicalObject::setColor(const glm::vec3& color)
-{
-	this->color = color;
-}
-
-
-
 
 
 

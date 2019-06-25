@@ -14,7 +14,6 @@ Object::Object(GraphicalObject* parent, const Properties& properties) :
 
 	properties.m_shape->calculateLocalInertia(properties.m_mass, localInertia);
 
-
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(properties.m_mass, myMotionState, properties.m_shape, localInertia);
 
@@ -28,6 +27,9 @@ Object::Object(GraphicalObject* parent, const Properties& properties) :
 	PhysicalWorld* pw = PhysicalWorld::getInstance();
 
 	properties.m_mass == 0 ? pw->addObjectStatic(this) : pw->addObjectDynamic(this);
+
+
+	act();
 }
 
 Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
@@ -45,6 +47,9 @@ Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
 	m_transform = &m_body->getWorldTransform();
 
 	PhysicalWorld::getInstance()->addObjectStatic(this);
+
+
+	act();
 }
 
 void Object::copyTransform(Object* secondObj)
@@ -105,6 +110,17 @@ void Object::setRotation(const btQuaternion& quaternion)
 
 	act();
 }
+
+void Object::setGravity(const btVector3& gravity)
+{
+	m_body->setGravity(gravity);
+}
+
+const btVector3& Object::getGravity()
+{
+	return m_body->getGravity();
+}
+
 
 void Object::translate(const btVector3& translation)
 {

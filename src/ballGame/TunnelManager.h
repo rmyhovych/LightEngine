@@ -1,50 +1,33 @@
 #pragma once
+#include "ObjectManager.h"
 
-#include "GLProgram.h"
 
-#include <vector>
 
-class TunnelManager
+class TunnelManager :
+	public ObjectManager
 {
 public:
-	TunnelManager(GLProgram* program, const glm::vec3& scale, int nSides, Object* ball);
-	~TunnelManager();
+	TunnelManager(int nSides, btScalar length, btScalar width);
+	virtual ~TunnelManager();
 
-	void create();
+	virtual void render(ObjectUniforms& uniforms);
+	virtual void renderDepth(GLint modelIndex);
 
+
+	virtual Object* createObject(
+		btScalar mass = 1.0,
+		btScalar restitution = 0.5,
+		btScalar friction = 0.5,
+		const glm::vec3& position = glm::vec3(0),
+		const glm::vec3& color = glm::vec3(1),
+		const glm::vec3& scale = glm::vec3(1));
 
 private:
+
+	int m_nBoxes;
 	
-	void generateRotation();
+	btScalar m_rotAngle;
 
-private:
-
-	struct Tunnel
-	{
-		Object* object;
-		btVector3 position;
-	};
-
-	
-	Object* m_ball;
-
-	ObjectManager* m_objectManager;
-
-	std::vector<Tunnel*> m_tunnels;
-
-
-	int m_counter;
-
-	btQuaternion m_currentRotation;
-	btQuaternion m_orientation;
-	btVector3 m_front;
-	btVector3 m_side;
-
-
-	const glm::vec3 m_scale;
-
-	const btScalar m_sideAngle;
-
-	const int m_nSides;
+	btVector3 m_boxSize;
 };
 

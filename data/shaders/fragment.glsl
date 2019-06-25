@@ -40,13 +40,13 @@ const vec2 poissonDisk[4] = vec2[](
 
 
 
-float shadow(float bias)
+float shadow()
 {
     float visibility = 1.0;
 	
     for (int i = 0; i < 4; i++)
     {
-        if (texture(depthMap, vFragPosLight.xy + poissonDisk[i] / 3000.0).x < (vFragPosLight.z - bias))
+        if (texture(depthMap, vFragPosLight.xy + poissonDisk[i] / 6000.0).x < vFragPosLight.z)
         {
             visibility -= 0.22;
         }
@@ -67,11 +67,11 @@ void main()
 
 	float dirLightAngle = dot(vRotNormal, -vDirLight);
 
-	float bias = 0.0004 * tan(acos(dirLightAngle));
+	//float bias = 0.00 * tan(acos(dirLightAngle));
 
     //  directionnal light
     float diffuse = 0.6f * max(dirLightAngle, 0.0f);
-	float result = (1.0f - ambient) * diffuse * shadow(bias) + ambient;
+	float result = (1.0f - ambient) * diffuse * shadow() + ambient;
 
 	FragColor = vec4(result * color, 1.0);
 }

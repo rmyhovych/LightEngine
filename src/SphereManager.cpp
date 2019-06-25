@@ -36,22 +36,20 @@ void SphereManager::renderDepth(GLint modelIndex)
 }
 
 Object* SphereManager::createObject(
-	btScalar mass, 
-	btScalar restitution, 
+	btScalar mass,
+	btScalar restitution,
 	btScalar friction,
-	const glm::vec3& position, 
-	const glm::vec3& orientation,
-	const glm::vec3& scale,
-	const glm::vec3& color)
+	const glm::vec3& position,
+	const glm::vec3& color,
+	const glm::vec3& scale)
 {
-	GraphicalObject* parent = createGraphicalObject(position, orientation, scale, color);
+	GraphicalObject* parent = createGraphicalObject(color, scale);
 
 	btSphereShape* sphereShape = new btSphereShape(scale.x);
 
 	Object* obj = new Object(parent, Object::Properties(sphereShape, mass, restitution, friction));
 
 	obj->setPosition(btVector3(position.x, position.y, position.z));
-	obj->setRotation(btVector3(orientation.x, orientation.y, orientation.z));
 
 	return obj;
 }

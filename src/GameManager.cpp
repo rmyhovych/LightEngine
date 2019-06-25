@@ -10,8 +10,8 @@ GameManager::GameManager(int width, int height) :
 
 	m_globalUboBinding(1),
 
-	m_camera(m_width, m_height, 15),
-	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 30),
+	m_camera(m_width, m_height, 3),
+	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 10),
 
 	m_programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
@@ -111,11 +111,12 @@ void GameManager::createDepthMap()
 	//      use depthMap
 	glBindTexture(GL_TEXTURE_2D, m_depthMap);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
 
@@ -171,6 +172,8 @@ void GameManager::createUniforms()
 
 void GameManager::initRenderingDepth()
 {
+	glCullFace(GL_BACK);
+
 	glViewport(0, 0, depthMapSize, depthMapSize);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_depthFbo);
 
@@ -187,9 +190,10 @@ void GameManager::initRenderingDepth()
 
 void GameManager::initRendering(glm::mat4& pv)
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glCullFace(GL_FRONT);
 
 	glViewport(0, 0, m_width, m_height);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

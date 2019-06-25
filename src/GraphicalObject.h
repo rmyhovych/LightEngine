@@ -19,17 +19,7 @@ public:
 
 	float* getMovementPtr();
 
-	void setMovement(const glm::vec3& position, const glm::vec3& rotation);
-
-
 	glm::vec3 getScale();
-
-	void setScale(const glm::vec3& v);
-
-
-
-	void setColor(const glm::vec3& color);
-
 
 	void useDepth();
 
@@ -38,7 +28,6 @@ public:
 
 
 	void model();
-
 
 private:
 

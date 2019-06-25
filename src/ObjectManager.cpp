@@ -25,14 +25,10 @@ ObjectManager::~ObjectManager()
 
 
 GraphicalObject* ObjectManager::createGraphicalObject(
-	const glm::vec3& position, 
-	const glm::vec3& orientation, 
-	const glm::vec3& scale, 
-	const glm::vec3& color)
+	const glm::vec3& color,
+	const glm::vec3& scale)
 {
 	GraphicalObject* o = new GraphicalObject(color, scale);
-
-	o->setMovement(position, orientation);
 
 	m_objects.push_back(o);
 

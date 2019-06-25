@@ -5,6 +5,7 @@
 #include "PhantomManagerE.h"
 #include "BoxManager.h"
 #include "SphereManager.h"
+#include "ballGame/TunnelManager.h"
 
 
 class GLProgram
@@ -20,6 +21,8 @@ public:
 
 	ObjectManager* addBoxManager();
 	ObjectManager* addSphereManager();
+
+	ObjectManager* addTunnelManager(int nSides, btScalar length, btScalar width);
 
 
 	void bindUbo(const char* name, GLuint binding);

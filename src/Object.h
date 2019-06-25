@@ -45,7 +45,10 @@ public:
 	void setPosition(const btVector3& position);
 
 	void setRotation(const btVector3& rotation);
-	void setRotation(const btQuaternion & quaternion);
+	void setRotation(const btQuaternion& quaternion);
+
+	void setGravity(const btVector3& gravity);
+	const btVector3& getGravity();
 
 	void translate(const btVector3& translation);
 
