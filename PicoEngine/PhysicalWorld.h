@@ -12,8 +12,7 @@ public:
 	
 	~PhysicalWorld();
 
-	Object* createObject(GraphicalObject* parent, const Object::Properties& properties);
-	Object* createObject(GraphicalObject* parent, btEmptyShape* shape);
+	btDiscreteDynamicsWorld* getDynamicsWorld();
 
 	void addObjectStatic(Object* object);
 	void addObjectDynamic(Object* object);

@@ -36,7 +36,7 @@ private:
 	void createUniforms();
 
 
-private:
+protected:
 
 	Shader m_program;
 

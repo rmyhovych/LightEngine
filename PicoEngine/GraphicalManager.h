@@ -6,11 +6,11 @@
 #include "Camera.h"
 
 
-class GameManager
+class GraphicalManager
 {
 public:
-	GameManager(int width, int height);
-	~GameManager();
+	GraphicalManager(int width, int height);
+	~GraphicalManager();
 
 
 	void resize(int width, int height);
@@ -21,7 +21,7 @@ public:
 	GLProgram* addProgram(const char* pathVertex, const char* pathFragment);
 
 
-	void render(glm::mat4& pv);
+	void render();
 
 
 	void clear();
@@ -37,7 +37,7 @@ private:
 
 	void initRenderingDepth();
 
-	void initRendering(glm::mat4& pv);
+	void initRendering();
 
 
 

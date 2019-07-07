@@ -56,8 +56,6 @@ float shadow()
 }
 
 
-
-
 void main()
 {
 	float ambient = 0.15f;
@@ -66,8 +64,6 @@ void main()
 	float fraction;
 
 	float dirLightAngle = dot(vRotNormal, -vDirLight);
-
-	//float bias = 0.00 * tan(acos(dirLightAngle));
 
     //  directionnal light
     float diffuse = 0.6f * max(dirLightAngle, 0.0f);

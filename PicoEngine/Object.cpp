@@ -4,7 +4,7 @@
 
 
 Object::Object(GraphicalObject* parent, const Properties& properties) :
-	parent(parent)
+	m_parent(parent)
 {
 	btTransform transform;
 	transform.setIdentity();
@@ -33,7 +33,7 @@ Object::Object(GraphicalObject* parent, const Properties& properties) :
 }
 
 Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
-	parent(parent)
+	m_parent(parent)
 {
 	btTransform transform;
 	transform.setIdentity();
@@ -60,6 +60,8 @@ void Object::copyTransform(Object* secondObj)
 	this->m_transform->setFromOpenGLMatrix(matrix);
 
 	delete[] matrix;
+
+	act();
 }
 
 
@@ -74,6 +76,11 @@ btRigidBody* Object::getBody()
 	return m_body;
 }
 
+btTransform* Object::getTransform()
+{
+	return m_transform;
+}
+
 
 
 void Object::impulse(const btVector3& force)
@@ -85,6 +92,7 @@ void Object::push(const btVector3& force)
 {
 	m_body->applyCentralForce(force);
 }
+
 
 
 
@@ -125,6 +133,15 @@ const btVector3& Object::getGravity()
 void Object::translate(const btVector3& translation)
 {
 	m_body->translate(translation);
+
+	act();
+}
+
+void Object::rotate(const btQuaternion& rotation)
+{
+	m_transform->setRotation(rotation * m_transform->getRotation());
+
+	act();
 }
 
 
@@ -138,7 +155,7 @@ btVector3& Object::getPosition()
 
 void Object::act()
 {
-	m_transform->getOpenGLMatrix(parent->getMovementPtr());
+	m_transform->getOpenGLMatrix(m_parent->getMovementPtr());
 
-	parent->model();
+	m_parent->model();
 }

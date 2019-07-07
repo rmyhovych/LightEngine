@@ -1,17 +1,17 @@
-#include "GameManager.h"
+#include "GraphicalManager.h"
 
 
 static int depthMapSize = 4096;
 
 
-GameManager::GameManager(int width, int height) :
+GraphicalManager::GraphicalManager(int width, int height) :
 	m_width(width),
 	m_height(height),
 
 	m_globalUboBinding(1),
 
 	m_camera(m_width, m_height, 3),
-	m_dirLight(PI / 3, 5 * PI / 6, { 16, -2, 0 }, 10),
+	m_dirLight(PI / 3, 5 * PI / 6, { 0, 0, 0 }, 10),
 
 	m_programDepth("shaders/vertex_shadow.glsl", "shaders/fragment_shadow.glsl")
 {
@@ -19,7 +19,7 @@ GameManager::GameManager(int width, int height) :
 	createUniforms();
 }
 
-GameManager::~GameManager()
+GraphicalManager::~GraphicalManager()
 {
 	for (int i = m_programs.size() - 1; i >= 0; i--)
 	{
@@ -30,7 +30,7 @@ GameManager::~GameManager()
 
 
 
-void GameManager::resize(int width, int height)
+void GraphicalManager::resize(int width, int height)
 {
 	m_width = width;
 	m_height = height;
@@ -46,13 +46,13 @@ void GameManager::resize(int width, int height)
 
 
 
-Camera* GameManager::getCamera()
+Camera* GraphicalManager::getCamera()
 {
 	return &m_camera;
 }
 
 
-GLProgram* GameManager::addProgram(const char* pathVertex, const char* pathFragment)
+GLProgram* GraphicalManager::addProgram(const char* pathVertex, const char* pathFragment)
 {
 	GLProgram* program = new GLProgram(pathVertex, pathFragment);
 
@@ -64,31 +64,31 @@ GLProgram* GameManager::addProgram(const char* pathVertex, const char* pathFragm
 }
 
 
-void GameManager::render(glm::mat4& pv)
+void GraphicalManager::render()
 {
 	m_dirLight.setFocus(m_camera.getFocus());
 
 
 
 	initRenderingDepth();
-
+	
 	for (int i = m_programs.size() - 1; i >= 0; i--)
 	{
 		m_programs[i]->renderDepth(m_modelIndex);
 	}
-
-	initRendering(pv);
-
+	
+	initRendering();
+	
 	for (int i = m_programs.size() - 1; i >= 0; i--)
 	{
-		m_programs[i]->render(m_dirLight.getDirection(), pv);
+		m_programs[i]->render(m_dirLight.getDirection(), m_camera.getPV());
 	}
 }
 
 
 
 
-void GameManager::clear()
+void GraphicalManager::clear()
 {
 	for (int i = m_programs.size() - 1; i >= 0; i--)
 	{
@@ -100,7 +100,7 @@ void GameManager::clear()
 
 
 
-void GameManager::createDepthMap()
+void GraphicalManager::createDepthMap()
 {
 	//  DEPTH MAP TEXTURE
 
@@ -110,15 +110,16 @@ void GameManager::createDepthMap()
 
 	//      use depthMap
 	glBindTexture(GL_TEXTURE_2D, m_depthMap);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, depthMapSize, depthMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
+	float v[] = { 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, v);
+
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -137,6 +138,7 @@ void GameManager::createDepthMap()
 	//      no draw buffers
 	GLenum draws[1] = {GL_NONE};
 	glDrawBuffers(1, draws);
+	glReadBuffer(GL_NONE);
 
 
 	//      bind data to fbo
@@ -148,7 +150,7 @@ void GameManager::createDepthMap()
 
 
 
-void GameManager::createUniforms()
+void GraphicalManager::createUniforms()
 {
 	glGenBuffers(1, &m_globalUbo);
 
@@ -170,7 +172,7 @@ void GameManager::createUniforms()
 
 
 
-void GameManager::initRenderingDepth()
+void GraphicalManager::initRenderingDepth()
 {
 	glCullFace(GL_BACK);
 
@@ -188,7 +190,7 @@ void GameManager::initRenderingDepth()
 
 
 
-void GameManager::initRendering(glm::mat4& pv)
+void GraphicalManager::initRendering()
 {
 	glCullFace(GL_FRONT);
 
@@ -203,6 +205,6 @@ void GameManager::initRendering(glm::mat4& pv)
 
 	glBindBuffer(GL_UNIFORM_BUFFER, m_globalUbo);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, 12, (void*)&m_dirLight.getDirection());
-	glBufferSubData(GL_UNIFORM_BUFFER, 16, 64, (void*)&pv);
+	glBufferSubData(GL_UNIFORM_BUFFER, 16, 64, (void*)&m_camera.getPV());
 	glBufferSubData(GL_UNIFORM_BUFFER, 80, 64, (void*)&m_dirLight.getLightSpace());
 }

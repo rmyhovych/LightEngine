@@ -32,6 +32,11 @@ PhysicalWorld::~PhysicalWorld()
 	collisionConfiguration = nullptr;
 }
 
+btDiscreteDynamicsWorld* PhysicalWorld::getDynamicsWorld()
+{
+	return dynamicsWorld;
+}
+
 
 
 void PhysicalWorld::addObjectStatic(Object* object)

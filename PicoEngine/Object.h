@@ -37,6 +37,7 @@ public:
 	~Object();
 
 	btRigidBody* getBody();
+	btTransform* getTransform();
 
 
 	void impulse(const btVector3& force);
@@ -51,6 +52,8 @@ public:
 	const btVector3& getGravity();
 
 	void translate(const btVector3& translation);
+	void rotate(const btQuaternion& rotation);
+
 
 	btVector3& getPosition();
 
@@ -58,7 +61,7 @@ public:
 
 protected:
 
-	GraphicalObject* parent;
+	GraphicalObject* m_parent;
 
 	btRigidBody* m_body;
 
