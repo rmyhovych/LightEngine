@@ -1,3 +1,3 @@
-# PicoEngine - shadows
+# PicoEngine - cmake
 
-Adding Shadows to PicoEngine
+Making the engine with cmake
