@@ -1,18 +1,6 @@
-﻿cmake_minimum_required (VERSION 3.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
+project(PicoEngine VERSION 1.0.0 DESCRIPTION "Lightweight OpenGL engine.")
 
-FILE(GLOB_RECURSE 
-	
-	PicoEngineSRC 
-	
-	
-	src
-	*.cpp)
+SUBDIRS(src)
 
-FILE(GLOB_RECURSE
-
-	PicoEngineHDR
-	
-	src
-	*.h)
-
-ADD_LIBRARY(PicoEngine ${PicoEngineSRC} ${PicoEngineHDR})
+target_include_directories(PicoEngine PRIVATE src)
