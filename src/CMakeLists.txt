@@ -5,7 +5,12 @@ include_directories(./)
 
 if (NOT ANDROID_ES)
 	find_package(GLEW REQUIRED)
-endif
+	if (GLEW_FOUND)
+		include_directories(${GLEW_INCLUDE_DIRS})
+		link_libraries(${GLEW_LIBRARIES})
+	endif()
+endif()
+
 
 set(PICO_ENGINE_HDRS
     gl.h

@@ -69,7 +69,7 @@ build cmake_object_order_depends_target_PicoEngine: phony || src\CMakeFiles\Pico
 build src\CMakeFiles\PicoEngine.dir\File\FileData.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\File\FileData.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\File
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -78,7 +78,7 @@ build src\CMakeFiles\PicoEngine.dir\File\FileData.cpp.obj: CXX_COMPILER__PicoEng
 build src\CMakeFiles\PicoEngine.dir\File\FileReaderHandler.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\File\FileReaderHandler.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\File
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -87,7 +87,7 @@ build src\CMakeFiles\PicoEngine.dir\File\FileReaderHandler.cpp.obj: CXX_COMPILER
 build src\CMakeFiles\PicoEngine.dir\File\IFileReader.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\File\IFileReader.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\File
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -96,7 +96,7 @@ build src\CMakeFiles\PicoEngine.dir\File\IFileReader.cpp.obj: CXX_COMPILER__Pico
 build src\CMakeFiles\PicoEngine.dir\Graphics\GLProgram.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\Graphics\GLProgram.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\Graphics
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -105,7 +105,7 @@ build src\CMakeFiles\PicoEngine.dir\Graphics\GLProgram.cpp.obj: CXX_COMPILER__Pi
 build src\CMakeFiles\PicoEngine.dir\Graphics\Shader.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\Graphics\Shader.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\Graphics
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -114,7 +114,7 @@ build src\CMakeFiles\PicoEngine.dir\Graphics\Shader.cpp.obj: CXX_COMPILER__PicoE
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\GraphicalObject.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\Object\GraphicalObject.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager\Object
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -123,7 +123,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\GraphicalObject.cpp.obj
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\Object.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\Object\Object.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager\Object
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -132,7 +132,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\Object.cpp.obj: CXX_COM
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\BoxManager.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\BoxManager.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -141,7 +141,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\BoxManager.cpp.obj: CXX_COMPIL
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\GraphicalManager.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\GraphicalManager.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -150,7 +150,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\GraphicalManager.cpp.obj: CXX_
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\ObjectManager.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\ObjectManager.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -159,7 +159,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\ObjectManager.cpp.obj: CXX_COM
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerE.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\PhantomManagerE.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -168,7 +168,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerE.cpp.obj: CXX_C
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerV.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\PhantomManagerV.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -177,7 +177,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerV.cpp.obj: CXX_C
 build src\CMakeFiles\PicoEngine.dir\ObjectManager\SphereManager.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\ObjectManager\SphereManager.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\ObjectManager
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -186,7 +186,7 @@ build src\CMakeFiles\PicoEngine.dir\ObjectManager\SphereManager.cpp.obj: CXX_COM
 build src\CMakeFiles\PicoEngine.dir\World\Camera.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\World\Camera.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\World
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -195,7 +195,7 @@ build src\CMakeFiles\PicoEngine.dir\World\Camera.cpp.obj: CXX_COMPILER__PicoEngi
 build src\CMakeFiles\PicoEngine.dir\World\DirLight.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\World\DirLight.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\World
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -204,7 +204,7 @@ build src\CMakeFiles\PicoEngine.dir\World\DirLight.cpp.obj: CXX_COMPILER__PicoEn
 build src\CMakeFiles\PicoEngine.dir\World\PhysicalWorld.cpp.obj: CXX_COMPILER__PicoEngine ..\..\..\src\World\PhysicalWorld.cpp || cmake_object_order_depends_target_PicoEngine
   DEFINES = -DPicoEngine_EXPORTS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm -I..\..\..\src
+  INCLUDES = -I..\..\..\src\. -IC:\Users\rmyho\Documents\Libraries\glew-2.1.0\include -IC:\Users\rmyho\Documents\Libraries\glm-0.9.9.6\glm\glm
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   OBJECT_FILE_DIR = src\CMakeFiles\PicoEngine.dir\World
   TARGET_COMPILE_PDB = src\CMakeFiles\PicoEngine.dir\
@@ -218,10 +218,10 @@ build src\CMakeFiles\PicoEngine.dir\World\PhysicalWorld.cpp.obj: CXX_COMPILER__P
 #############################################
 # Link the shared library src\PicoEngine.dll
 
-build src\PicoEngine.dll src\PicoEngine.lib: CXX_SHARED_LIBRARY_LINKER__PicoEngine src\CMakeFiles\PicoEngine.dir\File\FileData.cpp.obj src\CMakeFiles\PicoEngine.dir\File\FileReaderHandler.cpp.obj src\CMakeFiles\PicoEngine.dir\File\IFileReader.cpp.obj src\CMakeFiles\PicoEngine.dir\Graphics\GLProgram.cpp.obj src\CMakeFiles\PicoEngine.dir\Graphics\Shader.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\GraphicalObject.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\Object.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\BoxManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\GraphicalManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\ObjectManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerE.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerV.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\SphereManager.cpp.obj src\CMakeFiles\PicoEngine.dir\World\Camera.cpp.obj src\CMakeFiles\PicoEngine.dir\World\DirLight.cpp.obj src\CMakeFiles\PicoEngine.dir\World\PhysicalWorld.cpp.obj
+build src\PicoEngine.dll src\PicoEngine.lib: CXX_SHARED_LIBRARY_LINKER__PicoEngine src\CMakeFiles\PicoEngine.dir\File\FileData.cpp.obj src\CMakeFiles\PicoEngine.dir\File\FileReaderHandler.cpp.obj src\CMakeFiles\PicoEngine.dir\File\IFileReader.cpp.obj src\CMakeFiles\PicoEngine.dir\Graphics\GLProgram.cpp.obj src\CMakeFiles\PicoEngine.dir\Graphics\Shader.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\GraphicalObject.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\Object\Object.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\BoxManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\GraphicalManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\ObjectManager.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerE.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\PhantomManagerV.cpp.obj src\CMakeFiles\PicoEngine.dir\ObjectManager\SphereManager.cpp.obj src\CMakeFiles\PicoEngine.dir\World\Camera.cpp.obj src\CMakeFiles\PicoEngine.dir\World\DirLight.cpp.obj src\CMakeFiles\PicoEngine.dir\World\PhysicalWorld.cpp.obj | C$:\Users\rmyho\Documents\Libraries\glew-2.1.0\lib\Release\Win32\glew32.lib
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
-  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = C:\Users\rmyho\Documents\Libraries\glew-2.1.0\lib\Release\Win32\glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = src\CMakeFiles\PicoEngine.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -289,14 +289,14 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.15.19080502-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19080502-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.15.19080502-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeSystem.cmake: phony
+build ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19080502-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19080502-MSVC_2\CMakeSystem.cmake: phony
 
 
 #############################################
