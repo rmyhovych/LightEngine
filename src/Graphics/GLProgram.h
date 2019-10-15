@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "PhantomManagerV.h"
-#include "PhantomManagerE.h"
-#include "BoxManager.h"
-#include "SphereManager.h"
-#include "ballGame/TunnelManager.h"
+#include "ObjectManager/PhantomManagerV.h"
+#include "ObjectManager/PhantomManagerE.h"
+#include "ObjectManager/BoxManager.h"
+#include "ObjectManager/SphereManager.h"
+//#include "ballGame/TunnelManager.h"
 
 
 class GLProgram
@@ -22,7 +22,7 @@ public:
 	ObjectManager* addBoxManager();
 	ObjectManager* addSphereManager();
 
-	ObjectManager* addTunnelManager(int nSides, btScalar length, btScalar width);
+	//ObjectManager* addTunnelManager(int nSides, btScalar length, btScalar width);
 
 
 	void bindUbo(const char* name, GLuint binding);

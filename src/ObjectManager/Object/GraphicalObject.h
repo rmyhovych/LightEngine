@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Shader.h"
-#include "UniformHandling.h"
+#include "Graphics/Shader.h"
+#include "Graphics/UniformHandling.h"
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"

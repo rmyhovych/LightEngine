@@ -1,8 +1,13 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9)
 
-INCLUDE_DIRECTORIES(./)
 
-SET(PICO_ENGINE_HDRS
+include_directories(./)
+
+if (NOT ANDROID_ES)
+	find_package(GLEW REQUIRED)
+endif
+
+set(PICO_ENGINE_HDRS
     gl.h
 
     File/FileData.h
@@ -27,7 +32,7 @@ SET(PICO_ENGINE_HDRS
     World/PhysicalWorld.h
 )
 
-SET(PICO_ENGINE_SRC
+set(PICO_ENGINE_SRC
 
     File/FileData.cpp
     File/FileReaderHandler.cpp
@@ -50,4 +55,7 @@ SET(PICO_ENGINE_SRC
     World/PhysicalWorld.cpp
 )
 
-ADD_LIBRARY(PicoEngine SHARED ${PICO_ENGINE_SRC} ${PICO_ENGINE_HDRS})
+set(GLM_PATH C:/Users/rmyho/Documents/Libraries/glm-0.9.9.6/glm/glm)
+
+add_library(PicoEngine SHARED ${PICO_ENGINE_SRC} ${PICO_ENGINE_HDRS})
+target_include_directories(PicoEngine PUBLIC ${GLM_PATH})

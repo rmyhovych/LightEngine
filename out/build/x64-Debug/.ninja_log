@@ -1,0 +1,9 @@
+# ninja log v5
+14	429	592375516	src/CMakeFiles/PicoEngine.dir/File/IFileReader.cpp.obj	bf99034df187a0fe
+6	437	592375516	src/CMakeFiles/PicoEngine.dir/File/FileReaderHandler.cpp.obj	f929a9bc205aa229
+1	604	592375516	src/CMakeFiles/PicoEngine.dir/File/FileData.cpp.obj	505a348c6b701dc
+5	983	592376225	src/CMakeFiles/PicoEngine.dir/File/IFileReader.cpp.obj	25a9488563ba9534
+9	1025	592376225	src/CMakeFiles/PicoEngine.dir/File/FileReaderHandler.cpp.obj	abc9433c6c0685b0
+0	1295	592376226	src/CMakeFiles/PicoEngine.dir/File/FileData.cpp.obj	1dbfd55df70e529a
+57	1376	592376226	src/CMakeFiles/PicoEngine.dir/World/DirLight.cpp.obj	959270fdce8b1485
+79	1697	592518774	src/CMakeFiles/PicoEngine.dir/World/Camera.cpp.obj	cc153d03211bf2ca
