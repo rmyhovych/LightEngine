@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphicalObject.h"
+#include "ObjectRenderer.h"
 
 #include <btBulletDynamicsCommon.h>
 
@@ -29,8 +29,8 @@ public:
 	};
 
 
-	Object(GraphicalObject* parent, const Properties& properties);
-	Object(GraphicalObject* parent, btEmptyShape* shape);
+	Object(ObjectRenderer* parent, const Properties& properties);
+	Object(ObjectRenderer* parent, btEmptyShape* shape);
 
 	void copyTransform(Object* secondObj);
 
@@ -61,7 +61,7 @@ public:
 
 protected:
 
-	GraphicalObject* m_parent;
+	ObjectRenderer* m_parent;
 
 	btRigidBody* m_body;
 

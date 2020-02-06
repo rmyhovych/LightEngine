@@ -8,11 +8,11 @@
 #include "gtc/type_ptr.hpp"
 
 
-class GraphicalObject
+class ObjectRenderer
 {
 public:
 
-	GraphicalObject(
+	ObjectRenderer(
 		const glm::vec3& color = glm::vec3(1), 
 		const glm::vec3& scale = glm::vec3(1));
 

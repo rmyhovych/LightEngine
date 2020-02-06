@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "GLProgram.h"
-#include "DirLight.h"
-#include "Camera.h"
+#include "Graphics/GLProgram.h"
+#include "World/DirLight.h"
+#include "World/Camera.h"
 
 
 class GraphicalManager

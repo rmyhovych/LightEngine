@@ -40,7 +40,7 @@ Object* PhantomManagerV::createObject(
 	const glm::vec3& color,
 	const glm::vec3& scale)
 {
-	GraphicalObject* parent = createGraphicalObject(color, scale);
+	ObjectRenderer* parent = createGraphicalObject(color, scale);
 
 	btEmptyShape* emptyShape = new btEmptyShape();
 

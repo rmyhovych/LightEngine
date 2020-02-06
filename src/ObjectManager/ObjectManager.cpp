@@ -1,5 +1,5 @@
 #include "ObjectManager.h"
-#include "FileReaderHandler.h"
+#include "File/FileReaderHandler.h"
 
 
 ObjectManager::ObjectManager() :
@@ -24,11 +24,11 @@ ObjectManager::~ObjectManager()
 
 
 
-GraphicalObject* ObjectManager::createGraphicalObject(
+ObjectRenderer* ObjectManager::createGraphicalObject(
 	const glm::vec3& color,
 	const glm::vec3& scale)
 {
-	GraphicalObject* o = new GraphicalObject(color, scale);
+	ObjectRenderer* o = new ObjectRenderer(color, scale);
 
 	m_objects.push_back(o);
 

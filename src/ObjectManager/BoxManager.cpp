@@ -40,7 +40,7 @@ Object* BoxManager::createObject(
 	const glm::vec3& color,
 	const glm::vec3& scale)
 {
-	GraphicalObject* parent = createGraphicalObject(color, scale);
+	ObjectRenderer* parent = createGraphicalObject(color, scale);
 
 	btBoxShape* boxShape = new btBoxShape({scale.x, scale.y, scale.z});
 

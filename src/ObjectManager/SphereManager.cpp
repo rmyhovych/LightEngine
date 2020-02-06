@@ -43,7 +43,7 @@ Object* SphereManager::createObject(
 	const glm::vec3& color,
 	const glm::vec3& scale)
 {
-	GraphicalObject* parent = createGraphicalObject(color, scale);
+	ObjectRenderer* parent = createGraphicalObject(color, scale);
 
 	btSphereShape* sphereShape = new btSphereShape(scale.x);
 

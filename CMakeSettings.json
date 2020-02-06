@@ -1,0 +1,62 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "BUILD_BULLET2_DEMOS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_BULLET3",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_CLSOCKET",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_CPU_DEMOS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_ENET",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_EXTRAS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_OPENGL3_DEMOS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_UNIT_TESTS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "GLEW_DIR",
+          "value": "C:/Users/rmyho/Documents/Libraries/glew-2.1.0",
+          "type": "PATH"
+        }
+      ]
+    }
+  ]
+}

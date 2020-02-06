@@ -1,9 +1,9 @@
 #include "Object.h"
-#include "PhysicalWorld.h"
+#include "World/PhysicalWorld.h"
 
 
 
-Object::Object(GraphicalObject* parent, const Properties& properties) :
+Object::Object(ObjectRenderer* parent, const Properties& properties) :
 	m_parent(parent)
 {
 	btTransform transform;
@@ -32,7 +32,7 @@ Object::Object(GraphicalObject* parent, const Properties& properties) :
 	act();
 }
 
-Object::Object(GraphicalObject* parent, btEmptyShape* shape) :
+Object::Object(ObjectRenderer* parent, btEmptyShape* shape) :
 	m_parent(parent)
 {
 	btTransform transform;

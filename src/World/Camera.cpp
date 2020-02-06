@@ -11,8 +11,7 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 	m_angleH(angleH),
 	m_angleV(angleV)
 {
-	m_projection = glm::perspective(fovy, ((float)width / (float)height), 0.1f, 5000.0f);
-	update();
+	resize(width, height);
 }
 
 

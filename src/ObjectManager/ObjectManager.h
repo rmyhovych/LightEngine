@@ -20,14 +20,14 @@ public:
 
 protected:
 
-	virtual GraphicalObject* createGraphicalObject(
+	virtual ObjectRenderer* createGraphicalObject(
 		const glm::vec3& scale = glm::vec3(1),
 		const glm::vec3& color = glm::vec3(1));
 
 	void initVertexData(const std::string& vertexPath);
 	void initElementData(const std::string& vertexPath, const std::string& elementPath);
 
-	std::vector<GraphicalObject*> m_objects;
+	std::vector<ObjectRenderer*> m_objects;
 
 	GLuint m_vao;
 	GLuint m_ebo;

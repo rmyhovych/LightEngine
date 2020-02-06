@@ -2,7 +2,7 @@
 
 #include <btBulletDynamicsCommon.h>
 
-#include "Object.h"
+#include "ObjectManager/Object/Object.h"
 
 class PhysicalWorld
 {

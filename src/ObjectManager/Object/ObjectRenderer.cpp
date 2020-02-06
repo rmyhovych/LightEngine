@@ -1,4 +1,4 @@
-#include "GraphicalObject.h"
+#include "ObjectRenderer.h"
 
 
 //=============================================================================================
@@ -7,7 +7,7 @@
 
 
 
-GraphicalObject::GraphicalObject(const glm::vec3& color, const glm::vec3& scale) :
+ObjectRenderer::ObjectRenderer(const glm::vec3& color, const glm::vec3& scale) :
 	
 	mScale(0),
 	mMovement(0),
@@ -21,20 +21,20 @@ GraphicalObject::GraphicalObject(const glm::vec3& color, const glm::vec3& scale)
 	model();
 }
 
-float* GraphicalObject::getMovementPtr()
+float* ObjectRenderer::getMovementPtr()
 {
 	return glm::value_ptr(mMovement);
 }
 
 
-glm::vec3 GraphicalObject::getScale()
+glm::vec3 ObjectRenderer::getScale()
 {
 	return (mScale * glm::vec4(1));
 }
 
 
 
-void GraphicalObject::model()
+void ObjectRenderer::model()
 {
 	mModel = mMovement * mScale;
 }
@@ -43,12 +43,12 @@ void GraphicalObject::model()
 
 
 
-void GraphicalObject::useDepth()
+void ObjectRenderer::useDepth()
 {
 	
 }
 
-void GraphicalObject::use(ObjectUniforms& uniforms)
+void ObjectRenderer::use(ObjectUniforms& uniforms)
 {
 	glm::mat3 mRotation(mModel);
 	mRotation = glm::transpose(glm::inverse(mModel));
@@ -60,7 +60,7 @@ void GraphicalObject::use(ObjectUniforms& uniforms)
 	glUniform3fv(uniforms.vColor, 1, glm::value_ptr(color));
 }
 
-void GraphicalObject::useDepth(GLint modelIndex)
+void ObjectRenderer::useDepth(GLint modelIndex)
 {
 	glUniformMatrix4fv(modelIndex, 1, false, glm::value_ptr(mModel));
 }
