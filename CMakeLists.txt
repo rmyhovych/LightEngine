@@ -1,4 +1,7 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
-project(PicoEngine VERSION 1.0.0 DESCRIPTION "Lightweight OpenGL engine.")
+cmake_minimum_required (VERSION 3.8)
 
-add_subdirectory(src)
+project (PICO_ENGINE VERSION 1.0)
+
+# Include sub-projects.
+add_subdirectory (PicoFramework)
+add_subdirectory (PicoEngine)
