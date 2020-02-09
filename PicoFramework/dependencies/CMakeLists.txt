@@ -2,13 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 # Bullet Physics
 set(BULLET_VERSION 2.89)
-add_subdirectory(bullet-2.89)
-include_directories(bullet-2.89)
-
-
-# GLM
-include_directories(glm-0.9.9.6)
-
+add_subdirectory(${BULLET_PATH})
 
 # GLEW for Windows
 #if (NOT ANDROID_ES)

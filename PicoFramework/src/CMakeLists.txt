@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 3.8)
 
+
+
 set(PICO_FRAMEWORK_HDRS
     gl.h
 
@@ -51,3 +53,21 @@ set(PICO_FRAMEWORK_SRC
 
 # Main Library
 add_library(PICO_FRAMEWORK SHARED ${PICO_FRAMEWORK_SRC} ${PICO_FRAMEWORK_HDRS})
+
+target_include_directories(
+	PICO_FRAMEWORK 
+	
+	PUBLIC 
+	
+	src
+	${BULLET_PATH}
+	${GLM_PATH}	
+)
+
+target_link_libraries(
+	PICO_FRAMEWORK 
+	
+	BulletCollision
+	BulletDynamics
+	LinearMath
+)
