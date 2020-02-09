@@ -51,4 +51,22 @@ set(PICO_FRAMEWORK_SRC
 
 # Main Library
 add_library(PICO_FRAMEWORK SHARED ${PICO_FRAMEWORK_SRC} ${PICO_FRAMEWORK_HDRS})
-include_directories(./)
+
+target_include_directories(
+	PICO_FRAMEWORK
+
+	PUBLIC
+
+	./
+	${BULLET_PATH}
+	${GLM_PATH}
+	"../lib/glm-0.9.9.6"
+)
+
+target_link_libraries(
+	PICO_FRAMEWORK
+
+	BulletCollision
+	BulletDynamics
+	LinearMath
+)

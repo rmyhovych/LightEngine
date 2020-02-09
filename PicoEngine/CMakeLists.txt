@@ -3,16 +3,11 @@
 add_executable (PICO_ENGINE "main.cpp")
 
 if (NOT DEFINED GLM_PATH)
-	set (GLM_PATH "lib/glm-0.9.9.6")
+	message( FATAL_ERROR "GLM_PATH not defined." )
 endif()
 
 if (NOT DEFINED BULLET_PATH)
-	if (NOT DEFINED BULLET_VERSION)
-		set (BULLET_VERSION 2.89)
-	endif()
-
-	set (BULLET_PATH "lib/bullet-2.89")
-	add_subdirectory(${BULLET_PATH})
+	message( FATAL_ERROR "BULLET_PATH not defined." )
 endif()
 
 if (NOT DEFINED PICO_FRAMEWORK_PATH)
@@ -26,7 +21,8 @@ target_include_directories (
 
 	${GLM_PATH}
 	${BULLET_PATH}
-	${PICO_FRAMEWORK_PATH}
+	#${PICO_FRAMEWORK_PATH}
+	"../PicoFramework"
 
 	"lib/glew-2.1.0/include"
 )

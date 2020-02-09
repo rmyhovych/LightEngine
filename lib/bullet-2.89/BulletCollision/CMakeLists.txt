@@ -1,5 +1,5 @@
 INCLUDE_DIRECTORIES(
-	${BULLET_PATH}
+	..
 )
 
 SET(BulletCollision_SRCS

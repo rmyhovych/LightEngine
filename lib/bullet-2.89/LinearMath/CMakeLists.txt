@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 INCLUDE_DIRECTORIES(
-	${BULLET_PATH}
+	..
 )
 
 SET(LinearMath_SRCS
