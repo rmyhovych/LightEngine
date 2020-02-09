@@ -5,9 +5,6 @@
 #include <btBulletDynamicsCommon.h>
 
 
-
-
-
 class Object
 {
 public:
