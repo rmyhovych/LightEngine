@@ -2,12 +2,8 @@ cmake_minimum_required (VERSION 3.8)
 
 project (PICO_ENGINE VERSION 1.0)
 
+# PICO FRAMEWORK
 get_filename_component (PICO_FRAMEWORK_PATH PicoFramework REALPATH)
-
-get_filename_component (GL3W_PATH lib/gl3w REALPATH)
-
-add_subdirectory(${GL3W_PATH})
-set (GL3W_INCLUDE_PATH ${GL3W_PATH}/src)
 
 # BULLET
 set (BULLET_VERSION 2.89)

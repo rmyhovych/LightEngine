@@ -60,7 +60,6 @@ target_include_directories(
 	./
 	${BULLET_PATH}
 	${GLM_PATH}
-	${GL3W_INCLUDE_PATH}
 )
 
 target_link_libraries(
@@ -69,6 +68,4 @@ target_link_libraries(
 	BulletCollision
 	BulletDynamics
 	LinearMath
-
-	gl3w
 )
