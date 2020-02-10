@@ -50,7 +50,7 @@ set(PICO_FRAMEWORK_SRC
 
 
 # Main Library
-add_library(PICO_FRAMEWORK SHARED ${PICO_FRAMEWORK_SRC} ${PICO_FRAMEWORK_HDRS})
+add_library(PICO_FRAMEWORK STATIC ${PICO_FRAMEWORK_SRC} ${PICO_FRAMEWORK_HDRS})
 
 target_include_directories(
 	PICO_FRAMEWORK
@@ -60,8 +60,7 @@ target_include_directories(
 	./
 	${BULLET_PATH}
 	${GLM_PATH}
-	../lib/glm-0.9.9.6
-	${GLEW_INCLUDE_DIRS}
+	${GL3W_INCLUDE_PATH}
 )
 
 target_link_libraries(
@@ -71,5 +70,5 @@ target_link_libraries(
 	BulletDynamics
 	LinearMath
 
-	${GLEW_LIBRARIES}
+	gl3w
 )

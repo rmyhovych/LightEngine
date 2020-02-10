@@ -24,7 +24,7 @@ target_include_directories (
 	${BULLET_PATH}
 	${PICO_FRAMEWORK_PATH}
 
-	${GLEW_INCLUDE_DIRS}
+	${GL3W_INCLUDE_PATH}
 )
 
 target_link_libraries (
@@ -35,5 +35,5 @@ target_link_libraries (
 	BulletDynamics
 	LinearMath
 
-	${GLEW_LIBRARIES}
+	gl3w
 )

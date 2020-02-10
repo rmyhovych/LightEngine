@@ -4,17 +4,10 @@ project (PICO_ENGINE VERSION 1.0)
 
 get_filename_component (PICO_FRAMEWORK_PATH PicoFramework REALPATH)
 
+get_filename_component (GL3W_PATH lib/gl3w REALPATH)
 
-get_filename_component (GLEW_PATH lib/glew-2.1.0/ REALPATH)
-
-list(APPEND CMAKE_PREFIX_PATH ${GLEW_PATH})
-
-find_package(GLEW REQUIRED)
-
-include_directories(${GLEW_INCLUDE_DIRS})
-link_libraries(${GLEW_LIBRARIES})
-
-message("GLEW : "${GLEW_INCLUDE_DIRS} " ... " ${GLEW_LIBRARIES})
+add_subdirectory(${GL3W_PATH})
+set (GL3W_INCLUDE_PATH ${GL3W_PATH}/src)
 
 # BULLET
 set (BULLET_VERSION 2.89)
