@@ -14,6 +14,7 @@ if (NOT DEFINED PICO_FRAMEWORK_PATH)
 	message( FATAL_ERROR "PICO_FRAMEWORK_PATH not defined." )
 endif()
 
+
 target_include_directories (
 	PICO_ENGINE
 	
@@ -21,10 +22,9 @@ target_include_directories (
 
 	${GLM_PATH}
 	${BULLET_PATH}
-	#${PICO_FRAMEWORK_PATH}
-	"../PicoFramework"
+	${PICO_FRAMEWORK_PATH}
 
-	"lib/glew-2.1.0/include"
+	${GLEW_INCLUDE_DIRS}
 )
 
 target_link_libraries (
@@ -35,5 +35,5 @@ target_link_libraries (
 	BulletDynamics
 	LinearMath
 
-	"lib/glew-2.1.0/lib/Release/x64"
+	${GLEW_LIBRARIES}
 )

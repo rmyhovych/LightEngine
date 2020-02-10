@@ -60,7 +60,8 @@ target_include_directories(
 	./
 	${BULLET_PATH}
 	${GLM_PATH}
-	"../lib/glm-0.9.9.6"
+	../lib/glm-0.9.9.6
+	${GLEW_INCLUDE_DIRS}
 )
 
 target_link_libraries(
@@ -69,4 +70,6 @@ target_link_libraries(
 	BulletCollision
 	BulletDynamics
 	LinearMath
+
+	${GLEW_LIBRARIES}
 )
