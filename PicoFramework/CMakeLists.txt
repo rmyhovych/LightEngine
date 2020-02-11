@@ -1,6 +1,12 @@
 cmake_minimum_required (VERSION 3.8)
 
 set(PICO_FRAMEWORK_HDRS
+
+	GL/gl3w.h
+	GL/glcorearb.h
+	KHR/khrplatform.h
+
+
     gl.h
 
     File/FileData.h
@@ -26,6 +32,8 @@ set(PICO_FRAMEWORK_HDRS
 )
 
 set(PICO_FRAMEWORK_SRC
+
+	GL/gl3w.c
 
     File/FileData.cpp
     File/FileReaderHandler.cpp

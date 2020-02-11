@@ -34,15 +34,14 @@ void main()
 	vRotNormal = normalize(mRotation * vNormal);
 	vFragPos = vec3(mModel * vec4(vPosition, 1.0));
 
-	
+
 	vec4 mM = mModel * vec4(vPosition, 1.0);
 
 	vFragPosLight = mLightSpace * mM;
 
 	//  [-1, 1] -> [0, 1]
-    vFragPosLight = (vFragPosLight * 0.5) + 0.5;
-	
+	vFragPosLight = (vFragPosLight * 0.5) + 0.5;
+
 
 	gl_Position = mVP * mM;
-
 }
