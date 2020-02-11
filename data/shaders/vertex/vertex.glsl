@@ -42,6 +42,5 @@ void main()
 	//  [-1, 1] -> [0, 1]
 	vFragPosLight = (vFragPosLight * 0.5) + 0.5;
 
-
 	gl_Position = mVP * mM;
 }

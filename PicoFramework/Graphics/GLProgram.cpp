@@ -76,8 +76,8 @@ void GLProgram::bindUbo(const char* name, GLuint binding)
 void GLProgram::render(glm::vec3& dirLight, glm::mat4& pv)
 {
 	m_program.use();
-	//glUniform3f(m_globalUniforms.vDirLight, dirLight.x, dirLight.y, dirLight.z);
-	//glUniformMatrix4fv(m_globalUniforms.mVP, 1, false, glm::value_ptr(pv));
+	glUniform3f(m_globalUniforms.vDirLight, dirLight.x, dirLight.y, dirLight.z);
+	glUniformMatrix4fv(m_globalUniforms.mVP, 1, false, glm::value_ptr(pv));
 
 	for (int i = m_objectManagers.size() - 1; i >= 0; i--)
 	{
@@ -101,12 +101,10 @@ void GLProgram::createUniforms()
 {
 	m_program.use();
 
-	/*
 	m_globalUniforms = {
 		m_program.getUniformLocation("vDirLight"),
 		m_program.getUniformLocation("mVP")
 	};
-	*/
 
 	m_objectUniforms = {
 		m_program.getUniformLocation("mRotation"),

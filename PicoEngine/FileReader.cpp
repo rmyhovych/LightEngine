@@ -16,16 +16,10 @@ FileData FileReader::read(const std::string& filename)
 {
 	std::string filePath = m_dataPath + filename;
 	std::ifstream file(filePath, std::ifstream::ate);
+	
 	file.seekg(0, file.end);
-
-
 	int filesize = file.tellg();
-	filesize++;
-
 	file.seekg(file.beg);
-
-	//uint8_t* fileData = new uint8_t[filesize];
-	//file.read((char*) fileData, filesize);
 
 	std::string str;
 	str.reserve(filesize);
@@ -34,7 +28,5 @@ FileData FileReader::read(const std::string& filename)
 
 	file.close();
 
-	
-
-	return FileData(nullptr, filesize);
+	return FileData((uint8_t*) str.c_str(), str.size());
 }

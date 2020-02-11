@@ -6,6 +6,7 @@ Camera::Camera(int width, int height, float zoom, float angleH, float angleV, co
 	m_zoom(zoom),
 
 	m_focus(focus),
+	m_direction(glm::vec3(0, 0, 1)),
 	m_up(glm::vec3(0, 1, 0)),
 
 	m_angleH(angleH),
